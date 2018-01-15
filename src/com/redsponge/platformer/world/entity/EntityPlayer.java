@@ -10,19 +10,27 @@ public class EntityPlayer extends AbstractLivingEntity {
 	private int size;
 	
 	public EntityPlayer(Handler handler, int x, int y, int size) {
-		super(handler, x, y, size, size);
+		super(handler, x, y, size, size*2);
 		direction = Facing.RIGHT;
 		this.size = size;
+		this.jumpHeight = 50;
+		this.isGravityApplied = true;
 	}
 
 	public void tick() {
-		super.tick();
 		tickKeys();
+		super.tick();
 	}
 	
 	public void tickKeys() {
+		speedX = 0;
+		speedY = 0;
 		if(handler.getKeyManager().keyList.get("jump")) {
 			jump();
+		} else if(handler.getKeyManager().keyList.get("move_right")) {
+			speedX += 5;
+		} else if(handler.getKeyManager().keyList.get("move_left")) {
+			speedX -= 5;
 		}
 	}
 

@@ -22,6 +22,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 	
 	public void tick() {
+		super.tick();
 		move();
 		tickGravity();
 		if(jumping) {
@@ -32,7 +33,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	public void tickJumping() {
 		if(jumpStartY - y < jumpHeight) {
 			if(jumpingSpeed == 0) {
-				jumpingSpeed += 0.5;
+				jumpingSpeed -= 0.5;
 			} else {
 				jumpingSpeed *= jumpingMultiplier;
 			}
@@ -47,8 +48,12 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 	
 	public void tickGravity() {	
+		if(!isGravityApplied) {
+			return;
+		}
 		if(onGround || jumping) {
 			fallingSpeed = 0;
+			return;
 		} else if(!jumping) {
 			if(fallingSpeed == 0) {
 				fallingSpeed += 0.5;
@@ -60,7 +65,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 	
 	public void jump() {
-		if(jumping) {
+		if(jumping || !onGround) {
 			return;
 		}
 		jumping = true;

@@ -1,6 +1,7 @@
 package com.redsponge.platformer.world.block;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.world.material.BlockMaterial;
@@ -60,5 +61,9 @@ public abstract class AbstractBlock {
 	
 	public String getBlockId() {
 		return blockId;
+	}
+	
+	public Rectangle asRectangle() {
+		return new Rectangle(x, y, width, height);
 	}
 }

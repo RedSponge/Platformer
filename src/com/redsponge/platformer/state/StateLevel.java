@@ -1,6 +1,8 @@
 package com.redsponge.platformer.state;
 
 import java.awt.Graphics;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import com.redsponge.platformer.world.entity.EntityPlayer;
 
 public class StateLevel extends AbstractState {
 	
-	private List<AbstractBlock> blocks;
+	private List<AbstractBlock> worldBlocks;
 	private EntityPlayer player;
 	
 	public StateLevel(Handler handler) {
@@ -22,9 +24,9 @@ public class StateLevel extends AbstractState {
 	}
 	
 	private void registerBlocks() {
-		blocks = new ArrayList<AbstractBlock>();
+		worldBlocks = new ArrayList<AbstractBlock>();
 		
-		addBlock(new BlockBrick(handler, 400, 400, 20, 20));
+		addBlocks(WorldBuilder.createFloors(handler, 32, BlockBrick.class));
 	}
 	
 	private void setupPlayer() {
@@ -32,17 +34,25 @@ public class StateLevel extends AbstractState {
 	}
 	
 	public void addBlock(AbstractBlock b) {
-		blocks.add(b);
+		worldBlocks.add(b);
+	}
+	
+	public void addBlocks(List<AbstractBlock> b) {
+		worldBlocks.addAll(b);
 	}
 	
 	public void tick() {
-		Ticking.tickWorldBlocks(blocks);
+		Ticking.tickWorldBlocks(worldBlocks);
 		player.tick();
 	}
 	
 	public void render(Graphics g) {
-		Rendering.renderWorldBlocks(g, blocks);
+		Rendering.renderWorldBlocks(g, worldBlocks);
 		player.render(g);
+	}
+	
+	public List<AbstractBlock> getWorldBlocks() {
+		return worldBlocks;
 	}
 }
 
@@ -62,4 +72,21 @@ class Ticking {
 			}
 		}
 	}
+}
+
+class WorldBuilder {
+	
+	public static List<AbstractBlock> createFloors(Handler handler, int blockSize, Class<? extends AbstractBlock> blockType) {
+		ArrayList<AbstractBlock> ar = new ArrayList<AbstractBlock>();
+		Constructor<?> con = blockType.getDeclaredConstructors()[0];
+		for(int i = 0; i < handler.getDisplay().getCanvas().getWidth(); i+=blockSize) {
+			try {
+				ar.add((AbstractBlock) con.newInstance(handler, i, handler.getDisplay().getCanvas().getHeight()-blockSize, blockSize, blockSize));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ar;
+	}
+	
 }
