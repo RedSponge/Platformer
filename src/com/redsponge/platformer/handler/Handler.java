@@ -1,6 +1,7 @@
 package com.redsponge.platformer.handler;
 
 import com.redsponge.platformer.Platformer;
+import com.redsponge.platformer.input.KeyManager;
 import com.redsponge.redutils.display.GameDisplay;
 
 public class Handler {
@@ -13,6 +14,10 @@ public class Handler {
 	
 	public GameDisplay getDisplay() {
 		return game.getDisplay();
+	}
+	
+	public KeyManager getKeyManager() {
+		return game.getKeyManager();
 	}
 	
 }

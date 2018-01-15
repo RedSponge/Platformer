@@ -4,7 +4,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import com.redsponge.platformer.handler.Handler;
+import com.redsponge.platformer.input.KeyManager;
 import com.redsponge.platformer.io.AssetsHandler;
+import com.redsponge.platformer.settings.Settings;
 import com.redsponge.platformer.state.AbstractState;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.redutils.console.ConsoleMSG;
@@ -23,6 +25,7 @@ public class Platformer implements Runnable {
 	private Graphics g;
 	
 	private Handler handler;
+	private KeyManager keyManager;
 	
 	public Platformer(String title, int width, int height) {
 		this.width = width;
@@ -33,10 +36,15 @@ public class Platformer implements Runnable {
 	public void init() {
 		handler = new Handler(this);
 		
+		Settings.init();
+		keyManager = new KeyManager(handler);
+		
 		display = new GameDisplay(width, height, title);
 		
 		StateManager.init(handler);
 		StateManager.setCurrentState("level");
+		
+		display.getFrame().addKeyListener(keyManager);
 		
 		AssetsHandler.init();
 	}
@@ -52,6 +60,7 @@ public class Platformer implements Runnable {
 	}
 	
 	public void tick() {
+		keyManager.tick();
 		AbstractState state = StateManager.getCurrentState();
 		if(state != null) {
 			state.tick();
@@ -127,5 +136,9 @@ public class Platformer implements Runnable {
 
 	public GameDisplay getDisplay() {
 		return display;
+	}
+	
+	public KeyManager getKeyManager() {
+		return keyManager;
 	}
 }

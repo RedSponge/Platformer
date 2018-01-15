@@ -17,6 +17,13 @@ public class EntityPlayer extends AbstractLivingEntity {
 
 	public void tick() {
 		super.tick();
+		tickKeys();
+	}
+	
+	public void tickKeys() {
+		if(handler.getKeyManager().keyList.get("jump")) {
+			jump();
+		}
 	}
 
 	public void render(Graphics g) {
