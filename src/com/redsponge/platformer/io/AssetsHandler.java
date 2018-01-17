@@ -25,7 +25,8 @@ public class AssetsHandler {
 	
 	private static void registerPlayerAssets() {
 		playerAssets = new HashMap<String, BufferedImage>();
-		playerAssets.put("facing_right", getImage("/assets/textures/entities/player/facing_right.png"));
+		playerAssets.put("facing_right", getImage("/assets/textures/entities/player/facing_meow.png"));
+		playerAssets.put("facing_left", getImage("/assets/textures/entities/player/facing_left.png"));
 	}
 	
 	public static BufferedImage getImage(String path) {

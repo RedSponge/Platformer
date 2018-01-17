@@ -1,6 +1,9 @@
 package com.redsponge.platformer.world.entity;
 
+import java.util.List;
+
 import com.redsponge.platformer.handler.Handler;
+import com.redsponge.platformer.world.block.AbstractBlock;
 
 public abstract class AbstractLivingEntity extends AbstractEntity {
 	
@@ -18,7 +21,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		super(handler, x, y, width, height);
 		jumpHeight = 20;
 		jumpingSpeed = 0;
-		jumpingMultiplier = 1.1F;
+		jumpingMultiplier = 1.05F;
 	}
 	
 	public void tick() {
@@ -33,14 +36,28 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	public void tickJumping() {
 		if(jumpStartY - y < jumpHeight) {
 			if(jumpingSpeed == 0) {
-				jumpingSpeed -= 0.5;
+				jumpingSpeed += (jumpHeight/5);
 			} else {
-				jumpingSpeed *= jumpingMultiplier;
+				jumpingSpeed -= (jumpingSpeed*jumpingMultiplier)/4;
 			}
-			this.y += jumpingSpeed;
+			System.out.println(jumpingSpeed);
+			if(jumpingSpeed < 0.1) {
+				jumping = false;
+				jumpingSpeed = 0;
+			}
+			this.y -= jumpingSpeed;
 		} else {
+			jumpingSpeed = 0;
 			jumping = false;
 		}
+	}
+	
+	@Override
+	public void updateOnGround(List<AbstractBlock> worldBlocks) {
+		if(jumping) {
+			return;
+		}
+		super.updateOnGround(worldBlocks);
 	}
 
 	public void move() {
@@ -69,7 +86,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			return;
 		}
 		jumping = true;
-		jumpStartY = y;
+		jumpStartY = (int) y;
 	}
 	
 }

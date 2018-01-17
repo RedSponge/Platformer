@@ -1,14 +1,14 @@
 package com.redsponge.platformer.world.block;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 import com.redsponge.platformer.handler.Handler;
+import com.redsponge.platformer.world.BoundingBoxUser;
+import com.redsponge.platformer.world.entity.BoundingBox;
 import com.redsponge.platformer.world.material.BlockMaterial;
 
-public abstract class AbstractBlock {
+public abstract class AbstractBlock extends BoundingBoxUser {
 	
-	protected int x, y, width, height;
 	protected BlockMaterial material;
 	protected Handler handler;
 	
@@ -17,6 +17,7 @@ public abstract class AbstractBlock {
 	protected String blockId;
 	
 	public AbstractBlock(Handler handler, BlockMaterial material, String blockId, int x, int y, int width, int height) {
+		super(handler, x, y, width, height);
 		this.handler = handler;
 		this.material = material;
 		this.x = x;
@@ -28,10 +29,10 @@ public abstract class AbstractBlock {
 	
 	public void render(Graphics g) {
 		if(renderTextures) {
-			g.drawImage(material.getTexture(), x, y, width, height, null);
+			g.drawImage(material.getTexture(), (int) x, (int) y, width, height, null);
 		} else {
 			g.setColor(material.getColor());
-			g.fillRect(x, y, width, height);
+			g.fillRect((int) x, (int) y, width, height);
 		}
 	}
 	
@@ -43,27 +44,11 @@ public abstract class AbstractBlock {
 		return material;
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
-	}
-	
-	public int getWidth() {
-		return width;
-	}
-	
-	public int getHeight() {
-		return height;
-	}
-	
 	public String getBlockId() {
 		return blockId;
 	}
 	
-	public Rectangle asRectangle() {
-		return new Rectangle(x, y, width, height);
+	public BoundingBox getBoundingBox() {
+		return boundingBox;
 	}
 }

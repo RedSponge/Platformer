@@ -2,7 +2,6 @@ package com.redsponge.platformer.state;
 
 import java.awt.Graphics;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.BlockBrick;
 import com.redsponge.platformer.world.block.ITickingBlock;
-import com.redsponge.platformer.world.entity.EntityPlayer;
+import com.redsponge.platformer.world.entity.player.EntityPlayer;
 
 public class StateLevel extends AbstractState {
 	
@@ -19,18 +18,20 @@ public class StateLevel extends AbstractState {
 	
 	public StateLevel(Handler handler) {
 		super(handler);
-		registerBlocks();
 		setupPlayer();
+		registerBlocks();
 	}
 	
 	private void registerBlocks() {
 		worldBlocks = new ArrayList<AbstractBlock>();
 		
-		addBlocks(WorldBuilder.createFloors(handler, 32, BlockBrick.class));
+		addBlock(new BlockBrick(handler, (int) player.getX(), 300, 20, 20));
+		
+		//addBlocks(WorldBuilder.createFloors(handler, 32, BlockBrick.class));
 	}
 	
 	private void setupPlayer() {
-		player = new EntityPlayer(handler, 500, 100, 32);
+		player = new EntityPlayer(handler, 500, 100, 64);
 	}
 	
 	public void addBlock(AbstractBlock b) {
