@@ -33,16 +33,13 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	}
 	
 	public void updateOnGround(List<AbstractBlock> worldBlocks) {
-		onGround = true;
 		for(AbstractBlock b : worldBlocks) {
 			if(MathUtils.onTopOfBlock(this, b)) {
-				this.y = b.getY() - this.height;
 				onGround = true;
 				return;
 			}
 		}
-		onGround = false;
-		//System.out.println(onGround);		
+		onGround = false;		
 	}
 	
 	public abstract void render(Graphics g);

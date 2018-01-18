@@ -40,4 +40,20 @@ public class BoundingBoxUser {
 		return height;
 	}
 	
+	public void setY(float y) {
+		this.y = y;
+	}
+	
+	public void setX(float x) {
+		this.x = x;
+	}
+	
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
 }

@@ -1,16 +1,20 @@
 package com.redsponge.platformer.world.entity;
 
-public enum Facing {
-	RIGHT("right"),
-	LEFT("left");
+public enum Action {
+	
+	IDLE("idle"),
+	DUCKING("ducking"),
+	RUNNING("running"),
+	WALKING("walking");
 	
 	private String id;
 	
-	private Facing(String id) {
+	private Action(String id) {
 		this.id = id;
 	}
 	
 	public String getId() {
 		return id;
 	}
+	
 }

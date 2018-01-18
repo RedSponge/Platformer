@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.world.BoundingBoxUser;
@@ -12,6 +13,7 @@ public class BoundingBox {
 	
 	private float x, y;
 	private int width, height;
+	private Color c;
 	
 	@SuppressWarnings("unused")
 	private Handler handler;
@@ -24,6 +26,7 @@ public class BoundingBox {
 		this.height = user.getHeight();
 		this.handler = handler;
 		this.user = user;
+		this.c = Color.RED;
 	}
 	
 	public void tick() {
@@ -35,7 +38,7 @@ public class BoundingBox {
 	
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.RED);
+		g2.setColor(c);
 		g2.setStroke(new BasicStroke(4));
 		g2.drawRect((int) x, (int) y, width, height);
 	}
@@ -86,6 +89,18 @@ public class BoundingBox {
 	
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	public Rectangle asRectangle() {
+		return new Rectangle((int) x, (int) y, width, height);
+	}
+
+	public void setColor(Color c) {
+		this.c = c;
+	}
+	
+	public BoundingBox clone() {
+		return new BoundingBox(handler, user);
 	}
 	
 }

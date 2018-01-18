@@ -3,11 +3,15 @@ package com.redsponge.platformer.world.entity;
 import java.util.List;
 
 import com.redsponge.platformer.handler.Handler;
+import com.redsponge.platformer.state.StateLevel;
+import com.redsponge.platformer.state.StateManager;
+import com.redsponge.platformer.utils.MathUtils;
 import com.redsponge.platformer.world.block.AbstractBlock;
 
 public abstract class AbstractLivingEntity extends AbstractEntity {
 	
 	protected Facing direction;
+	protected Action action;
 	
 	protected boolean jumping;
 	protected float jumpHeight;
@@ -34,22 +38,26 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 	
 	public void tickJumping() {
-		if(jumpStartY - y < jumpHeight) {
+		if(jumpStartY - boundingBox.getY() < jumpHeight) {
 			if(jumpingSpeed == 0) {
 				jumpingSpeed += (jumpHeight/5);
 			} else {
 				jumpingSpeed -= (jumpingSpeed*jumpingMultiplier)/4;
 			}
-			System.out.println(jumpingSpeed);
 			if(jumpingSpeed < 0.1) {
-				jumping = false;
-				jumpingSpeed = 0;
+				stopJumping();
+			} else if(MathUtils.blockAbove(handler, this) != null) {
+				stopJumping();
 			}
 			this.y -= jumpingSpeed;
 		} else {
-			jumpingSpeed = 0;
-			jumping = false;
+			stopJumping();
 		}
+	}
+	
+	private void stopJumping() {
+		jumpingSpeed = 0;
+		jumping = false;
 	}
 	
 	@Override
@@ -62,6 +70,14 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 
 	public void move() {
 		x += speedX;
+		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
+			if(MathUtils.twoRectCollision(boundingBox, b.getBoundingBox())) {
+				if(b.getBoundingBox().getLeft() < boundingBox.getRight()) {
+					x = b.getBoundingBox().getLeft();
+				}
+				System.out.println("Bump!");
+			}
+		}
 	}
 	
 	public void tickGravity() {	
@@ -82,11 +98,12 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 	
 	public void jump() {
-		if(jumping || !onGround) {
+		if(!onGround) {
 			return;
 		}
 		jumping = true;
-		jumpStartY = (int) y;
+		jumpStartY = boundingBox.getTop();
+		onGround = false;
 	}
 	
 }

@@ -8,6 +8,8 @@ import java.util.List;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.BlockBrick;
+import com.redsponge.platformer.world.block.BlockDirt;
+import com.redsponge.platformer.world.block.BlockGrass;
 import com.redsponge.platformer.world.block.ITickingBlock;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 
@@ -26,12 +28,15 @@ public class StateLevel extends AbstractState {
 		worldBlocks = new ArrayList<AbstractBlock>();
 		
 		addBlock(new BlockBrick(handler, (int) player.getX(), 300, 20, 20));
+		addBlock(new BlockBrick(handler, (int) player.getX(), 150, 20, 20));
 		
-		//addBlocks(WorldBuilder.createFloors(handler, 32, BlockBrick.class));
+		addBlock(new BlockDirt(handler, (int) player.getX(), 350, 32, 32));
+		
+		addBlocks(WorldBuilder.createFloors(handler, 32, BlockGrass.class));
 	}
 	
 	private void setupPlayer() {
-		player = new EntityPlayer(handler, 500, 100, 64);
+		player = new EntityPlayer(handler, 500, 0, 64);
 	}
 	
 	public void addBlock(AbstractBlock b) {
@@ -48,7 +53,7 @@ public class StateLevel extends AbstractState {
 	}
 	
 	public void render(Graphics g) {
-		Rendering.renderWorldBlocks(g, worldBlocks);
+		Rendering.renderWorldBlocks(g, worldBlocks, true);
 		player.render(g);
 	}
 	
@@ -58,10 +63,17 @@ public class StateLevel extends AbstractState {
 }
 
 class Rendering {
-	public static void renderWorldBlocks(Graphics g, List<AbstractBlock> blocks) {
+	public static void renderWorldBlocks(Graphics g, List<AbstractBlock> blocks, boolean boundingBoxes) {
 		for(AbstractBlock b : blocks) {
 			b.render(g);
+			if(boundingBoxes) {
+				b.getBoundingBox().render(g);
+			}
 		}
+	}
+	
+	public static void renderWorldBlocks(Graphics g, List<AbstractBlock> blocks) {
+		renderWorldBlocks(g, blocks, false);
 	}
 }
 
