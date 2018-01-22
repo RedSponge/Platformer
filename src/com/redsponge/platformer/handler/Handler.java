@@ -20,4 +20,20 @@ public class Handler {
 		return game.getKeyManager();
 	}
 	
+	public int getFrameWidth() {
+		return game.getDisplay().getFrame().getWidth();
+	}
+	
+	public int getFrameHeight() {
+		return game.getDisplay().getFrame().getHeight();
+	}
+	
+	public int getCanvasWidth() {
+		return game.getDisplay().getCanvas().getWidth();
+	}
+	
+	public int getCanvasHeight() {
+		return game.getDisplay().getCanvas().getHeight();
+	}
+	
 }

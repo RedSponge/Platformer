@@ -1,7 +1,6 @@
 package com.redsponge.platformer.world;
 
 import com.redsponge.platformer.handler.Handler;
-import com.redsponge.platformer.world.entity.BoundingBox;
 
 public class BoundingBoxUser {
 	

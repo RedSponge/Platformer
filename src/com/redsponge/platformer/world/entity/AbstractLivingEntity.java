@@ -6,6 +6,7 @@ import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.utils.MathUtils;
+import com.redsponge.platformer.world.BoundingBox;
 import com.redsponge.platformer.world.block.AbstractBlock;
 
 public abstract class AbstractLivingEntity extends AbstractEntity {
@@ -30,7 +31,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	
 	public void tick() {
 		super.tick();
-		move();
+		//move();
 		tickGravity();
 		if(jumping) {
 			tickJumping();
@@ -48,8 +49,9 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 				stopJumping();
 			} else if(MathUtils.blockAbove(handler, this) != null) {
 				stopJumping();
+				dontTickOnGroundFor = 10;
 			}
-			this.y -= jumpingSpeed;
+			speedY = jumpingSpeed * -1;
 		} else {
 			stopJumping();
 		}
@@ -69,15 +71,30 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 
 	public void move() {
-		x += speedX;
+		moveX();
+		moveY();
+	}
+	
+	private void moveX() {
+		BoundingBox xTester = boundingBox.clone();
+		xTester.setX(xTester.getX() + speedX);
 		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
-			if(MathUtils.twoRectCollision(boundingBox, b.getBoundingBox())) {
-				if(b.getBoundingBox().getLeft() < boundingBox.getRight()) {
-					x = b.getBoundingBox().getLeft();
-				}
-				System.out.println("Bump!");
+			if(MathUtils.twoRectCollision(xTester.asRectangle(), b.getBoundingBox().asRectangle())) {
+				return;
 			}
 		}
+		x += speedX;
+	}
+	
+	private void moveY() {
+		BoundingBox yTester = boundingBox.clone();
+		yTester.setX(yTester.getX() + speedY);
+		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
+			if(MathUtils.twoRectCollision(yTester.asRectangle(), b.getBoundingBox().asRectangle())) {
+				return;
+			}
+		}
+		y += speedY;
 	}
 	
 	public void tickGravity() {	
@@ -93,7 +110,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			} else {
 				fallingSpeed *= fallingMultiplier;
 			}
-			this.y += fallingSpeed;
+			speedY = fallingSpeed;
 		}
 	}
 	
@@ -101,6 +118,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		if(!onGround) {
 			return;
 		}
+		speedY = 0;
 		jumping = true;
 		jumpStartY = boundingBox.getTop();
 		onGround = false;

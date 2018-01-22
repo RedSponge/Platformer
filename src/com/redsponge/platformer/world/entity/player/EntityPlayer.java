@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.io.AssetsHandler;
+import com.redsponge.platformer.state.StateLevel;
+import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.world.entity.AbstractLivingEntity;
 import com.redsponge.platformer.world.entity.Action;
 import com.redsponge.platformer.world.entity.Facing;
@@ -21,13 +23,19 @@ public class EntityPlayer extends AbstractLivingEntity {
 		this.jumpHeight = 100;
 		this.isGravityApplied = true;
 		this.action = Action.IDLE;
-		boundingBox.setColor(Color.YELLOW);
+		boundingBox.setColor(Color.GREEN);
 	}
 
 	public void tick() {
-		super.tick();
+		boundingBox.tick();
 		tickKeys();
 		PlayerUtils.updateBoundingBox(this);
+		move();
+		tickGravity();
+		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
+		if(jumping) {
+			tickJumping();
+		}
 	}
 	
 	public void tickKeys() {
@@ -70,37 +78,4 @@ public class EntityPlayer extends AbstractLivingEntity {
 		return direction;
 	}
 }
-
-class PlayerUtils {
-	public static BufferedImage getSpriteByFacing(Facing f, Action a) {
-		return AssetsHandler.getPlayerAssets().get(f.getId() + "_" + a.getId());
-	}
-	
-	public static void updateBoundingBox(EntityPlayer me) {
-		Action a = me.getAction();
-		Facing f = me.getFacing();
-		if(a == Action.IDLE) {
-			if(f == Facing.LEFT) {
-				me.getBoundingBox().setX(me.getBoundingBox().getX()+5);
-				me.getBoundingBox().setWidth(me.getBoundingBox().getWidth()-8);
-			} else if(f == Facing.RIGHT) {
-				me.getBoundingBox().setX(me.getBoundingBox().getX()+5);
-				me.getBoundingBox().setWidth(me.getBoundingBox().getWidth()-8);
-			}
-			me.getBoundingBox().setY(me.getBoundingBox().getY()+18);
-			me.getBoundingBox().setHeight(me.getBoundingBox().getHeight()-18);
-		} else if(a == Action.WALKING) {
-			if(f == Facing.LEFT) {
-				me.getBoundingBox().setX(me.getBoundingBox().getX()+5);
-				me.getBoundingBox().setWidth(me.getBoundingBox().getWidth()-8);
-			} else if(f == Facing.RIGHT) {
-				me.getBoundingBox().setX(me.getBoundingBox().getX()+5);
-				me.getBoundingBox().setWidth(me.getBoundingBox().getWidth()-8);
-			}
-			me.getBoundingBox().setY(me.getBoundingBox().getY()+15);
-			me.getBoundingBox().setHeight(me.getBoundingBox().getHeight()-15);
-		}
-	}
-}
-
 

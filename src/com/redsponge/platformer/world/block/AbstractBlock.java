@@ -3,8 +3,8 @@ package com.redsponge.platformer.world.block;
 import java.awt.Graphics;
 
 import com.redsponge.platformer.handler.Handler;
+import com.redsponge.platformer.world.BoundingBox;
 import com.redsponge.platformer.world.BoundingBoxUser;
-import com.redsponge.platformer.world.entity.BoundingBox;
 import com.redsponge.platformer.world.material.BlockMaterial;
 
 public abstract class AbstractBlock extends BoundingBoxUser {

@@ -8,7 +8,6 @@ import java.util.List;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.BlockBrick;
-import com.redsponge.platformer.world.block.BlockDirt;
 import com.redsponge.platformer.world.block.BlockGrass;
 import com.redsponge.platformer.world.block.ITickingBlock;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
@@ -26,13 +25,9 @@ public class StateLevel extends AbstractState {
 	
 	private void registerBlocks() {
 		worldBlocks = new ArrayList<AbstractBlock>();
-		
-		addBlock(new BlockBrick(handler, (int) player.getX(), 300, 20, 20));
-		addBlock(new BlockBrick(handler, (int) player.getX(), 150, 20, 20));
-		
-		addBlock(new BlockDirt(handler, (int) player.getX(), 350, 32, 32));
-		
 		addBlocks(WorldBuilder.createFloors(handler, 32, BlockGrass.class));
+		addBlock(new BlockBrick(handler, 100, handler.getCanvasHeight()-64, 32, 32));
+		addBlock(new BlockBrick(handler, 100, handler.getCanvasHeight()-64*4, 32, 32));
 	}
 	
 	private void setupPlayer() {

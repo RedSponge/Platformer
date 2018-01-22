@@ -1,4 +1,4 @@
-package com.redsponge.platformer.world.entity;
+package com.redsponge.platformer.world;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.redsponge.platformer.handler.Handler;
-import com.redsponge.platformer.world.BoundingBoxUser;
 
 public class BoundingBox {
 	
@@ -15,7 +14,6 @@ public class BoundingBox {
 	private int width, height;
 	private Color c;
 	
-	@SuppressWarnings("unused")
 	private Handler handler;
 	private BoundingBoxUser user;
 	
@@ -39,7 +37,7 @@ public class BoundingBox {
 	public void render(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(c);
-		g2.setStroke(new BasicStroke(4));
+		g2.setStroke(new BasicStroke(1));
 		g2.drawRect((int) x, (int) y, width, height);
 	}
 	
