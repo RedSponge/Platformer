@@ -40,6 +40,10 @@ public abstract class AbstractBlock extends BoundingBoxUser {
 		return true;
 	}
 	
+	public boolean isInFront() {
+		return false;
+	}
+	
 	public BlockMaterial getMaterial() {
 		return material;
 	}

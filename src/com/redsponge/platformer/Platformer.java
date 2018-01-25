@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.input.KeyManager;
 import com.redsponge.platformer.io.AssetsHandler;
+import com.redsponge.platformer.level.LevelUtils;
 import com.redsponge.platformer.settings.Settings;
 import com.redsponge.platformer.state.AbstractState;
 import com.redsponge.platformer.state.StateManager;
@@ -34,19 +35,36 @@ public class Platformer implements Runnable {
 	}
 	
 	public void init() {
+		ConsoleMSG.ADD.info("Registering Handler!");
 		handler = new Handler(this);
+		ConsoleMSG.ADD.info("Successfully Registered Handler!");
 		
+		ConsoleMSG.ADD.info("Registering Settings!");
 		Settings.init();
-		keyManager = new KeyManager(handler);
+		ConsoleMSG.ADD.info("Successfully Registered Settings!");
 		
+		ConsoleMSG.ADD.info("Registering Game Display!");
 		display = new GameDisplay(width, height, title);
+		ConsoleMSG.ADD.info("Successfully Registered Game Display!");
 		
+		ConsoleMSG.ADD.info("Creating Key Manager!");
+		keyManager = new KeyManager(handler);
+		ConsoleMSG.ADD.info("Registering Key Manager!");
+		display.getFrame().addKeyListener(keyManager);
+		ConsoleMSG.ADD.info("Successfully Created and Registered Key Manager!");
+		
+		ConsoleMSG.ADD.info("Initiating LevelUtils");
+		LevelUtils.init();
+		ConsoleMSG.ADD.info("Successfully Initiated LevelUtils");
+		
+		ConsoleMSG.ADD.info("Initiating State Manager");
 		StateManager.init(handler);
 		StateManager.setCurrentState("level");
+		ConsoleMSG.ADD.info("Successfully Initiated State Manager");
 		
-		display.getFrame().addKeyListener(keyManager);
-		
+		ConsoleMSG.ADD.info("Initiating Assets");
 		AssetsHandler.init();
+		ConsoleMSG.ADD.info("Successfully Initiated State Manager");
 	}
 	
 	public synchronized void start() {

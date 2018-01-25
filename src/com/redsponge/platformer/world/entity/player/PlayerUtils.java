@@ -1,15 +1,9 @@
 package com.redsponge.platformer.world.entity.player;
 
-import java.awt.image.BufferedImage;
-
-import com.redsponge.platformer.io.AssetsHandler;
 import com.redsponge.platformer.world.entity.Action;
 import com.redsponge.platformer.world.entity.Facing;
 
 public class PlayerUtils {
-	public static BufferedImage getSpriteByFacing(Facing f, Action a) {
-		return AssetsHandler.getPlayerAssets().get(f.getId() + "_" + a.getId());
-	}
 	
 	public static void updateBoundingBox(EntityPlayer me) {
 		Action a = me.getAction();

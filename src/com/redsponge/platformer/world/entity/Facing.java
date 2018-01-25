@@ -2,7 +2,8 @@ package com.redsponge.platformer.world.entity;
 
 public enum Facing {
 	RIGHT("right"),
-	LEFT("left");
+	LEFT("left"),
+	NONE("none");
 	
 	private String id;
 	

@@ -11,7 +11,7 @@ import com.redsponge.platformer.world.entity.AbstractEntity;
 
 public class MathUtils {
 	
-	private static int precision = 10;
+	//private static int precision = 10;
 	
 	public static boolean twoRectCollision(Rectangle rect1, Rectangle rect2) {
 		return (rect1.x < rect2.x + rect2.width) && (rect1.x + rect1.width > rect2.x)
@@ -21,20 +21,28 @@ public class MathUtils {
 	public static boolean onTopOfBlock(AbstractEntity e, AbstractBlock b) {
 		BoundingBox eb = e.getBoundingBox();
 		BoundingBox bb = b.getBoundingBox();
-		if(bb.getTop() < eb.getBottom()) {
-			return true;
+		if(!b.isSolid()) {
+			return false;
+		}
+		if(bb.getTop() <= eb.getBottom()) {
+			if(bb.getRight() > eb.getLeft()) {
+				if(bb.getLeft() < eb.getRight()) {
+					if(bb.getBottom() > eb.getTop() && bb.getTop() > eb.getTop()) {
+						return true;
+					}
+				}
+			}
 		}
 		return false;
 	}
 
-	public static AbstractBlock blockAbove(Handler handler, AbstractEntity e) {
-		BoundingBox be = e.getBoundingBox().clone();
-		be.setHeight(precision);
+	public static AbstractBlock blockAbove(Handler handler, BoundingBox box) {
+		BoundingBox be = box;
 		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
 			BoundingBox bb = b.getBoundingBox();
 			if(bb.getBottom() > be.getTop() && bb.getTop() < be.getBottom()
 				&& be.getLeft() < bb.getRight() && be.getRight() > bb.getLeft()
-					) {
+				&& b.isSolid()) {
 				return b;
 			}
 		}

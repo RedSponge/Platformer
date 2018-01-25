@@ -13,4 +13,8 @@ public class BlockGlass extends AbstractBlock {
 		return false;
 	}
 	
+	public boolean isInFront() {
+		return true;
+	}
+	
 }

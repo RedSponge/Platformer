@@ -22,6 +22,8 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	
 	protected int dontTickOnGroundFor;
 	
+	protected AbstractBlock onTopOf;
+	
 	public AbstractEntity(Handler handler, int x, int y, int width, int height) {
 		super(handler, x, y, width, height);
 		this.isGravityApplied = true;
@@ -40,14 +42,12 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	public void updateOnGround(List<AbstractBlock> worldBlocks) {
 		for(AbstractBlock b : worldBlocks) {
 			if(MathUtils.onTopOfBlock(this, b)) {
-				if(!onGround) {
-					this.y = b.getBoundingBox().getTop()-this.height;
-					System.out.println("DETECT!");
-				}
+				onTopOf = b;
 				onGround = true;
 				return;
 			}
 		}
+		onTopOf = null;
 		onGround = false;		
 	}
 	

@@ -31,7 +31,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	
 	public void tick() {
 		super.tick();
-		//move();
+		move();
 		tickGravity();
 		if(jumping) {
 			tickJumping();
@@ -47,7 +47,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			}
 			if(jumpingSpeed < 0.1) {
 				stopJumping();
-			} else if(MathUtils.blockAbove(handler, this) != null) {
+			} else if(MathUtils.blockAbove(handler, this.boundingBox) != null) {
 				stopJumping();
 				dontTickOnGroundFor = 10;
 			}
@@ -71,15 +71,14 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 
 	public void move() {
-		moveX();
 		moveY();
 	}
 	
-	private void moveX() {
-		BoundingBox xTester = boundingBox.clone();
+	public void moveX(BoundingBox box) {
+		BoundingBox xTester = box;
 		xTester.setX(xTester.getX() + speedX);
 		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
-			if(MathUtils.twoRectCollision(xTester.asRectangle(), b.getBoundingBox().asRectangle())) {
+			if(MathUtils.twoRectCollision(xTester.asRectangle(), b.getBoundingBox().asRectangle()) && b.isSolid()) {
 				return;
 			}
 		}
@@ -87,14 +86,10 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 	
 	private void moveY() {
-		BoundingBox yTester = boundingBox.clone();
-		yTester.setX(yTester.getX() + speedY);
-		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
-			if(MathUtils.twoRectCollision(yTester.asRectangle(), b.getBoundingBox().asRectangle())) {
-				return;
-			}
-		}
 		y += speedY;
+		if(onGround && onTopOf != null && onTopOf.isSolid()) {
+			y = onTopOf.getBoundingBox().getTop() - height; 
+		}
 	}
 	
 	public void tickGravity() {	
@@ -122,6 +117,14 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		jumping = true;
 		jumpStartY = boundingBox.getTop();
 		onGround = false;
+	}
+	
+	public Facing getDirection() {
+		return direction;
+	}
+	
+	public Action getAction() {
+		return action;
 	}
 	
 }
