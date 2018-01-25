@@ -11,6 +11,8 @@ import com.redsponge.platformer.world.block.BlockBrickPassable;
 import com.redsponge.platformer.world.block.BlockDirt;
 import com.redsponge.platformer.world.block.BlockGlass;
 import com.redsponge.platformer.world.block.BlockGrass;
+import com.redsponge.platformer.world.block.BlockLeaves;
+import com.redsponge.platformer.world.block.BlockLog;
 import com.redsponge.redutils.console.ConsoleMSG;
 
 public class LevelUtils {
@@ -26,6 +28,8 @@ public class LevelUtils {
 		blockMap.put(3, BlockBrick.class);
 		blockMap.put(4, BlockGlass.class);
 		blockMap.put(5, BlockBrickPassable.class);
+		blockMap.put(6, BlockLog.class);
+		blockMap.put(7, BlockLeaves.class);
 		ConsoleMSG.ADD.info("Successfully Registered Classes To BlockMap");
 	}
 	

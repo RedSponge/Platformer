@@ -11,7 +11,9 @@ public enum BlockMaterial {
 	GLASS(Color.WHITE, "material_glass", "/assets/textures/blocks/glass_block.png"),
 	DIRT(Color.YELLOW, "material_dirt", "/assets/textures/blocks/dirt_block.png"),
 	GRASS(Color.GREEN, "material_grass", "/assets/textures/blocks/grass_block.png"),
-	AIR(null, "material_air", "/assets/textures/blocks/grass_block.png");
+	AIR(Color.WHITE, "material_air", "/assets/textures/blocks/grass_block.png"), 
+	LOG(Color.YELLOW, "material_log", "/assets/textures/blocks/log_block.png"),
+	LEAVES(Color.GREEN, "material_leaves", "/assets/textures/blocks/leaves_block.png");
 	
 	private Color color;
 	private String id;

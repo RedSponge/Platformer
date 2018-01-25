@@ -18,15 +18,20 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	protected float jumpHeight;
 	protected float jumpingSpeed;
 	
+	protected float speed;
+	
 	protected float jumpingMultiplier;
 	
 	protected int jumpStartY;
 	
+	protected boolean outsideOfWorld;
+	
 	public AbstractLivingEntity(Handler handler, int x, int y, int width, int height) {
 		super(handler, x, y, width, height);
-		jumpHeight = 20;
+		jumpHeight = 1;
 		jumpingSpeed = 0;
 		jumpingMultiplier = 1.05F;
+		speed = 2;
 	}
 	
 	public void tick() {
@@ -71,9 +76,19 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 
 	public void move() {
+		moveX(boundingBox);
 		moveY();
+		tickOutsideOfWorld();
 	}
 	
+	private void tickOutsideOfWorld() {
+		if(y > handler.getCanvasHeight()) {
+			outsideOfWorld = true;
+			return;
+		}
+		outsideOfWorld = false;
+	}
+
 	public void moveX(BoundingBox box) {
 		BoundingBox xTester = box;
 		xTester.setX(xTester.getX() + speedX);
@@ -101,7 +116,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			return;
 		} else if(!jumping) {
 			if(fallingSpeed == 0) {
-				fallingSpeed += 0.5;
+				fallingSpeed += 1;
 			} else {
 				fallingSpeed *= fallingMultiplier;
 			}

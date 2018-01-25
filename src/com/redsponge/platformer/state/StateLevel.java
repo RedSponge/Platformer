@@ -20,31 +20,34 @@ public class StateLevel extends AbstractState {
 	private List<AbstractBlock> worldBlocks;
 	private EntityPlayer player;
 	
+	private AbstractLevel loadedLevel;
+	
 	public StateLevel(Handler handler) {
 		super(handler);
-		setupPlayer();
 		registerBlocks(new Level1());
+		setupPlayer();
 	}
 	
 	private void registerBlocks(AbstractLevel l) {
 		ConsoleMSG.ADD.info("Registering Blocks for Level \"" + l.getClass().getSimpleName() + "\"");
 		worldBlocks = new ArrayList<AbstractBlock>();
 		int[][] level = l.getLevelBlocks();
-		for(int y = 0; y < handler.getCanvasHeight(); y += 32) {
-			for(int x = 0; x < handler.getCanvasWidth(); x += 32) {
+		for(int y = 0; y < level.length; y++) {
+			for(int x = 0; x < level[y].length; x++) {
 				try {
-					addBlock((AbstractBlock) LevelUtils.translateNumberToBlockClass(level[y/32][x/32]).getDeclaredConstructors()[0].newInstance(handler, x, y, 32, 32));
+					addBlock((AbstractBlock) LevelUtils.translateNumberToBlockClass(level[y][x]).getDeclaredConstructors()[0].newInstance(handler, (int) x*32, (int) y*32, 32, 32));
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
+		this.loadedLevel = l;
 		ConsoleMSG.ADD.info("Successfully Registered Blocks for Level \"" + l.getClass().getSimpleName() + "\"");
 	}
 	
 	private void setupPlayer() {
 		ConsoleMSG.ADD.info("Setting Up Player!");
-		player = new EntityPlayer(handler, 500, 0, 64);
+		player = new EntityPlayer(handler, loadedLevel.PLAYER_START_X, loadedLevel.PLAYER_START_Y,(int) (64/1.2));
 		ConsoleMSG.ADD.info("Successfully Set Player Up!");
 	}
 	
@@ -70,6 +73,10 @@ public class StateLevel extends AbstractState {
 	
 	public List<AbstractBlock> getWorldBlocks() {
 		return worldBlocks;
+	}
+
+	public AbstractLevel getLoadedLevel() {
+		return loadedLevel;
 	}
 }
 

@@ -4,7 +4,7 @@ import com.redsponge.redutils.console.ConsoleMSG;
 
 public class Launcher {
 	
-	public static final int WIDTH = 640, HEIGHT = 480;
+	public static final int WIDTH = (int) (640*1.5), HEIGHT = (int) (480*1.2);
 	public static final String TITLE = "Platformer!";
 	public static boolean SHOWFPS = false;
 	

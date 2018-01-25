@@ -16,8 +16,8 @@ public class PlayerUtils {
 				me.getBoundingBox().setX(me.getBoundingBox().getX()+15);
 				me.getBoundingBox().setWidth(me.getBoundingBox().getWidth()-25);
 			}
-			me.getBoundingBox().setY(me.getBoundingBox().getY()+18);
-			me.getBoundingBox().setHeight(me.getBoundingBox().getHeight()-18);
+			me.getBoundingBox().setY(me.getBoundingBox().getY()+30);
+			me.getBoundingBox().setHeight(me.getBoundingBox().getHeight()-30);
 		} else if(a == Action.WALKING) {
 			if(f == Facing.LEFT) {
 				me.getBoundingBox().setX(me.getBoundingBox().getX()+14);
@@ -26,8 +26,8 @@ public class PlayerUtils {
 				me.getBoundingBox().setX(me.getBoundingBox().getX()+15);
 				me.getBoundingBox().setWidth(me.getBoundingBox().getWidth()-25);
 			}
-			me.getBoundingBox().setY(me.getBoundingBox().getY()+15);
-			me.getBoundingBox().setHeight(me.getBoundingBox().getHeight()-15);
+			me.getBoundingBox().setY(me.getBoundingBox().getY()+30);
+			me.getBoundingBox().setHeight(me.getBoundingBox().getHeight()-30);
 		}
 	}
 }

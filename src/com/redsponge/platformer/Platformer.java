@@ -43,6 +43,10 @@ public class Platformer implements Runnable {
 		Settings.init();
 		ConsoleMSG.ADD.info("Successfully Registered Settings!");
 		
+		ConsoleMSG.ADD.info("Initiating Assets");
+		AssetsHandler.init();
+		ConsoleMSG.ADD.info("Successfully Initiated State Manager");
+		
 		ConsoleMSG.ADD.info("Registering Game Display!");
 		display = new GameDisplay(width, height, title);
 		ConsoleMSG.ADD.info("Successfully Registered Game Display!");
@@ -61,10 +65,7 @@ public class Platformer implements Runnable {
 		StateManager.init(handler);
 		StateManager.setCurrentState("level");
 		ConsoleMSG.ADD.info("Successfully Initiated State Manager");
-		
-		ConsoleMSG.ADD.info("Initiating Assets");
-		AssetsHandler.init();
-		ConsoleMSG.ADD.info("Successfully Initiated State Manager");
+
 	}
 	
 	public synchronized void start() {

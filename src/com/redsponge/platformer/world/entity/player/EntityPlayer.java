@@ -29,9 +29,10 @@ public class EntityPlayer extends AbstractLivingEntity {
 		this.size = size;
 		this.jumpHeight = 100;
 		this.isGravityApplied = true;
-		boundingBox.setColor(Color.GREEN);
+		boundingBox.setColor(Color.RED);
 		registerAnimationAssets();
 		setCurrentAnimation(Action.IDLE);
+		speed = 3;
 	}
 
 	private void registerAnimationAssets() {
@@ -66,8 +67,11 @@ public class EntityPlayer extends AbstractLivingEntity {
 		if(jumping) {
 			tickJumping();
 		}
-		moveX(boundingBox);
 		move();
+		if(outsideOfWorld) {
+			x = ((StateLevel)StateManager.getCurrentState()).getLoadedLevel().PLAYER_START_X;
+			y = ((StateLevel)StateManager.getCurrentState()).getLoadedLevel().PLAYER_START_Y;
+		}
 	}
 	
 	public void tickKeys() {
@@ -77,11 +81,11 @@ public class EntityPlayer extends AbstractLivingEntity {
 			jump();
 		}
 		if(handler.getKeyManager().keyList.get("move_right")) {
-			speedX += 5;
+			speedX += speed;
 			direction = Facing.RIGHT;
 			action = Action.WALKING;
 		} else if(handler.getKeyManager().keyList.get("move_left")) {
-			speedX -= 5;
+			speedX -= speed;
 			direction = Facing.LEFT;
 			setCurrentAnimation(Action.WALKING);
 			action = Action.WALKING;
@@ -93,6 +97,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 	
 	public void render(Graphics g) {
 		g.drawImage(currentAnimation.getCurrentFrame(), (int) x, (int) y, width, height, null);
+		boundingBox.render(g);
 	}
 	
 	private void setCurrentAnimation(Action a) {
