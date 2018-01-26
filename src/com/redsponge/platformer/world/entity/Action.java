@@ -5,7 +5,8 @@ public enum Action {
 	IDLE("idle"),
 	DUCKING("ducking"),
 	RUNNING("running"),
-	WALKING("walking");
+	WALKING("walking"),
+	NONE("none");
 	
 	private String id;
 	

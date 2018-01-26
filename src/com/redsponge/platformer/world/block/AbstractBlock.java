@@ -12,6 +12,8 @@ public abstract class AbstractBlock extends BoundingBoxUser {
 	protected BlockMaterial material;
 	protected Handler handler;
 	
+	private float startX, startY;
+	
 	protected static boolean renderTextures = true;
 	
 	protected String blockId;
@@ -22,6 +24,8 @@ public abstract class AbstractBlock extends BoundingBoxUser {
 		this.material = material;
 		this.x = x;
 		this.y = y;
+		this.startX = x;
+		this.startY = x;
 		this.width = width;
 		this.height = height;
 		this.blockId = blockId;
@@ -54,5 +58,13 @@ public abstract class AbstractBlock extends BoundingBoxUser {
 	
 	public BoundingBox getBoundingBox() {
 		return boundingBox;
+	}
+	
+	public float getStartX() {
+		return startX;
+	}
+	
+	public float getStartY() {
+		return startY;
 	}
 }

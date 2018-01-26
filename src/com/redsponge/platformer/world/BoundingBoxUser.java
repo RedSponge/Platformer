@@ -55,4 +55,12 @@ public class BoundingBoxUser {
 		this.height = height;
 	}
 	
+	public void setBoundingBox(BoundingBox boundingBox) {
+		this.boundingBox = boundingBox;
+	}
+	
+	public BoundingBox getBoundingBox() {
+		return boundingBox;
+	}
+	
 }

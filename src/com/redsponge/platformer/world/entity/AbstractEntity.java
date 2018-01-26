@@ -18,6 +18,8 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	protected float fallingSpeed;
 	protected float fallingMultiplier;
 	
+	protected float fallingSpeedMax;
+	
 	protected boolean isGravityApplied;
 	
 	protected int dontTickOnGroundFor;
@@ -29,6 +31,8 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 		this.isGravityApplied = true;
 		this.boundingBox = new BoundingBox(handler, this);
 		this.fallingMultiplier = 1.05F;
+		this.isGravityApplied = false;
+		fallingSpeedMax = 20;
 	}
 	
 	public void tick() {
@@ -53,8 +57,12 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	
 	public abstract void render(Graphics g);
 
-	public BoundingBox getBoundingBox() {
-		return boundingBox;
+	
+	public float getSpeedX() {
+		return speedX;
 	}
 	
+	public float getSpeedY() {
+		return speedY;
+	}
 }

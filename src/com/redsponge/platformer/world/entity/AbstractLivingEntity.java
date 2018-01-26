@@ -90,14 +90,30 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 
 	public void moveX(BoundingBox box) {
+		moveX(box, false);
+	}
+	
+	public void moveX(BoundingBox box, boolean move) {
+		if(touchingBlocks(box)) {
+			return;
+		}
+		if(move) {
+			this.x += this.speedX;
+		}
+	}
+	
+	public boolean touchingBlocks(BoundingBox box) {
 		BoundingBox xTester = box;
 		xTester.setX(xTester.getX() + speedX);
+		if(xTester.getX() < 0) {
+			return true;
+		}
 		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
 			if(MathUtils.twoRectCollision(xTester.asRectangle(), b.getBoundingBox().asRectangle()) && b.isSolid()) {
-				return;
+				return true;
 			}
 		}
-		x += speedX;
+		return false;
 	}
 	
 	private void moveY() {
@@ -109,6 +125,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	
 	public void tickGravity() {	
 		if(!isGravityApplied) {
+			fallingSpeed = 0;
 			return;
 		}
 		if(onGround || jumping) {
@@ -119,6 +136,9 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 				fallingSpeed += 1;
 			} else {
 				fallingSpeed *= fallingMultiplier;
+				if(fallingSpeed > fallingSpeedMax) {
+					fallingSpeed = fallingSpeedMax;
+				}
 			}
 			speedY = fallingSpeed;
 		}

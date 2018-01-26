@@ -16,6 +16,7 @@ public class Settings {
 		keys.put("move_left", KeyEvent.VK_LEFT);
 		keys.put("jump", KeyEvent.VK_UP);
 		keys.put("duck", KeyEvent.VK_DOWN);
+		keys.put("run", KeyEvent.VK_CONTROL);
 		
 	}
 	

@@ -17,7 +17,7 @@ public class KeyManager implements KeyListener {
 	
 	public KeyManager(Handler handler) {
 		this.handler = handler;
-		keys = new boolean[256];
+		keys = new boolean[1024];
 		keyList = new HashMap<String, Boolean>();
 	}
 	
@@ -34,6 +34,7 @@ public class KeyManager implements KeyListener {
 		keyList.put("move_left", keys[Settings.keys.get("move_left")]);
 		keyList.put("jump", keys[Settings.keys.get("jump")]);
 		keyList.put("duck", keys[Settings.keys.get("duck")]);
+		keyList.put("run", keys[Settings.keys.get("run")]);
 	}
 
 	@Override

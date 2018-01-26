@@ -5,11 +5,13 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.gfx.color.CustomColor;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.level.AbstractLevel;
 import com.redsponge.platformer.level.Level1;
 import com.redsponge.platformer.level.LevelUtils;
+import com.redsponge.platformer.world.IDontRenderBB;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.ITickingBlock;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
@@ -22,12 +24,19 @@ public class StateLevel extends AbstractState {
 	
 	private AbstractLevel loadedLevel;
 	
+	private CameraManager cameraManager;
+	
 	public StateLevel(Handler handler) {
 		super(handler);
 		registerBlocks(new Level1());
 		setupPlayer();
+		registerCameraManager();
 	}
 	
+	private void registerCameraManager() {
+		cameraManager = new CameraManager(handler, this);
+	}
+
 	private void registerBlocks(AbstractLevel l) {
 		ConsoleMSG.ADD.info("Registering Blocks for Level \"" + l.getClass().getSimpleName() + "\"");
 		worldBlocks = new ArrayList<AbstractBlock>();
@@ -62,11 +71,12 @@ public class StateLevel extends AbstractState {
 	public void tick() {
 		Ticking.tickWorldBlocks(worldBlocks);
 		player.tick();
+		cameraManager.tick();
 	}
 	
 	public void render(Graphics g) {
 		Rendering.renderWorldSky(handler, g);
-		Rendering.renderBackgroundWorldBlocks(g, worldBlocks);
+		Rendering.renderBackgroundWorldBlocks(g, worldBlocks, true);
 		player.render(g);
 		Rendering.renderForegroundWorldBlocks(g, worldBlocks);
 	}
@@ -78,6 +88,10 @@ public class StateLevel extends AbstractState {
 	public AbstractLevel getLoadedLevel() {
 		return loadedLevel;
 	}
+	
+	public EntityPlayer getPlayer() {
+		return player;
+	}
 }
 
 class Rendering {
@@ -87,7 +101,7 @@ class Rendering {
 				continue;
 			}
 			b.render(g);
-			if(boundingBoxes) {
+			if(boundingBoxes && !(b instanceof IDontRenderBB)) {
 				b.getBoundingBox().render(g);
 			}
 		}
