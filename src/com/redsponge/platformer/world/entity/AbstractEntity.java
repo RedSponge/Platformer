@@ -10,6 +10,7 @@ import com.redsponge.platformer.utils.MathUtils;
 import com.redsponge.platformer.world.BoundingBox;
 import com.redsponge.platformer.world.BoundingBoxUser;
 import com.redsponge.platformer.world.block.AbstractBlock;
+import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
 
 public abstract class AbstractEntity extends BoundingBoxUser {
 	
@@ -46,6 +47,9 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	public void updateOnGround(List<AbstractBlock> worldBlocks) {
 		for(AbstractBlock b : worldBlocks) {
 			if(MathUtils.onTopOfBlock(this, b)) {
+				if(this instanceof AbstractEnemy) {
+					System.out.println("Yo");
+				}
 				onTopOf = b;
 				onGround = true;
 				return;
@@ -64,5 +68,9 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	
 	public float getSpeedY() {
 		return speedY;
+	}
+	
+	public boolean onGround() {
+		return onGround;
 	}
 }

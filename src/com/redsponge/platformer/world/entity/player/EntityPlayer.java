@@ -36,6 +36,8 @@ public class EntityPlayer extends AbstractLivingEntity {
 	
 	private Animation currentAnimation;
 	
+	private boolean running;
+	private BoundingBox tester;
 	
 	
 	public EntityPlayer(Handler handler, int x, int y, int size) {
@@ -50,7 +52,11 @@ public class EntityPlayer extends AbstractLivingEntity {
 		speed = 3;
 		speedRunAmplifier = 0;
 		runAmplifier = 1.005f;
-		maxSpeed = 4;
+		maxSpeed = 6;
+		running = false;
+		renderBoundingBox = false;
+		//tester = boundingBox.clone();
+		//tester.setColor(Color.GREEN);
 	}
 
 	private void registerAnimationAssets() {
@@ -69,7 +75,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 				AssetsHandler.getImage(pathMain + "/idle/left/idle_2.png"),
 				AssetsHandler.getImage(pathMain + "/idle/left/idle_3.png"),
 				AssetsHandler.getImage(pathMain + "/idle/left/idle_4.png")
-		}, ANIMATION_IDLE_SPEED);
+		}, ANIMATION_IDLE_SPEED, "animationIdlePlayer");
 		
 		ANIMATION_WALK = new Animation(this, new BufferedImage[] {
 				AssetsHandler.getImage(pathMain + "/walk/right/walk_1.png"),
@@ -89,7 +95,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 				AssetsHandler.getImage(pathMain + "/walk/left/walk_6.png"),
 				AssetsHandler.getImage(pathMain + "/walk/left/walk_7.png"),
 				AssetsHandler.getImage(pathMain + "/walk/left/walk_8.png"),
-		}, ANIMATION_WALK_SPEED);
+		}, ANIMATION_WALK_SPEED, "animationWalkPlayer");
 		
 		ANIMATION_RUN = new Animation(this, new BufferedImage[] {
 				AssetsHandler.getImage(pathMain + "/run/right/run_1.png"),
@@ -109,7 +115,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 				AssetsHandler.getImage(pathMain + "/run/left/run_6.png"),
 				AssetsHandler.getImage(pathMain + "/run/left/run_7.png"),
 				AssetsHandler.getImage(pathMain + "/run/left/run_8.png"),
-		}, ANIMATION_RUN_SPEED);
+		}, ANIMATION_RUN_SPEED, "animationRunPlayer");
 		
 		
 		ConsoleMSG.ADD.info("Successfully Registered Player Animation Assets!");
@@ -119,8 +125,9 @@ public class EntityPlayer extends AbstractLivingEntity {
 		tickKeys();
 		boundingBox.tick();
 		PlayerUtils.updateBoundingBox(this);
-		currentAnimation.tick();
+		tickMovement();
 		tickRunning();
+		currentAnimation.tick();
 		tickGravity();
 		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
 		if(jumping) {
@@ -132,29 +139,62 @@ public class EntityPlayer extends AbstractLivingEntity {
 		}
 	}
 	
+	private void tickMovement() {
+		if(action == Action.IDLE) {
+			speedX = 0;
+			return;
+		}
+		if(action == Action.WALKING || running) {
+			speedX = speed;
+			if(running) {
+				speedX += speedRunAmplifier;
+			}
+			if(direction == Facing.LEFT) {
+				speedX *= -1;
+			}
+			return;
+		}
+	}
+	
+	public void moveX(BoundingBox box) {
+		if(touchingBlocks(box, true)) {
+			return;
+		} else {
+			if(x < handler.getCanvasWidth()/2) {
+				x += speedX;
+			} else {
+				handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
+				if(handler.getCameraManager().getOffsetX() < 0) {
+					handler.getCameraManager().setOffsetX(0);
+					x += speedX;
+				}
+			}
+		}
+	}
+
 	private void tickKeys() {
 		speedX = 0;
 		speedY = 0;
 		if(handler.getKeyManager().keyList.get("jump")) {
 			jump();
 		}
-		if(handler.getKeyManager().keyList.get("run")) {
+		if(handler.getKeyManager().keyList.get("run") && (action == Action.WALKING || running)) {
 			 setCurrentAnimation(Action.RUNNING);
-			action = Action.RUNNING;
-		} else if(action == Action.RUNNING){
+			 action = Action.RUNNING;
+			running = true;
+		} else if(running){
 			action = Action.NONE;
+			running = false;
 		}
 		if(handler.getKeyManager().keyList.get("move_right")) {
-			speedX = (speed + speedRunAmplifier);
 			direction = Facing.RIGHT;
-			if(action != Action.RUNNING) {
+			if(!running) {
 				setCurrentAnimation(Action.WALKING);
 				action = Action.WALKING;
 			}
 		} else if(handler.getKeyManager().keyList.get("move_left")) {
-			speedX = (speed + speedRunAmplifier) * -1;
 			direction = Facing.LEFT;
-			if(action != Action.RUNNING) {
+			if(!running) {
 				setCurrentAnimation(Action.WALKING);
 				action = Action.WALKING;
 			}
@@ -165,13 +205,15 @@ public class EntityPlayer extends AbstractLivingEntity {
 	}
 	
 	private void tickRunning() {
-		if(action != Action.RUNNING) {
+		if(!running) {
 			speedRunAmplifier = 0;
 			return;
 		}
 		if(speedRunAmplifier == 0) {
 			speedRunAmplifier = speed;
-			return;
+		}
+		if(speedRunAmplifier > maxSpeed - speed) {
+			speedRunAmplifier = maxSpeed - speed;
 		}
 		speedRunAmplifier *= runAmplifier;
 		BoundingBox testB = boundingBox.clone();
@@ -179,16 +221,16 @@ public class EntityPlayer extends AbstractLivingEntity {
 		if(touchingBlocks(testB)) {
 			speedRunAmplifier /= runAmplifier;
 		}
-		if(speedRunAmplifier - speed > maxSpeed) {
-			speedRunAmplifier = maxSpeed - speed;
-		}
 	}
 	
 	public boolean touchingBlocks(BoundingBox box, boolean doTester) {
-		BoundingBox xTester = box;
-		if(doTester) {
-			xTester.setX(xTester.getX()+((action == Action.RUNNING)?speed+speedRunAmplifier:speedX));
+		BoundingBox xTester = boundingBox.clone();
+		int directionMultiplier = (direction == Facing.RIGHT || direction == Facing.NONE)?1:(direction == Facing.LEFT)?-1:1;
+		xTester.setX(xTester.getX() + speedX);
+		if(running) {
+			xTester.setX(xTester.getX() + speedRunAmplifier * directionMultiplier);
 		}
+		tester = xTester;
 		if(xTester.getX() <= 0) {
 			return true;
 		}
@@ -206,23 +248,23 @@ public class EntityPlayer extends AbstractLivingEntity {
 	
 	public void render(Graphics g) {
 		g.drawImage(currentAnimation.getCurrentFrame(), (int) x, (int) y, width, height, null);
-		boundingBox.render(g);
+		if(renderBoundingBox) {
+			boundingBox.render(g);
+			tester.setColor(Color.GREEN);
+			tester.render(g);
+		}
 	}
 	
 	private void setCurrentAnimation(Action a) {
-		if(a == action) {
-			return;
-		}
 		if(a == Action.IDLE) {
 			currentAnimation = ANIMATION_IDLE;
 		}
 		if(a == Action.WALKING) {
 			currentAnimation = ANIMATION_WALK;
 		}
-		if(a == Action.RUNNING) {
+		if(running) {
 			currentAnimation = ANIMATION_RUN; 
 		}
-		currentAnimation.reset();
 	}
 	
 	public void setSize(int size) {
@@ -235,6 +277,10 @@ public class EntityPlayer extends AbstractLivingEntity {
 	
 	public Action getAction() {
 		return action;
+	}
+	
+	public boolean isRunning() {
+		return running;
 	}
 	
 	public Facing getFacing() {

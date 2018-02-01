@@ -21,9 +21,11 @@ public class Animation {
 	
 	private Map<Facing, List<BufferedImage>> frames;
 	
+	private String animationId;
+	
 	private int currentFrame;
 	
-	public Animation(BoundingBoxUser user, BufferedImage[] rightImg, BufferedImage[] leftImg, int animationSpeed) {
+	public Animation(BoundingBoxUser user, BufferedImage[] rightImg, BufferedImage[] leftImg, int animationSpeed, String animationId) {
 		this.user = user;
 		this.frames = new HashMap<Facing, List<BufferedImage>>();
 		this.frames.put(Facing.RIGHT, Arrays.asList(rightImg));
@@ -32,9 +34,10 @@ public class Animation {
 		this.currentFrame = 0;
 		this.canBeFacing = true;
 		this.animationSpeed = animationSpeed;
+		this.animationId = animationId;
 	}
 	
-	public Animation(BoundingBoxUser user, BufferedImage[] Images, int animationSpeed) {
+	public Animation(BoundingBoxUser user, BufferedImage[] Images, int animationSpeed, String animationId) {
 		this.user = user;
 		this.frames = new HashMap<Facing, List<BufferedImage>>();
 		this.frames.put(Facing.NONE, Arrays.asList(Images));
@@ -42,6 +45,7 @@ public class Animation {
 		this.currentFrame = 0;
 		this.canBeFacing = false;
 		this.animationSpeed = animationSpeed;
+		this.animationId = animationId;
 	}
 	
 	public void tick() {
@@ -65,6 +69,10 @@ public class Animation {
 	public void reset() {
 		currentFrame = 0;
 		counter = 0;
+	}
+	
+	public String getAnimationId() {
+		return animationId;
 	}
 	
 }

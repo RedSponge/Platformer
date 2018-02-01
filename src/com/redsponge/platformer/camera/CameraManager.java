@@ -3,18 +3,18 @@ package com.redsponge.platformer.camera;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.world.block.AbstractBlock;
-import com.redsponge.platformer.world.entity.player.EntityPlayer;
 
 public class CameraManager {
 	
 	private float offsetX, offsetY;
 	
+	@SuppressWarnings("unused")
 	private Handler handler;
 	private StateLevel stateLevel;
+	public CameraUtils utils;
 	
-	public CameraManager(Handler handler, StateLevel stateLevel) {
+	public CameraManager(Handler handler) {
 		this.handler = handler;
-		this.stateLevel = stateLevel;
 		offsetX = 0;
 		offsetY = 0;
 	}
@@ -22,6 +22,11 @@ public class CameraManager {
 	public void tick() {
 		tickWorldBlocks();
 		tickPlayer();
+	}
+	
+	public void init(StateLevel stateLevel) {
+		this.stateLevel = stateLevel;
+		utils = new CameraUtils(handler, this, stateLevel);
 	}
 	
 	private void tickWorldBlocks() {
@@ -32,20 +37,7 @@ public class CameraManager {
 	}
 	
 	private void tickPlayer() {
-		EntityPlayer p = stateLevel.getPlayer();
-		if(p.getX() < handler.getCanvasWidth() / 2 || offsetX + p.getSpeedX() < 0) {
-			p.moveX(p.getBoundingBox(), true);
-			if(offsetX < 0) {
-				offsetX = 0;
-			}
-		} else {
-			if(p.touchingBlocks(p.getBoundingBox())) {
-				return;
-			}
-			offsetX += p.getSpeedX();
-			p.setX(handler.getCanvasWidth()/2);
-			p.getBoundingBox().setX(handler.getCanvasWidth()/2 + p.getBoundingBox().getWidth()/2);
-		}
+		
 	}
 	
 	public float getOffsetX() {
@@ -54,6 +46,14 @@ public class CameraManager {
 	
 	public float getOffsetY() {
 		return offsetY;
+	}
+	
+	public void setOffsetX(float offsetX) {
+		this.offsetX = offsetX;
+	}
+	
+	public void setOffsetY(float offsetY) {
+		this.offsetY = offsetY;
 	}
 	
 }

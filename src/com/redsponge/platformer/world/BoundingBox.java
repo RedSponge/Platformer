@@ -27,6 +27,16 @@ public class BoundingBox {
 		this.c = Color.RED;
 	}
 	
+	public BoundingBox(Handler handler, BoundingBoxUser user, int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.handler = handler;
+		this.user = user;
+		this.c = Color.RED;
+	}
+	
 	public void tick() {
 		this.x = user.getX();
 		this.y = user.getY();
@@ -98,7 +108,7 @@ public class BoundingBox {
 	}
 	
 	public BoundingBox clone() {
-		return new BoundingBox(handler, user);
+		return new BoundingBox(handler, user, (int) x, (int) y, width, height);
 	}
 	
 }

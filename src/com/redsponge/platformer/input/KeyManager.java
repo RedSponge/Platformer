@@ -6,13 +6,14 @@ import java.util.HashMap;
 
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.settings.Settings;
+import com.redsponge.platformer.state.StateLevel;
+import com.redsponge.platformer.state.StateManager;
 
 public class KeyManager implements KeyListener {
 
 	boolean keys[];
 	public HashMap<String, Boolean> keyList;
-	
-	@SuppressWarnings("unused")
+
 	private Handler handler;
 	
 	public KeyManager(Handler handler) {
@@ -23,6 +24,17 @@ public class KeyManager implements KeyListener {
 	
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
+		if(e.getKeyCode() == Settings.keys.get("toggle_debug")) {
+			Settings.displayDebug = !Settings.displayDebug;
+		}
+		if(e.getKeyCode() == Settings.keys.get("toggle_player_bounding_box")) {
+			handler.getPlayer().doRenderBoundingBox(!handler.getPlayer().isRenderBoundingBox());
+		}
+		if(e.getKeyCode() == Settings.keys.get("toggle_worldblocks_bounding_box")) {
+			if(StateManager.getCurrentState() instanceof StateLevel) {
+				((StateLevel) StateManager.getCurrentState()).doRenderWorldBlockBoundingBoxes(!((StateLevel)StateManager.getCurrentState()).isDoRenderWorldBlockBoundingBoxes());
+			}
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {

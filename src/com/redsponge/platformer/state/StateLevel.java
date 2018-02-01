@@ -1,7 +1,6 @@
 package com.redsponge.platformer.state;
 
 import java.awt.Graphics;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,27 +13,37 @@ import com.redsponge.platformer.level.LevelUtils;
 import com.redsponge.platformer.world.IDontRenderBB;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.ITickingBlock;
+import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 import com.redsponge.redutils.console.ConsoleMSG;
 
 public class StateLevel extends AbstractState {
 	
 	private List<AbstractBlock> worldBlocks;
+	private List<AbstractEnemy> worldEnemies;
 	private EntityPlayer player;
 	
 	private AbstractLevel loadedLevel;
-	
+	private boolean doRenderWorldBlockBoundingBoxes;
 	private CameraManager cameraManager;
 	
 	public StateLevel(Handler handler) {
 		super(handler);
+		doRenderWorldBlockBoundingBoxes = false;
+		registerEnemies();
 		registerBlocks(new Level1());
 		setupPlayer();
 		registerCameraManager();
 	}
 	
 	private void registerCameraManager() {
-		cameraManager = new CameraManager(handler, this);
+		cameraManager = handler.getCameraManager();
+		cameraManager.init(this);
+	}
+	
+	private void registerEnemies() {
+		worldEnemies = new ArrayList<AbstractEnemy>();
+		//worldEnemies.add(new EnemyTest(handler, 100, 100));
 	}
 
 	private void registerBlocks(AbstractLevel l) {
@@ -70,15 +79,17 @@ public class StateLevel extends AbstractState {
 	
 	public void tick() {
 		Ticking.tickWorldBlocks(worldBlocks);
-		player.tick();
+		Ticking.tickWorldEnemies(worldEnemies);
 		cameraManager.tick();
+		player.tick();
 	}
 	
 	public void render(Graphics g) {
 		Rendering.renderWorldSky(handler, g);
-		Rendering.renderBackgroundWorldBlocks(g, worldBlocks, true);
+		Rendering.renderBackgroundWorldBlocks(g, cameraManager.utils.getOnScreenWorldBlocks(), doRenderWorldBlockBoundingBoxes);
+		Rendering.renderWorldEnemies(g, worldEnemies);
 		player.render(g);
-		Rendering.renderForegroundWorldBlocks(g, worldBlocks);
+		Rendering.renderForegroundWorldBlocks(g, cameraManager.utils.getOnScreenWorldBlocks());
 	}
 	
 	public List<AbstractBlock> getWorldBlocks() {
@@ -91,6 +102,14 @@ public class StateLevel extends AbstractState {
 	
 	public EntityPlayer getPlayer() {
 		return player;
+	}
+	
+	public void doRenderWorldBlockBoundingBoxes(boolean doRenderWorldBlockBoundingBoxes) {
+		this.doRenderWorldBlockBoundingBoxes = doRenderWorldBlockBoundingBoxes;
+	}
+	
+	public boolean isDoRenderWorldBlockBoundingBoxes() {
+		return doRenderWorldBlockBoundingBoxes;
 	}
 }
 
@@ -119,6 +138,12 @@ class Rendering {
 		}
 	}
 	
+	public static void renderWorldEnemies(Graphics g, List<AbstractEnemy> worldEnemies) {
+		for(AbstractEnemy e : worldEnemies) {
+			e.render(g);
+		}
+	}
+	
 	public static void renderWorldSky(Handler handler, Graphics g) {
 		g.setColor(CustomColor.LIGHT_BLUE);
 		g.fillRect(0, 0, handler.getCanvasWidth(), handler.getCanvasHeight());
@@ -131,6 +156,7 @@ class Rendering {
 	public static void renderForegroundWorldBlocks(Graphics g, List<AbstractBlock> blocks) {
 		renderForegroundWorldBlocks(g, blocks, false);
 	}
+	
 }
 
 class Ticking {
@@ -141,21 +167,10 @@ class Ticking {
 			}
 		}
 	}
-}
 
-class WorldBuilder {
-	
-	public static List<AbstractBlock> createFloors(Handler handler, int blockSize, Class<? extends AbstractBlock> blockType) {
-		ArrayList<AbstractBlock> ar = new ArrayList<AbstractBlock>();
-		Constructor<?> con = blockType.getDeclaredConstructors()[0];
-		for(int i = 0; i < handler.getDisplay().getCanvas().getWidth(); i+=blockSize) {
-			try {
-				ar.add((AbstractBlock) con.newInstance(handler, i, handler.getDisplay().getCanvas().getHeight()-blockSize, blockSize, blockSize));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	public static void tickWorldEnemies(List<AbstractEnemy> worldEnemies) {
+		for(AbstractEnemy e : worldEnemies) {
+			e.tick();
 		}
-		return ar;
 	}
-	
 }

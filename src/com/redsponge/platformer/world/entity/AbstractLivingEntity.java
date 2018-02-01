@@ -1,5 +1,6 @@
 package com.redsponge.platformer.world.entity;
 
+import java.awt.Graphics;
 import java.util.List;
 
 import com.redsponge.platformer.handler.Handler;
@@ -23,6 +24,8 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	protected float jumpingMultiplier;
 	
 	protected int jumpStartY;
+	protected boolean renderBoundingBox;
+	protected String currentAnimationId;
 	
 	protected boolean outsideOfWorld;
 	
@@ -32,6 +35,8 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		jumpingSpeed = 0;
 		jumpingMultiplier = 1.05F;
 		speed = 2;
+		currentAnimationId = "";
+		renderBoundingBox = false;
 	}
 	
 	public void tick() {
@@ -90,10 +95,11 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 
 	public void moveX(BoundingBox box) {
-		moveX(box, false);
+		moveX(box, true);
 	}
 	
 	public void moveX(BoundingBox box, boolean move) {
+		//ConsoleMSG.INFO.info(Float.toString(x), this);
 		if(touchingBlocks(box)) {
 			return;
 		}
@@ -102,10 +108,10 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		}
 	}
 	
-	public boolean touchingBlocks(BoundingBox box) {
-		BoundingBox xTester = box;
-		xTester.setX(xTester.getX() + speedX);
-		if(xTester.getX() < 0) {
+	public boolean touchingBlocks(BoundingBox box, boolean doTester) {
+		BoundingBox xTester = box.clone();
+		if(doTester) {xTester.setX(xTester.getX() + speedX);};
+		if(this.x < 0) {
 			return true;
 		}
 		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
@@ -116,10 +122,20 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		return false;
 	}
 	
+	public boolean touchingBlocks(BoundingBox box) {
+		return touchingBlocks(box, false);
+	}
+	
 	private void moveY() {
 		y += speedY;
 		if(onGround && onTopOf != null && onTopOf.isSolid()) {
 			y = onTopOf.getBoundingBox().getTop() - height; 
+		}
+	}
+	
+	public void render(Graphics g) {
+		if(renderBoundingBox) {
+			boundingBox.render(g);
 		}
 	}
 	
@@ -142,6 +158,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			}
 			speedY = fallingSpeed;
 		}
+		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
 	}
 	
 	public void jump() {
@@ -160,6 +177,14 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	
 	public Action getAction() {
 		return action;
+	}
+	
+	public void doRenderBoundingBox(boolean renderBoundingBox) {
+		this.renderBoundingBox = renderBoundingBox;
+	}
+	
+	public boolean isRenderBoundingBox() {
+		return renderBoundingBox;
 	}
 	
 }

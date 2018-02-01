@@ -1,7 +1,11 @@
 package com.redsponge.platformer.handler;
 
 import com.redsponge.platformer.Platformer;
+import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.input.KeyManager;
+import com.redsponge.platformer.state.StateLevel;
+import com.redsponge.platformer.state.StateManager;
+import com.redsponge.platformer.world.entity.player.EntityPlayer;
 import com.redsponge.redutils.display.GameDisplay;
 
 public class Handler {
@@ -34,6 +38,18 @@ public class Handler {
 	
 	public int getCanvasHeight() {
 		return game.getDisplay().getCanvas().getHeight();
+	}
+	
+	public CameraManager getCameraManager() {
+		return game.getCameraManager();
+	}
+	
+	public EntityPlayer getPlayer() {
+		try {
+			return ((StateLevel)StateManager.getCurrentState()).getPlayer();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 }

@@ -1,14 +1,17 @@
 package com.redsponge.platformer;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
 
+import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.input.KeyManager;
 import com.redsponge.platformer.io.AssetsHandler;
 import com.redsponge.platformer.level.LevelUtils;
 import com.redsponge.platformer.settings.Settings;
 import com.redsponge.platformer.state.AbstractState;
+import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.redutils.console.ConsoleMSG;
 import com.redsponge.redutils.display.GameDisplay;
@@ -22,11 +25,12 @@ public class Platformer implements Runnable {
 	private Thread thread;
 	private boolean running;
 	
-	private BufferStrategy bs;
 	private Graphics g;
 	
 	private Handler handler;
 	private KeyManager keyManager;
+	
+	private CameraManager cameraManager;
 	
 	public Platformer(String title, int width, int height) {
 		this.width = width;
@@ -61,6 +65,10 @@ public class Platformer implements Runnable {
 		LevelUtils.init();
 		ConsoleMSG.ADD.info("Successfully Initiated LevelUtils");
 		
+		ConsoleMSG.ADD.info("Initiating Camera Manager!");
+		cameraManager = new CameraManager(handler);
+		ConsoleMSG.ADD.info("Successfully Initiated Camera Manager!");
+		
 		ConsoleMSG.ADD.info("Initiating State Manager");
 		StateManager.init(handler);
 		StateManager.setCurrentState("level");
@@ -88,18 +96,26 @@ public class Platformer implements Runnable {
 	
 	public void render() {
 		
-		bs = display.getCanvas().getBufferStrategy();
-		if(bs == null) {
-			display.getCanvas().createBufferStrategy(3);
-			return;
-		}
-		g = bs.getDrawGraphics();
+		g = display.getGraphics();
 		
 		//DRAW
 		g.clearRect(0, 0, width, height);
 		AbstractState state = StateManager.getCurrentState();
 		if(state != null) {
 			state.render(g);
+		}
+		
+		if(Settings.displayDebug) {
+			int fontSize = 20;
+			g.setFont(new Font("Courier new", Font.BOLD, fontSize));
+			g.setColor(Color.BLACK);
+			g.drawString("[player_x]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getX(), 5, fontSize*1);
+			g.drawString("[player_y]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getY(), 5, fontSize*2);
+			g.drawString("[player_speed_x]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getSpeedX(), 5, fontSize*3);
+			g.drawString("[player_speed_y]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getSpeedY(), 5, fontSize*4);
+			g.drawString("[player_onground]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().onGround(), 5, fontSize*5);
+			g.drawString("[player_action]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getAction(), 5, fontSize*6);
+			g.drawString("[player_facing]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getFacing(), 5, fontSize*7);
 		}
 		//END
 		display.push();
@@ -159,5 +175,9 @@ public class Platformer implements Runnable {
 	
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public CameraManager getCameraManager() {
+		return cameraManager;
 	}
 }

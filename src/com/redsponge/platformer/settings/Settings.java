@@ -7,6 +7,7 @@ import java.util.Map;
 public class Settings {
 	
 	public static Map<String, Integer> keys;
+	public static boolean displayDebug;
 	
 	public static void init() {
 		
@@ -18,6 +19,10 @@ public class Settings {
 		keys.put("duck", KeyEvent.VK_DOWN);
 		keys.put("run", KeyEvent.VK_CONTROL);
 		
+		keys.put("toggle_debug", KeyEvent.VK_F3);
+		keys.put("toggle_player_bounding_box", KeyEvent.VK_F1);
+		keys.put("toggle_worldblocks_bounding_box", KeyEvent.VK_F2);
+		displayDebug = true;
 	}
 	
 }

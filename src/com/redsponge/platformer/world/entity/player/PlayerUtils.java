@@ -20,7 +20,23 @@ public class PlayerUtils {
 			}
 			bb.setY(bb.getY()+30);
 			bb.setHeight(bb.getHeight()-30);
-		} else if(a == Action.WALKING || a == Action.RUNNING) {
+		} else if(a == Action.WALKING || me.isRunning()) {
+			if(f == Facing.LEFT) {
+				bb.setX(bb.getX() + 10);
+				bb.setWidth(bb.getWidth()-25);
+			} else if(f == Facing.RIGHT) {
+				bb.setX(bb.getX()+15);
+				bb.setWidth(bb.getWidth()-25);
+			}
+			bb.setY(bb.getY()+30);
+			bb.setHeight(bb.getHeight()-30);
+		}
+		me.setBoundingBox(bb);
+	}
+	
+	public static BoundingBox updateBoundingBox(BoundingBox b, Facing f, Action a) {
+		BoundingBox bb = b;
+		if(a == Action.IDLE) {
 			if(f == Facing.LEFT) {
 				bb.setX(bb.getX()+14);
 				bb.setWidth(bb.getWidth()-25);
@@ -28,21 +44,20 @@ public class PlayerUtils {
 				bb.setX(bb.getX()+15);
 				bb.setWidth(bb.getWidth()-25);
 			}
-			if(a == Action.RUNNING) {
-				BoundingBox testCol = bb.clone();
-				testCol.setX(me.getX());
-				if(!me.touchingBlocks(testCol, false)) {
-					bb.setX(testCol.getX());
-				}
+			bb.setY(bb.getY()+30);
+			bb.setHeight(bb.getHeight()-30);
+		} else if(a == Action.WALKING || a == Action.RUNNING) {
+			if(f == Facing.LEFT) {
+				bb.setX(bb.getX() + 25);
+				bb.setWidth(bb.getWidth()-25);
+			} else if(f == Facing.RIGHT) {
+				bb.setX(bb.getX()+13);
+				bb.setWidth(bb.getWidth()-25);
 			}
 			bb.setY(bb.getY()+30);
 			bb.setHeight(bb.getHeight()-30);
 		}
-		if(bb.getX() < 0) {
-			me.setX(0);
-			bb.setX(0);
-		}
-		me.setBoundingBox(bb);
+		return bb;
 	}
 }
 
