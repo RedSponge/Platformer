@@ -75,4 +75,8 @@ public class Animation {
 		return animationId;
 	}
 	
+	public Animation clone() {
+		return new Animation(user, (BufferedImage[]) frames.get(Facing.RIGHT).toArray(), (BufferedImage[]) frames.get(Facing.LEFT).toArray(), animationSpeed, animationId); 
+	}
+	
 }

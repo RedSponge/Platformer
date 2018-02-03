@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.List;
 
 import com.redsponge.platformer.handler.Handler;
+import com.redsponge.platformer.settings.Settings;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.utils.MathUtils;
@@ -108,9 +109,9 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		}
 	}
 	
-	public boolean touchingBlocks(BoundingBox box, boolean doTester) {
+	public boolean touchingBlocks(BoundingBox box) {
 		BoundingBox xTester = box.clone();
-		if(doTester) {xTester.setX(xTester.getX() + speedX);};
+		xTester.setX(xTester.getX() + speedX);
 		if(this.x < 0) {
 			return true;
 		}
@@ -120,10 +121,6 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			}
 		}
 		return false;
-	}
-	
-	public boolean touchingBlocks(BoundingBox box) {
-		return touchingBlocks(box, false);
 	}
 	
 	private void moveY() {
@@ -140,6 +137,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 	
 	public void tickGravity() {	
+		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
 		if(!isGravityApplied) {
 			fallingSpeed = 0;
 			return;
@@ -158,11 +156,10 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			}
 			speedY = fallingSpeed;
 		}
-		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
 	}
 	
 	public void jump() {
-		if(!onGround) {
+		if(!onGround && !Settings.allowFlyJump) {
 			return;
 		}
 		speedY = 0;

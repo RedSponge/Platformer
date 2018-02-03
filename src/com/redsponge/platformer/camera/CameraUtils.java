@@ -22,7 +22,7 @@ public class CameraUtils {
 	public List<AbstractBlock> getOnScreenWorldBlocks() {
 		List<AbstractBlock> blocks = new ArrayList<AbstractBlock>();
 		for(AbstractBlock b : stateLevel.getWorldBlocks()) {
-			if(b.getX()+b.getWidth() >= 0) {
+			if(b.getX()+b.getWidth() > 0) {
 				if((b.getX()) - cameraManager.getOffsetX() < handler.getCanvasWidth()) {
 					blocks.add(b);
 				}

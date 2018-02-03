@@ -8,6 +8,7 @@ import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.input.KeyManager;
 import com.redsponge.platformer.io.AssetsHandler;
+import com.redsponge.platformer.io.FileHandler;
 import com.redsponge.platformer.level.LevelUtils;
 import com.redsponge.platformer.settings.Settings;
 import com.redsponge.platformer.state.AbstractState;
@@ -31,6 +32,7 @@ public class Platformer implements Runnable {
 	private KeyManager keyManager;
 	
 	private CameraManager cameraManager;
+	private FileHandler fileHandler;
 	
 	public Platformer(String title, int width, int height) {
 		this.width = width;
@@ -68,6 +70,10 @@ public class Platformer implements Runnable {
 		ConsoleMSG.ADD.info("Initiating Camera Manager!");
 		cameraManager = new CameraManager(handler);
 		ConsoleMSG.ADD.info("Successfully Initiated Camera Manager!");
+		
+		ConsoleMSG.ADD.info("Initiating File Handler!");
+		fileHandler = new FileHandler();
+		ConsoleMSG.ADD.info("Successfully Initiated File Handler!");
 		
 		ConsoleMSG.ADD.info("Initiating State Manager");
 		StateManager.init(handler);
@@ -179,5 +185,9 @@ public class Platformer implements Runnable {
 	
 	public CameraManager getCameraManager() {
 		return cameraManager;
+	}
+	
+	public FileHandler getFileHandler() {
+		return fileHandler;
 	}
 }

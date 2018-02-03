@@ -3,6 +3,7 @@ package com.redsponge.platformer.handler;
 import com.redsponge.platformer.Platformer;
 import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.input.KeyManager;
+import com.redsponge.platformer.io.FileHandler;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
@@ -42,6 +43,10 @@ public class Handler {
 	
 	public CameraManager getCameraManager() {
 		return game.getCameraManager();
+	}
+	
+	public FileHandler getFileHandler() {
+		return game.getFileHandler();
 	}
 	
 	public EntityPlayer getPlayer() {

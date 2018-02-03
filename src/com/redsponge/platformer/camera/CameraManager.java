@@ -3,12 +3,12 @@ package com.redsponge.platformer.camera;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.world.block.AbstractBlock;
+import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
 
 public class CameraManager {
 	
 	private float offsetX, offsetY;
 	
-	@SuppressWarnings("unused")
 	private Handler handler;
 	private StateLevel stateLevel;
 	public CameraUtils utils;
@@ -21,6 +21,7 @@ public class CameraManager {
 	
 	public void tick() {
 		tickWorldBlocks();
+		//tickWorldEnemies();
 		tickPlayer();
 	}
 	
@@ -33,6 +34,15 @@ public class CameraManager {
 		for(AbstractBlock b : stateLevel.getWorldBlocks()) {
 			b.setX(b.getStartX() - offsetX);
 			b.getBoundingBox().setX(b.getX());
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	private void tickWorldEnemies() {
+		for(AbstractEnemy e : stateLevel.getWorldEnemies().values()) {
+			e.updateCurrentPosition();
+			e.setX(e.getCurrentX() - offsetX);
+			e.getBoundingBox().setX(e.getX());
 		}
 	}
 	

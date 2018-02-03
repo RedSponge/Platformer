@@ -30,6 +30,9 @@ public class EntityPlayer extends AbstractLivingEntity {
 	private Animation ANIMATION_RUN;
 	private final int ANIMATION_RUN_SPEED = 5;
 	
+	private Animation ANIMATION_DUCK;
+	//private final int ANIMATION_DUCK_SPEED = 30;
+	
 	protected float speedRunAmplifier;
 	protected float runAmplifier;
 	protected float maxSpeed;
@@ -117,6 +120,8 @@ public class EntityPlayer extends AbstractLivingEntity {
 				AssetsHandler.getImage(pathMain + "/run/left/run_8.png"),
 		}, ANIMATION_RUN_SPEED, "animationRunPlayer");
 		
+		ANIMATION_DUCK = ANIMATION_IDLE.clone();
+		
 		
 		ConsoleMSG.ADD.info("Successfully Registered Player Animation Assets!");
 	}
@@ -177,6 +182,18 @@ public class EntityPlayer extends AbstractLivingEntity {
 		speedY = 0;
 		if(handler.getKeyManager().keyList.get("jump")) {
 			jump();
+		}
+		if(handler.getKeyManager().keyList.get("duck")) {
+			if(handler.getKeyManager().keyList.get("move_right")) {
+				direction = Facing.RIGHT;
+			} else if(handler.getKeyManager().keyList.get("move_left")) {
+				direction = Facing.LEFT;
+			}
+			if(onGround) {
+				action = Action.DUCKING;
+				setCurrentAnimation(Action.DUCKING);
+				return;
+			}
 		}
 		if(handler.getKeyManager().keyList.get("run") && (action == Action.WALKING || running)) {
 			 setCurrentAnimation(Action.RUNNING);
@@ -264,6 +281,9 @@ public class EntityPlayer extends AbstractLivingEntity {
 		}
 		if(running) {
 			currentAnimation = ANIMATION_RUN; 
+		}
+		if(a == Action.DUCKING) {
+			currentAnimation = ANIMATION_DUCK;
 		}
 	}
 	
