@@ -1,9 +1,5 @@
 package com.redsponge.platformer;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-
 import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.input.KeyManager;
@@ -16,6 +12,8 @@ import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.redutils.console.ConsoleMSG;
 import com.redsponge.redutils.display.GameDisplay;
+
+import java.awt.*;
 
 public class Platformer implements Runnable {
 
@@ -122,6 +120,7 @@ public class Platformer implements Runnable {
 			g.drawString("[player_onground]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().onGround(), 5, fontSize*5);
 			g.drawString("[player_action]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getAction(), 5, fontSize*6);
 			g.drawString("[player_facing]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getFacing(), 5, fontSize*7);
+			g.drawString("[player_fly_jump]: " + Settings.allowFlyJump, 5, fontSize*8);
 		}
 		//END
 		display.push();

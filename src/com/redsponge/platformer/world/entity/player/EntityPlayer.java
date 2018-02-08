@@ -1,9 +1,5 @@
 package com.redsponge.platformer.world.entity.player;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
 import com.redsponge.platformer.gfx.animation.Animation;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.io.AssetsHandler;
@@ -16,6 +12,9 @@ import com.redsponge.platformer.world.entity.AbstractLivingEntity;
 import com.redsponge.platformer.world.entity.Action;
 import com.redsponge.platformer.world.entity.Facing;
 import com.redsponge.redutils.console.ConsoleMSG;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class EntityPlayer extends AbstractLivingEntity {
 
@@ -31,7 +30,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 	private final int ANIMATION_RUN_SPEED = 5;
 	
 	private Animation ANIMATION_DUCK;
-	//private final int ANIMATION_DUCK_SPEED = 30;
+	private final int ANIMATION_DUCK_SPEED = 30;
 	
 	protected float speedRunAmplifier;
 	protected float runAmplifier;
@@ -58,8 +57,6 @@ public class EntityPlayer extends AbstractLivingEntity {
 		maxSpeed = 6;
 		running = false;
 		renderBoundingBox = false;
-		//tester = boundingBox.clone();
-		//tester.setColor(Color.GREEN);
 	}
 
 	private void registerAnimationAssets() {
@@ -120,7 +117,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 				AssetsHandler.getImage(pathMain + "/run/left/run_8.png"),
 		}, ANIMATION_RUN_SPEED, "animationRunPlayer");
 		
-		ANIMATION_DUCK = ANIMATION_IDLE.clone();
+		ANIMATION_DUCK = new Animation(this, new BufferedImage[] {AssetsHandler.getImage(pathMain + "/duck/right/duck_0.png")}, new BufferedImage[] {AssetsHandler.getImage(pathMain + "/duck/left/duck_0.png")}, ANIMATION_DUCK_SPEED, "animationDuckPlayer");
 		
 		
 		ConsoleMSG.ADD.info("Successfully Registered Player Animation Assets!");
@@ -145,7 +142,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 	}
 	
 	private void tickMovement() {
-		if(action == Action.IDLE) {
+		if(action == Action.IDLE || action == Action.DUCKING) {
 			speedX = 0;
 			return;
 		}
@@ -162,7 +159,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 	}
 	
 	public void moveX(BoundingBox box) {
-		if(touchingBlocks(box, true)) {
+		if(touchingBlocks()) {
 			return;
 		} else {
 			if(x < handler.getCanvasWidth()/2) {
@@ -240,27 +237,23 @@ public class EntityPlayer extends AbstractLivingEntity {
 		}
 	}
 	
-	public boolean touchingBlocks(BoundingBox box, boolean doTester) {
+	public boolean touchingBlocks() {
 		BoundingBox xTester = boundingBox.clone();
-		int directionMultiplier = (direction == Facing.RIGHT || direction == Facing.NONE)?1:(direction == Facing.LEFT)?-1:1;
+		int directionMultiplier = (direction == Facing.RIGHT || direction == Facing.NONE) ? 1 : (direction == Facing.LEFT) ? -1 : 1;
 		xTester.setX(xTester.getX() + speedX);
-		if(running) {
+		if (running) {
 			xTester.setX(xTester.getX() + speedRunAmplifier * directionMultiplier);
 		}
 		tester = xTester;
-		if(xTester.getX() <= 0) {
+		if (xTester.getX() <= 0) {
 			return true;
 		}
-		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
-			if(MathUtils.twoRectCollision(xTester.asRectangle(), b.getBoundingBox().asRectangle()) && b.isSolid()) {
+		for (AbstractBlock b : ((StateLevel) StateManager.getCurrentState()).getWorldBlocks()) {
+			if (MathUtils.twoRectCollision(xTester.asRectangle(), b.getBoundingBox().asRectangle()) && b.isSolid()) {
 				return true;
 			}
 		}
 		return false;
-	}
-	
-	public boolean touchingBlocks(BoundingBox box) {
-		return touchingBlocks(box, true);
 	}
 	
 	public void render(Graphics g) {
@@ -273,32 +266,25 @@ public class EntityPlayer extends AbstractLivingEntity {
 	}
 	
 	private void setCurrentAnimation(Action a) {
-		if(a == Action.IDLE) {
+		if (a == Action.IDLE) {
 			currentAnimation = ANIMATION_IDLE;
 		}
-		if(a == Action.WALKING) {
+		if (a == Action.WALKING) {
 			currentAnimation = ANIMATION_WALK;
 		}
-		if(running) {
-			currentAnimation = ANIMATION_RUN; 
+		if (running && a != Action.IDLE) {
+			currentAnimation = ANIMATION_RUN;
 		}
-		if(a == Action.DUCKING) {
+		if (a == Action.DUCKING) {
 			currentAnimation = ANIMATION_DUCK;
 		}
-	}
-	
-	public void setSize(int size) {
-		this.size = size;
-	}
-	
-	public int getSize() {
-		return size;
 	}
 	
 	public Action getAction() {
 		return action;
 	}
-	
+
+	@SuppressWarnings("unused")
 	public boolean isRunning() {
 		return running;
 	}

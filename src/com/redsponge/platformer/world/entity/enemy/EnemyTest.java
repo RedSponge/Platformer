@@ -1,9 +1,8 @@
 package com.redsponge.platformer.world.entity.enemy;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import com.redsponge.platformer.handler.Handler;
+
+import java.awt.*;
 
 public class EnemyTest extends AbstractEnemy {
 

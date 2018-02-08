@@ -1,13 +1,13 @@
 package com.redsponge.platformer.world.entity.enemy;
 
-import java.util.List;
-
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.utils.MathUtils;
 import com.redsponge.platformer.world.BoundingBox;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.entity.AbstractLivingEntity;
 import com.redsponge.platformer.world.entity.Facing;
+
+import java.util.List;
 
 public abstract class AbstractEnemy extends AbstractLivingEntity {
 

@@ -1,26 +1,21 @@
 package com.redsponge.platformer.state;
 
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.gfx.color.CustomColor;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.level.AbstractLevel;
 import com.redsponge.platformer.level.Level1;
 import com.redsponge.platformer.level.LevelUtils;
-import com.redsponge.platformer.world.IDontRenderBB;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.ITickingBlock;
 import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
-import com.redsponge.platformer.world.entity.enemy.EnemyTest;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 import com.redsponge.redutils.console.ConsoleMSG;
+import com.redsponge.platformer.world.entity.enemy.EnemyTest;
+
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 public class StateLevel extends AbstractState {
 	
@@ -79,10 +74,6 @@ public class StateLevel extends AbstractState {
 		worldBlocks.add(b);
 	}
 	
-	public void addBlocks(List<AbstractBlock> b) {
-		worldBlocks.addAll(b);
-	}
-	
 	public void tick() {
 		Ticking.tickWorldBlocks(worldBlocks);
 		Ticking.tickWorldEnemies(worldEnemies.values());
@@ -130,7 +121,7 @@ class Rendering {
 				continue;
 			}
 			b.render(g);
-			if(boundingBoxes && !(b instanceof IDontRenderBB)) {
+			if(boundingBoxes && b.isRenderBoundingBox()) {
 				b.getBoundingBox().render(g);
 			}
 		}

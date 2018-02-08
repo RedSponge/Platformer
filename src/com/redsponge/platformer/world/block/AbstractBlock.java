@@ -1,11 +1,11 @@
 package com.redsponge.platformer.world.block;
 
-import java.awt.Graphics;
-
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.world.BoundingBox;
 import com.redsponge.platformer.world.BoundingBoxUser;
 import com.redsponge.platformer.world.material.BlockMaterial;
+
+import java.awt.*;
 
 public abstract class AbstractBlock extends BoundingBoxUser {
 	
@@ -46,6 +46,10 @@ public abstract class AbstractBlock extends BoundingBoxUser {
 	
 	public boolean isInFront() {
 		return false;
+	}
+
+	public boolean isRenderBoundingBox() {
+		return true;
 	}
 	
 	public BlockMaterial getMaterial() {
