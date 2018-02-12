@@ -16,13 +16,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="red_utils_build_1.02.jar">
+    <orderEntry type="module-library" exported="">
+      <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../RedUtils/builds/1.02/red_utils_build_1.02.jar!/" />
+          <root url="file://$MODULE_DIR$/dep" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/dep" recursive="false" />
       </library>
     </orderEntry>
   </component>

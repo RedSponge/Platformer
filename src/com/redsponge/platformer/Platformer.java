@@ -121,6 +121,8 @@ public class Platformer implements Runnable {
 			g.drawString("[player_action]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getAction(), 5, fontSize*6);
 			g.drawString("[player_facing]: " + ((StateLevel)StateManager.getCurrentState()).getPlayer().getFacing(), 5, fontSize*7);
 			g.drawString("[player_fly_jump]: " + Settings.allowFlyJump, 5, fontSize*8);
+			g.drawString("[cam_offset_x]: " + cameraManager.getOffsetX(), 5, fontSize*9);
+			g.drawString("[cam_offset_y]: " + cameraManager.getOffsetY(), 5, fontSize*10);
 		}
 		//END
 		display.push();

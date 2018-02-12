@@ -160,16 +160,23 @@ public class EntityPlayer extends AbstractLivingEntity {
 	
 	public void moveX(BoundingBox box) {
 		if(touchingBlocks()) {
+		    speedX = 0;
 			return;
 		} else {
-			if(x < handler.getCanvasWidth()/2) {
-				x += speedX;
-			} else {
+		    System.out.println(handler.getCameraManager().getOffsetX());
+            System.out.println(handler.getCameraManager().getMaxX());
+			if((x < handler.getCanvasWidth()/2 && handler.getCameraManager().getOffsetX() <= 0) || (x >= handler.getCanvasWidth()/2 && handler.getCameraManager().getOffsetX() >= handler.getCameraManager().getMaxX())) {
+			    x += speedX;
+			    handler.getCameraManager().setMoving(false);
+			}
+			else {
 				handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
 				if(handler.getCameraManager().getOffsetX() < 0) {
 					handler.getCameraManager().setOffsetX(0);
 					x += speedX;
-				}
+                    handler.getCameraManager().setMoving(false);
+				} else
+                handler.getCameraManager().setMoving(true);
 			}
 		}
 	}
@@ -245,7 +252,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 			xTester.setX(xTester.getX() + speedRunAmplifier * directionMultiplier);
 		}
 		tester = xTester;
-		if (xTester.getX() <= 0) {
+		if (xTester.getX() <= 0 || xTester.getRight() >= handler.getCanvasWidth()) {
 			return true;
 		}
 		for (AbstractBlock b : ((StateLevel) StateManager.getCurrentState()).getWorldBlocks()) {

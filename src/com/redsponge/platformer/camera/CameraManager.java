@@ -4,6 +4,7 @@ import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
+import com.redsponge.redutils.console.ConsoleMSG;
 
 public class CameraManager {
 	
@@ -12,36 +13,45 @@ public class CameraManager {
 	private Handler handler;
 	private StateLevel stateLevel;
 	public CameraUtils utils;
-	
+
+	private boolean moving;
+
+	private int maxX, maxY;
+
 	public CameraManager(Handler handler) {
 		this.handler = handler;
 		offsetX = 0;
 		offsetY = 0;
+		moving = false;
 	}
 	
 	public void tick() {
 		tickWorldBlocks();
-		//tickWorldEnemies();
+		tickWorldEnemies();
 		tickPlayer();
 	}
 	
 	public void init(StateLevel stateLevel) {
 		this.stateLevel = stateLevel;
 		utils = new CameraUtils(handler, this, stateLevel);
+		maxX = stateLevel.getWorldXSize() - handler.getCanvasWidth();
+		ConsoleMSG.INFO.info(Integer.toString(maxX), this);
 	}
-	
+
 	private void tickWorldBlocks() {
 		for(AbstractBlock b : stateLevel.getWorldBlocks()) {
 			b.setX(b.getStartX() - offsetX);
 			b.getBoundingBox().setX(b.getX());
 		}
 	}
-	
-	@SuppressWarnings("unused")
+
 	private void tickWorldEnemies() {
+	    if(!moving) {
+	        return;
+        }
 		for(AbstractEnemy e : stateLevel.getWorldEnemies().values()) {
 			e.updateCurrentPosition();
-			e.setX(e.getCurrentX() - offsetX);
+			e.setX(e.getCurrentX() - stateLevel.getPlayer().getSpeedX());
 			e.getBoundingBox().setX(e.getX());
 		}
 	}
@@ -49,7 +59,11 @@ public class CameraManager {
 	private void tickPlayer() {
 		
 	}
-	
+
+	public int getMaxX() {
+		return maxX;
+	}
+
 	public float getOffsetX() {
 		return offsetX;
 	}
@@ -57,8 +71,16 @@ public class CameraManager {
 	public float getOffsetY() {
 		return offsetY;
 	}
-	
-	public void setOffsetX(float offsetX) {
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public void setOffsetX(float offsetX) {
 		this.offsetX = offsetX;
 	}
 	

@@ -9,9 +9,9 @@ import com.redsponge.platformer.level.LevelUtils;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.ITickingBlock;
 import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
+import com.redsponge.platformer.world.entity.enemy.EnemyTest;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 import com.redsponge.redutils.console.ConsoleMSG;
-import com.redsponge.platformer.world.entity.enemy.EnemyTest;
 
 import java.awt.*;
 import java.util.*;
@@ -26,6 +26,9 @@ public class StateLevel extends AbstractState {
 	private AbstractLevel loadedLevel;
 	private boolean doRenderWorldBlockBoundingBoxes;
 	private CameraManager cameraManager;
+
+	private int worldXSize;
+	private int worldYSize;
 	
 	public StateLevel(Handler handler) {
 		super(handler);
@@ -48,19 +51,22 @@ public class StateLevel extends AbstractState {
 	}
 
 	private void registerBlocks(AbstractLevel l) {
+	    int blockSize = 32;
 		ConsoleMSG.ADD.info("Registering Blocks for Level \"" + l.getClass().getSimpleName() + "\"");
 		worldBlocks = new ArrayList<AbstractBlock>();
 		int[][] level = l.getLevelBlocks();
 		for(int y = 0; y < level.length; y++) {
 			for(int x = 0; x < level[y].length; x++) {
 				try {
-					addBlock((AbstractBlock) LevelUtils.translateNumberToBlockClass(level[y][x]).getDeclaredConstructors()[0].newInstance(handler, (int) x*32, (int) y*32, 32, 32));
+					addBlock((AbstractBlock) LevelUtils.translateNumberToBlockClass(level[y][x]).getDeclaredConstructors()[0].newInstance(handler, (int) x*blockSize, (int) y*blockSize, blockSize, blockSize));
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		this.loadedLevel = l;
+		worldXSize = l.getLevelBlocks()[0].length/2 * blockSize ;
+		worldYSize = l.getLevelBlocks().length;
 		ConsoleMSG.ADD.info("Successfully Registered Blocks for Level \"" + l.getClass().getSimpleName() + "\"");
 	}
 	
@@ -112,6 +118,14 @@ public class StateLevel extends AbstractState {
 	public Map<UUID, AbstractEnemy> getWorldEnemies() {
 		return worldEnemies;
 	}
+
+    public int getWorldXSize() {
+        return worldXSize;
+    }
+
+    public int getWorldYSize() {
+        return worldYSize;
+    }
 }
 
 class Rendering {
