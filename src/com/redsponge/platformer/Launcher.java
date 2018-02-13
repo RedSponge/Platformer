@@ -3,7 +3,8 @@ package com.redsponge.platformer;
 import com.redsponge.platformer.version.Version;
 import com.redsponge.redutils.console.ConsoleMSG;
 
-public class Launcher {
+public class
+Launcher {
 	
 	public static final int WIDTH = (int) (640*1.5), HEIGHT = (int) (480*1.2);
 	public static final String TITLE = "Platformer";

@@ -35,7 +35,10 @@ public class EntityPlayer extends AbstractLivingEntity {
 	protected float speedRunAmplifier;
 	protected float runAmplifier;
 	protected float maxSpeed;
-	
+
+	private float absoluteX;
+	private float absoluteY;
+
 	private Animation currentAnimation;
 	
 	private boolean running;
@@ -163,12 +166,38 @@ public class EntityPlayer extends AbstractLivingEntity {
 		    speedX = 0;
 			return;
 		}
-		if(handler.getCameraManager().getOffsetX() <= 0 && x < handler.getCanvasWidth()/2) {
-            x += speedX;
+		if(x < handler.getCanvasWidth()/2) {
+		    if(handler.getCameraManager().getOffsetX() > 0) {
+		        handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
+		        handler.getCameraManager().setMoving(true);
+            } else {
+                x += speedX;
+                handler.getCameraManager().setMoving(false);
+                handler.getCameraManager().setOffsetX(0);
+            }
+		} else if(x >= handler.getCanvasWidth()/2) {
+            if(handler.getCameraManager().getOffsetX() + speedX <= 0) {
+                x += speedX;
+                handler.getCameraManager().setMoving(false);
+            } else if(handler.getCameraManager().getOffsetX() > handler.getCameraManager().getMaxX()) {
+                if(x <= handler.getCanvasWidth()/2) {
+                    handler.getCameraManager().setOffsetX(handler.getCameraManager().getMaxX());
+                    handler.getCameraManager().setMoving(false);
+                } else {
+                    if(x < handler.getCanvasWidth()/2) {
+                        handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
+                        handler.getCameraManager().setMoving(true);
+                    } else {
+                        x += speedX;
+                        handler.getCameraManager().setMoving(false);
+                    }
+                }
+            } else {
+                handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
+                handler.getCameraManager().setMoving(true);
+            }
 		}
-		else if(x >= handler.getCanvasWidth()/2) {
-            handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
-        }
+		absoluteX = handler.getCameraManager().getOffsetX() + x;
 	}
 
 	private void tickKeys() {
@@ -288,6 +317,22 @@ public class EntityPlayer extends AbstractLivingEntity {
 	
 	public Facing getFacing() {
 		return direction;
+	}
+
+	public float getAbsoluteX() {
+		return absoluteX;
+	}
+
+	public float getAbsoluteY() {
+		return absoluteY;
+	}
+
+	public void setAbsoluteX(float absoluteX) {
+		this.absoluteX = absoluteX;
+	}
+
+	public void setAbsoluteY(float absoluteY) {
+		this.absoluteY = absoluteY;
 	}
 }
 
