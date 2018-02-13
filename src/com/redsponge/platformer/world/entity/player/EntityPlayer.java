@@ -162,23 +162,13 @@ public class EntityPlayer extends AbstractLivingEntity {
 		if(touchingBlocks()) {
 		    speedX = 0;
 			return;
-		} else {
-		    System.out.println(handler.getCameraManager().getOffsetX());
-            System.out.println(handler.getCameraManager().getMaxX());
-			if((x < handler.getCanvasWidth()/2 && handler.getCameraManager().getOffsetX() <= 0) || (x >= handler.getCanvasWidth()/2 && handler.getCameraManager().getOffsetX() >= handler.getCameraManager().getMaxX())) {
-			    x += speedX;
-			    handler.getCameraManager().setMoving(false);
-			}
-			else {
-				handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
-				if(handler.getCameraManager().getOffsetX() < 0) {
-					handler.getCameraManager().setOffsetX(0);
-					x += speedX;
-                    handler.getCameraManager().setMoving(false);
-				} else
-                handler.getCameraManager().setMoving(true);
-			}
 		}
+		if(handler.getCameraManager().getOffsetX() <= 0 && x < handler.getCanvasWidth()/2) {
+            x += speedX;
+		}
+		else if(x >= handler.getCanvasWidth()/2) {
+            handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
+        }
 	}
 
 	private void tickKeys() {
