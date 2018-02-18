@@ -1,10 +1,10 @@
 package com.redsponge.platformer.state;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.redutils.console.ConsoleMSG;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class StateManager {
 	
@@ -29,6 +29,14 @@ public class StateManager {
 			throw new StateNotFoundException(state);
 		}
 		StateManager.currentState = states.get(state);
+	}
+
+	public static StateLevel getLevelState() {
+		try {
+			return (StateLevel) currentState;
+		} catch (Exception e) {
+			throw new StateNotStateLevelException();
+		}
 	}
 	
 	public static AbstractState getCurrentState() {

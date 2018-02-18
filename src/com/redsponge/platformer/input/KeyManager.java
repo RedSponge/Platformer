@@ -1,14 +1,15 @@
 package com.redsponge.platformer.input;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.HashMap;
-
+import com.redsponge.platformer.GameManager;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.settings.Settings;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.redutils.console.ConsoleMSG;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.HashMap;
 
 public class KeyManager implements KeyListener {
 
@@ -39,6 +40,10 @@ public class KeyManager implements KeyListener {
 		if(e.getKeyCode() == Settings.keys.get("toggle_fly_jump")) {
 			Settings.allowFlyJump = !Settings.allowFlyJump;
 			ConsoleMSG.INFO.info("Toggled Fly Jumping!");
+		}
+
+		if(e.getKeyCode() == Settings.keys.get("reset_level")) {
+            GameManager.resetLevelState();
 		}
 	}
 

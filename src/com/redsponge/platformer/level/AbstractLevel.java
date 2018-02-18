@@ -10,6 +10,8 @@ public abstract class AbstractLevel {
 	}
 	
 	public abstract int[][] getLevelBlocks();
+
+	public abstract int getBlockSize();
 	
 	public int PLAYER_START_X;
 	public int PLAYER_START_Y;

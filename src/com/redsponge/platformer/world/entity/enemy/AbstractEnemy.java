@@ -37,11 +37,14 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
 	}
 	
 	public void moveX(BoundingBox box) {
-		if(touchingBlocks(box)) {
+		if(touchingBlocks(box, false)) {
 			if(onGround) {
 				turn();
 			}
 		}
+        if(x <= 0 - handler.getCameraManager().getOffsetX()) {
+            turn();
+        }
 		x += speedX;
 	}
 	

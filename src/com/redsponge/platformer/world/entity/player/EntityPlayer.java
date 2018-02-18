@@ -166,8 +166,12 @@ public class EntityPlayer extends AbstractLivingEntity {
 		    speedX = 0;
 			return;
 		}
-		if(x < handler.getCanvasWidth()/2) {
-		    if(handler.getCameraManager().getOffsetX() > 0) {
+
+		if(x < handler.getCanvasWidth()/2) { // IF BEFORE SCROLLING STARTS (BEFORE MIDDLE)
+            if(handler.getCameraManager().getOffsetX() >= handler.getCameraManager().getMaxX() && x < handler.getCanvasWidth()/2 && direction == Facing.RIGHT) {
+                x = handler.getCanvasWidth()/2;
+            }
+		    else if(handler.getCameraManager().getOffsetX() > 0) {
 		        handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
 		        handler.getCameraManager().setMoving(true);
             } else {
@@ -176,23 +180,15 @@ public class EntityPlayer extends AbstractLivingEntity {
                 handler.getCameraManager().setOffsetX(0);
             }
 		} else if(x >= handler.getCanvasWidth()/2) {
-            if(handler.getCameraManager().getOffsetX() + speedX <= 0) {
+            if(handler.getCameraManager().getOffsetX() >= handler.getCameraManager().getMaxX()) {
                 x += speedX;
                 handler.getCameraManager().setMoving(false);
-            } else if(handler.getCameraManager().getOffsetX() > handler.getCameraManager().getMaxX()) {
-                if(x <= handler.getCanvasWidth()/2) {
-                    handler.getCameraManager().setOffsetX(handler.getCameraManager().getMaxX());
-                    handler.getCameraManager().setMoving(false);
-                } else {
-                    if(x < handler.getCanvasWidth()/2) {
-                        handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
-                        handler.getCameraManager().setMoving(true);
-                    } else {
-                        x += speedX;
-                        handler.getCameraManager().setMoving(false);
-                    }
-                }
-            } else {
+            } else if(handler.getCameraManager().getOffsetX() < 0) {
+                handler.getCameraManager().setOffsetX(0);
+                handler.getCameraManager().setMoving(false);
+                x += speedX;
+            }
+            else {
                 handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
                 handler.getCameraManager().setMoving(true);
             }

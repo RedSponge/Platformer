@@ -4,7 +4,7 @@ import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.gfx.color.CustomColor;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.level.AbstractLevel;
-import com.redsponge.platformer.level.Level1;
+import com.redsponge.platformer.level.Level2;
 import com.redsponge.platformer.level.LevelUtils;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.ITickingBlock;
@@ -22,25 +22,41 @@ public class StateLevel extends AbstractState {
 	private List<AbstractBlock> worldBlocks;
 	private Map<UUID, AbstractEnemy> worldEnemies;
 	private EntityPlayer player;
+
+	private boolean reseting;
 	
 	private AbstractLevel loadedLevel;
 	private boolean doRenderWorldBlockBoundingBoxes;
 	private CameraManager cameraManager;
+
+	private int blockSize;
 
 	private int worldXSize;
 	private int worldYSize;
 	
 	public StateLevel(Handler handler) {
 		super(handler);
+		init();
+	}
+
+	private void init() {
 		doRenderWorldBlockBoundingBoxes = false;
 		registerEnemies();
-		registerBlocks(new Level1(handler));
+		registerBlocks(new Level2(handler));
+        registerCameraManager();
 		setupPlayer();
-		registerCameraManager();
 	}
-	
+
+	public void reset() {
+		reseting = true;
+		init();
+		cameraManager.reset();
+		reseting = false;
+	}
+
 	private void registerCameraManager() {
 		cameraManager = handler.getCameraManager();
+		cameraManager.reset();
 		cameraManager.init(this);
 	}
 	
@@ -51,7 +67,7 @@ public class StateLevel extends AbstractState {
 	}
 
 	private void registerBlocks(AbstractLevel l) {
-	    int blockSize = 32;
+		blockSize = l.getBlockSize();
 		ConsoleMSG.ADD.info("Registering Blocks for Level \"" + l.getClass().getSimpleName() + "\"");
 		worldBlocks = new ArrayList<AbstractBlock>();
 		int[][] level = l.getLevelBlocks();
@@ -81,6 +97,7 @@ public class StateLevel extends AbstractState {
 	}
 	
 	public void tick() {
+	    if(reseting) return;
 		Ticking.tickWorldBlocks(worldBlocks);
 		Ticking.tickWorldEnemies(worldEnemies.values());
 		cameraManager.tick();
@@ -88,6 +105,7 @@ public class StateLevel extends AbstractState {
 	}
 	
 	public void render(Graphics g) {
+	    if(reseting) return;
 		Rendering.renderWorldSky(handler, g);
 		Rendering.renderBackgroundWorldBlocks(g, cameraManager.utils.getOnScreenWorldBlocks(), doRenderWorldBlockBoundingBoxes);
 		Rendering.renderWorldEnemies(g, worldEnemies.values());
@@ -126,6 +144,10 @@ public class StateLevel extends AbstractState {
     public int getWorldYSize() {
         return worldYSize;
     }
+
+	public int getBlockSize() {
+		return blockSize;
+	}
 }
 
 class Rendering {

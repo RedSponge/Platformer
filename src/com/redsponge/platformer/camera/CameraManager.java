@@ -20,12 +20,23 @@ public class CameraManager {
 
 	public CameraManager(Handler handler) {
 		this.handler = handler;
+		init();
+	}
+
+	private void init() {
 		offsetX = 0;
 		offsetY = 0;
 		moving = false;
 	}
+
+	public void reset() {
+		init();
+	}
 	
 	public void tick() {
+	    if(offsetX > maxX) {
+	        offsetX = maxX;
+        }
 		tickWorldBlocks();
 		tickWorldEnemies();
 		tickPlayer();
@@ -41,6 +52,7 @@ public class CameraManager {
 	private void tickWorldBlocks() {
 		for(AbstractBlock b : stateLevel.getWorldBlocks()) {
 			b.setX(b.getStartX() - offsetX);
+			b.setX(b.getX()-b.getX()%1);
 			b.getBoundingBox().setX(b.getX());
 		}
 	}

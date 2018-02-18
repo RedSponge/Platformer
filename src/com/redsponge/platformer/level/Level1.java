@@ -9,7 +9,11 @@ public class Level1 extends AbstractLevel {
 		 PLAYER_START_X = 100;
 		 PLAYER_START_Y = 100;
 	}
-	
+
+	public int getBlockSize() {
+	     return 32;
+    }
+
 	@Override
 	public int[][] getLevelBlocks() {
 		return LevelParser.parseLevelFile(handler, "/data/levels/l01.platlev");

@@ -1,8 +1,5 @@
 package com.redsponge.platformer.world.entity;
 
-import java.awt.Graphics;
-import java.util.List;
-
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.settings.Settings;
 import com.redsponge.platformer.state.StateLevel;
@@ -10,6 +7,9 @@ import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.utils.MathUtils;
 import com.redsponge.platformer.world.BoundingBox;
 import com.redsponge.platformer.world.block.AbstractBlock;
+
+import java.awt.*;
+import java.util.List;
 
 public abstract class AbstractLivingEntity extends AbstractEntity {
 	
@@ -109,10 +109,10 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		}
 	}
 	
-	public boolean touchingBlocks(BoundingBox box) {
+	public boolean touchingBlocks(BoundingBox box, boolean checkScreen) {
 		BoundingBox xTester = box.clone();
 		xTester.setX(xTester.getX() + speedX);
-		if(this.x < 0) {
+		if(this.x < 0 && checkScreen) {
 			return true;
 		}
 		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
@@ -122,6 +122,10 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		}
 		return false;
 	}
+
+	public boolean touchingBlocks(BoundingBox box) {
+	    return touchingBlocks(box, true);
+    }
 	
 	private void moveY() {
 		y += speedY;

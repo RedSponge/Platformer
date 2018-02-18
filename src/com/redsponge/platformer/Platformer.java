@@ -60,7 +60,11 @@ public class Platformer implements Runnable {
 		ConsoleMSG.ADD.info("Registering Key Manager!");
 		display.getFrame().addKeyListener(keyManager);
 		ConsoleMSG.ADD.info("Successfully Created and Registered Key Manager!");
-		
+
+		ConsoleMSG.ADD.info("Initiating Game Manager!");
+		GameManager.init(this);
+		ConsoleMSG.ADD.info("Successfully Initiated Game Manager!");
+
 		ConsoleMSG.ADD.info("Initiating LevelUtils");
 		LevelUtils.init();
 		ConsoleMSG.ADD.info("Successfully Initiated LevelUtils");
@@ -187,8 +191,21 @@ public class Platformer implements Runnable {
 	public CameraManager getCameraManager() {
 		return cameraManager;
 	}
-	
-	public FileHandler getFileHandler() {
+
+	public void reset() {
+		running = false;
+		Launcher.main(null);
+	}
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public FileHandler getFileHandler() {
 		return fileHandler;
 	}
 }

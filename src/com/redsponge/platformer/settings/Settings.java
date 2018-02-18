@@ -25,6 +25,7 @@ public class Settings {
 		keys.put("toggle_worldblocks_bounding_box", KeyEvent.VK_F2);
 		keys.put("toggle_debug", KeyEvent.VK_F3);
 		keys.put("toggle_fly_jump", KeyEvent.VK_F4);
+		keys.put("reset_level", KeyEvent.VK_F5);
 		displayDebug = true;
 		allowFlyJump = false;
 	}
