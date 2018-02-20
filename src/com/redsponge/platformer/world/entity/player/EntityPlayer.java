@@ -12,6 +12,7 @@ import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.entity.AbstractLivingEntity;
 import com.redsponge.platformer.world.entity.Action;
 import com.redsponge.platformer.world.entity.Facing;
+import com.redsponge.platformer.world.entity.KillCause;
 import com.redsponge.redutils.console.ConsoleMSG;
 
 import java.awt.*;
@@ -25,7 +26,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 	private final int ANIMATION_IDLE_SPEED = 30;
 	
 	private Animation ANIMATION_WALK;
-	private final int ANIMATION_WALK_SPEED = 5;
+    private final int ANIMATION_WALK_SPEED = 5;
 	
 	private Animation ANIMATION_RUN;
 	private final int ANIMATION_RUN_SPEED = 5;
@@ -57,7 +58,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 		setCurrentAnimation(Action.IDLE);
 		speed = 3;
 		speedRunAmplifier = 0;
-		runAmplifier = 1.005f;
+		runAmplifier = 1.015f;
 		maxSpeed = 10;
 		running = false;
 		renderBoundingBox = false;
@@ -140,16 +141,17 @@ public class EntityPlayer extends AbstractLivingEntity {
 			tickJumping();
 		}
 		move();
+        tickFalling();
 		if(outsideOfWorld) {
 			y = ((StateLevel)StateManager.getCurrentState()).getLoadedLevel().PLAYER_START_Y;
 		}
 	}
 
 	public void hurt() {
-
+        ConsoleMSG.INFO.info("Ouch!", this);
     }
 
-	public void kill() {
+	public void kill(KillCause cause) {
         GameManager.resetLevelState();
     }
 	
@@ -171,9 +173,12 @@ public class EntityPlayer extends AbstractLivingEntity {
 	}
 	
 	public void moveX(BoundingBox box) {
-		if(touchingBlocks()) {
+		if(touchingBlocks()) { // IF TOUCHING A BLOCK
 		    speedX = 0;
 		    speedRunAmplifier = 0;
+		    action = Action.IDLE;
+		    setCurrentAnimation(action);
+		    currentAnimation.tick();
 			return;
 		}
 
@@ -251,7 +256,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 	}
 	
 	private void tickRunning() {
-		if(!running) {
+		if(!running || action != Action.RUNNING) {
 			speedRunAmplifier = 0;
 			return;
 		}

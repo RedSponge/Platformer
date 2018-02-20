@@ -7,6 +7,7 @@ import com.redsponge.platformer.world.BoundingBox;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.entity.AbstractLivingEntity;
 import com.redsponge.platformer.world.entity.Facing;
+import com.redsponge.platformer.world.entity.KillCause;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
 
 	protected float currentX;
 	protected float currentY;
+	protected EnemyPropertyMap propertyMap;
 	
 	protected boolean hasBeenOnGround;
 	
@@ -24,6 +26,7 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
 		speedX = 3;
 		direction = Facing.RIGHT;
 		updateCurrentPosition();
+		propertyMap = new EnemyPropertyMap();
 		hasBeenOnGround = false;
 	}
 	
@@ -42,17 +45,26 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
 	public void tickPlayer() {
         EntityPlayer player = StateManager.getLevelState().getPlayer();
         if(MathUtils.twoRectCollision(boundingBox.asRectangle(), player.getBoundingBox().asRectangle())){
-            /*if(MathUtils.onTopOf()) {
-
+            if(playerOnMe(this, player)) {
+                this.kill(KillCause.KillCauseCreator.generate(KillCause.EnumKillType.STOMP, this, player));
             } else {
                 player.hurt();
-            }*/
+            }
         }
     }
 
-	public void kill() {
+	public void kill(KillCause killCause) {
+	    switch(killCause.getKillType().getId()) {
+            case "stomp":
+                KillCause.KillStomp cause = (KillCause.KillStomp) killCause;
+                if(propertyMap.BouncePlayerOnKill()) {
+                    cause.getPlayer().jump(false);
+                }
+                break;
+        }
         StateManager.getLevelState().getWorldEnemies().remove(uuid);
     }
+
 
 	public void moveX(BoundingBox box) {
 		if(touchingBlocks(box, false)) {
@@ -90,6 +102,15 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
 		currentX = x;
 		currentY = y;
 	}
+
+	public static boolean playerOnMe(AbstractEnemy enemy, EntityPlayer player) {
+	    if(MathUtils.twoRectCollision(enemy.getBoundingBox().asRectangle(), player.getBoundingBox().asRectangle())) {
+	        if(player.isFalling()) {
+                return true;
+            }
+        }
+        return false;
+    }
 	
 	public float getCurrentX() {
 		return currentX;

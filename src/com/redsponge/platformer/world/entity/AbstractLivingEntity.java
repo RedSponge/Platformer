@@ -40,7 +40,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		renderBoundingBox = false;
 	}
 
-	public abstract void kill();
+	public abstract void kill(KillCause cause);
 	
 	public void tick() {
 		super.tick();
@@ -144,6 +144,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	
 	public void tickGravity() {	
 		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
+		tickFalling();
 		if(!isGravityApplied) {
 			fallingSpeed = 0;
 			return;
@@ -164,14 +165,18 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		}
 	}
 	
-	public void jump() {
-		if(!onGround && !Settings.allowFlyJump) {
+	public void jump(boolean doCheck) {
+		if(!onGround && !Settings.allowFlyJump && doCheck) {
 			return;
 		}
 		speedY = 0;
 		jumping = true;
 		jumpStartY = boundingBox.getTop();
 		onGround = false;
+	}
+
+	public void jump() {
+		jump(true);
 	}
 	
 	public Facing getDirection() {

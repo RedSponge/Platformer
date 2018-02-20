@@ -20,6 +20,7 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	protected boolean onGround;
 	protected float fallingSpeed;
 	protected float fallingMultiplier;
+	protected boolean falling;
 	
 	protected float fallingSpeedMax;
 	
@@ -60,7 +61,11 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 		onTopOf = null;
 		onGround = false;		
 	}
-	
+
+	public void tickFalling() {
+	    falling = speedY > 0;
+    }
+
 	public abstract void render(Graphics g);
 
 	public boolean isEnemy() {
@@ -86,4 +91,8 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	public UUID getUUID() {
 		return uuid;
 	}
+
+    public boolean isFalling() {
+        return falling;
+    }
 }
