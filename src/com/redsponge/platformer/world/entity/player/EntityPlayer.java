@@ -1,5 +1,6 @@
 package com.redsponge.platformer.world.entity.player;
 
+import com.redsponge.platformer.GameManager;
 import com.redsponge.platformer.gfx.animation.Animation;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.io.AssetsHandler;
@@ -57,7 +58,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 		speed = 3;
 		speedRunAmplifier = 0;
 		runAmplifier = 1.005f;
-		maxSpeed = 6;
+		maxSpeed = 10;
 		running = false;
 		renderBoundingBox = false;
 	}
@@ -143,6 +144,14 @@ public class EntityPlayer extends AbstractLivingEntity {
 			y = ((StateLevel)StateManager.getCurrentState()).getLoadedLevel().PLAYER_START_Y;
 		}
 	}
+
+	public void hurt() {
+
+    }
+
+	public void kill() {
+        GameManager.resetLevelState();
+    }
 	
 	private void tickMovement() {
 		if(action == Action.IDLE || action == Action.DUCKING) {
@@ -164,6 +173,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 	public void moveX(BoundingBox box) {
 		if(touchingBlocks()) {
 		    speedX = 0;
+		    speedRunAmplifier = 0;
 			return;
 		}
 
@@ -246,7 +256,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 			return;
 		}
 		if(speedRunAmplifier == 0) {
-			speedRunAmplifier = speed;
+			speedRunAmplifier += 1;
 		}
 		if(speedRunAmplifier > maxSpeed - speed) {
 			speedRunAmplifier = maxSpeed - speed;

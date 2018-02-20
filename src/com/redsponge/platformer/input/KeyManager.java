@@ -17,7 +17,6 @@ public class KeyManager implements KeyListener {
 	public HashMap<String, Boolean> keyList;
 
 	private Handler handler;
-	
 	public KeyManager(Handler handler) {
 		this.handler = handler;
 		keys = new boolean[1024];

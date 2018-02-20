@@ -1,13 +1,14 @@
 package com.redsponge.platformer.utils;
 
-import java.awt.Rectangle;
-
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.world.BoundingBox;
+import com.redsponge.platformer.world.BoundingBoxUser;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.entity.AbstractEntity;
+
+import java.awt.*;
 
 public class MathUtils {
 	
@@ -18,11 +19,11 @@ public class MathUtils {
 				&& (rect1.y < rect2.y + rect2.height) && (rect1.y + rect1.height > rect2.y);
 	}
 	
-	public static boolean onTopOfBlock(AbstractEntity e, AbstractBlock b) {
+	public static boolean onTopOf(AbstractEntity e, BoundingBoxUser b) {
 		BoundingBox eb = e.getBoundingBox();
 		BoundingBox bb = b.getBoundingBox();
-		if(!b.isSolid()) {
-			return false;
+		if(b instanceof AbstractBlock) {
+		    if(!((AbstractBlock)b).isSolid()) return false;
 		}
 		if(bb.getTop() <= eb.getBottom()) {
 			if(bb.getRight() > eb.getLeft()) {

@@ -4,7 +4,7 @@ import com.redsponge.platformer.camera.CameraManager;
 import com.redsponge.platformer.gfx.color.CustomColor;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.level.AbstractLevel;
-import com.redsponge.platformer.level.Level2;
+import com.redsponge.platformer.level.Level1;
 import com.redsponge.platformer.level.LevelUtils;
 import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.block.ITickingBlock;
@@ -42,7 +42,7 @@ public class StateLevel extends AbstractState {
 	private void init() {
 		doRenderWorldBlockBoundingBoxes = false;
 		registerEnemies();
-		registerBlocks(new Level2(handler));
+		registerBlocks(new Level1(handler));
         registerCameraManager();
 		setupPlayer();
 	}
@@ -62,7 +62,7 @@ public class StateLevel extends AbstractState {
 	
 	private void registerEnemies() {
 		worldEnemies = new HashMap<UUID, AbstractEnemy>();
-		EnemyTest e = new EnemyTest(handler, 100, 100);
+		EnemyTest e = new EnemyTest(handler, 300, 100);
 		worldEnemies.put(e.getUUID(), e);
 	}
 

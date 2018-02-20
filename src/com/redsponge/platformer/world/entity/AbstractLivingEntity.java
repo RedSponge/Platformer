@@ -39,6 +39,8 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		currentAnimationId = "";
 		renderBoundingBox = false;
 	}
+
+	public abstract void kill();
 	
 	public void tick() {
 		super.tick();
@@ -187,5 +189,8 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	public boolean isRenderBoundingBox() {
 		return renderBoundingBox;
 	}
-	
+
+    public boolean isJumping() {
+        return jumping;
+    }
 }
