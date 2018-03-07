@@ -3,8 +3,6 @@ package com.redsponge.platformer.world.entity;
 import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 
-import java.util.Arrays;
-
 public class KillCause {
 
     protected AbstractEntity entity;
@@ -69,12 +67,21 @@ public class KillCause {
         }
     }
 
-    public static class CantCreateKillCauseException extends RuntimeException{
+    static class CantCreateKillCauseException extends RuntimeException{
 
         public CantCreateKillCauseException(EnumKillType killType, Object[] args) {
-            super("Could not create KillCause " + killType.toString() + " with given arguments " + String.join(", ", Arrays.asList(args).toArray(new String[0])));
+            super("Could not create KillCause " + killType.toString() + " with given arguments " + arrayToString(args));
         }
+    }
 
+    private static String arrayToString(Object[] array) {
+        String result = "";
+        for(Object o : array) {
+            result += o.getClass().getSimpleName();
+            result += ",";
+        }
+        result = result.substring(0, result.length() - 1);
+        return result;
     }
 }
 

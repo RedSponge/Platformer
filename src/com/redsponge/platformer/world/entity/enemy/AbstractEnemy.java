@@ -4,13 +4,10 @@ import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.utils.MathUtils;
 import com.redsponge.platformer.world.BoundingBox;
-import com.redsponge.platformer.world.block.AbstractBlock;
 import com.redsponge.platformer.world.entity.AbstractLivingEntity;
 import com.redsponge.platformer.world.entity.Facing;
 import com.redsponge.platformer.world.entity.KillCause;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
-
-import java.util.List;
 
 public abstract class AbstractEnemy extends AbstractLivingEntity {
 
@@ -27,6 +24,8 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
 		direction = Facing.RIGHT;
 		updateCurrentPosition();
 		propertyMap = new EnemyPropertyMap();
+		propertyMap.canBeStomped = true;
+		propertyMap.damage = 2;
 		hasBeenOnGround = false;
 	}
 	
@@ -45,10 +44,10 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
 	public void tickPlayer() {
         EntityPlayer player = StateManager.getLevelState().getPlayer();
         if(MathUtils.twoRectCollision(boundingBox.asRectangle(), player.getBoundingBox().asRectangle())){
-            if(playerOnMe(this, player)) {
+            if(playerOnMe(this, player) && propertyMap.canBeStomped) {
                 this.kill(KillCause.KillCauseCreator.generate(KillCause.EnumKillType.STOMP, this, player));
             } else {
-                player.hurt();
+                player.hurt(this);
             }
         }
     }
@@ -57,7 +56,7 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
 	    switch(killCause.getKillType().getId()) {
             case "stomp":
                 KillCause.KillStomp cause = (KillCause.KillStomp) killCause;
-                if(propertyMap.BouncePlayerOnKill()) {
+                if(propertyMap.bouncePlayerOnKill) {
                     cause.getPlayer().jump(false);
                 }
                 break;
@@ -77,27 +76,7 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
         }
 		x += speedX;
 	}
-	
-	public void updateOnGround(List<AbstractBlock> worldBlocks) {
-		if(jumping) {
-			return;
-		}
-		for(AbstractBlock b : worldBlocks) {
-			if(MathUtils.onTopOf(this, b)) {
-				onTopOf = b;
-				if(!hasBeenOnGround) {
-					turn();
-				}
-				hasBeenOnGround = true;
-				onGround = true;
-				return;
-			}
-		}
-		onTopOf = null;
-		onGround = false;
-		hasBeenOnGround = false;
-	}
-	
+
 	public void updateCurrentPosition() {
 		currentX = x;
 		currentY = y;
@@ -111,7 +90,11 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
         }
         return false;
     }
-	
+
+	public EnemyPropertyMap getPropertyMap() {
+		return propertyMap;
+	}
+
 	public float getCurrentX() {
 		return currentX;
 	}

@@ -13,6 +13,7 @@ import com.redsponge.platformer.world.entity.AbstractLivingEntity;
 import com.redsponge.platformer.world.entity.Action;
 import com.redsponge.platformer.world.entity.Facing;
 import com.redsponge.platformer.world.entity.KillCause;
+import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
 import com.redsponge.redutils.console.ConsoleMSG;
 
 import java.awt.*;
@@ -41,6 +42,16 @@ public class EntityPlayer extends AbstractLivingEntity {
 	private float absoluteX;
 	private float absoluteY;
 
+	private int health;
+	private int maxHealth;
+
+	private int maxInvulnerabilityFrames;
+	private int invulnerabilityFrames;
+	private boolean invulnerable;
+
+	private float opacity;
+	private float invulnerabilityOpacityAdd;
+
 	private Animation currentAnimation;
 	
 	private boolean running;
@@ -54,10 +65,17 @@ public class EntityPlayer extends AbstractLivingEntity {
 		this.jumpHeight = 100;
 		this.isGravityApplied = true;
 		boundingBox.setColor(Color.RED);
+		opacity = 1;
+		invulnerabilityOpacityAdd = 0.1f;
+		invulnerabilityFrames = 0;
+		maxInvulnerabilityFrames = 100;
+		invulnerable = false;
 		registerAnimationAssets();
 		setCurrentAnimation(Action.IDLE);
 		speed = 3;
 		speedRunAmplifier = 0;
+		this.maxHealth = 10;
+		this.health = maxHealth;
 		runAmplifier = 1.015f;
 		maxSpeed = 10;
 		running = false;
@@ -136,19 +154,48 @@ public class EntityPlayer extends AbstractLivingEntity {
 		tickRunning();
 		currentAnimation.tick();
 		tickGravity();
+		tickInvulnerability();
 		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
 		if(jumping) {
 			tickJumping();
 		}
 		move();
+		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
         tickFalling();
 		if(outsideOfWorld) {
 			y = ((StateLevel)StateManager.getCurrentState()).getLoadedLevel().PLAYER_START_Y;
 		}
 	}
 
-	public void hurt() {
-        ConsoleMSG.INFO.info("Ouch!", this);
+	public void tickBoundingBox() {
+		super.tickBoundingBox();
+		PlayerUtils.updateBoundingBox(this);
+	}
+
+	private void tickInvulnerability() {
+		if(invulnerabilityFrames > 0) {
+			invulnerabilityFrames--;
+		} else {
+			opacity = 1;
+		}
+		invulnerable = invulnerabilityFrames > 0;
+		if(invulnerable) {
+			opacity += invulnerabilityOpacityAdd;
+			if(opacity < 0 || opacity > 1) {
+				opacity -= invulnerabilityOpacityAdd;
+				invulnerabilityOpacityAdd *= -1;
+			}
+		}
+	}
+
+	public void hurt(AbstractEnemy hurter) {
+        if(!invulnerable) {
+        	health-=hurter.getPropertyMap().damage;
+        	invulnerabilityFrames = maxInvulnerabilityFrames;
+        	if(health <= 0) {
+        		kill(null);
+			}
+		}
     }
 
 	public void kill(KillCause cause) {
@@ -294,12 +341,27 @@ public class EntityPlayer extends AbstractLivingEntity {
 	}
 	
 	public void render(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 		g.drawImage(currentAnimation.getCurrentFrame(), (int) x, (int) y, width, height, null);
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		if(renderBoundingBox) {
 			boundingBox.render(g);
 			tester.setColor(Color.GREEN);
 			tester.render(g);
 		}
+		renderHPBar(g);
+	}
+
+	private void renderHPBar(Graphics g) {
+		int rx = boundingBox.getLeft()-10;
+		int ry = boundingBox.getTop()-20;
+		int rwidth = boundingBox.getWidth()+20;
+		int rheight = 5;
+		g.setColor(Color.RED);
+		g.fillRect(rx, ry, rwidth, rheight);
+		g.setColor(Color.GREEN);
+		g.fillRect(rx, ry, rwidth/maxHealth*health, rheight);
 	}
 	
 	private void setCurrentAnimation(Action a) {

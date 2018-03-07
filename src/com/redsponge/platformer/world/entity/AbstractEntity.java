@@ -55,11 +55,20 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 			if(MathUtils.onTopOf(this, b)) {
 				onTopOf = b;
 				onGround = true;
+				if(this instanceof AbstractLivingEntity) {
+					if(((AbstractLivingEntity) this).touchingBlocks(boundingBox)) {
+						y = b.getBoundingBox().getTop() - height;
+					}
+				}
 				return;
 			}
 		}
 		onTopOf = null;
 		onGround = false;		
+	}
+
+	public boolean isLiving() {
+		return this instanceof AbstractLivingEntity;
 	}
 
 	public void tickFalling() {

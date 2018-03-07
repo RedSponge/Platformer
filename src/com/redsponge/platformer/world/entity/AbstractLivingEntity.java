@@ -34,7 +34,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		super(handler, x, y, width, height);
 		jumpHeight = 1;
 		jumpingSpeed = 0;
-		jumpingMultiplier = 1.05F;
+		jumpingMultiplier = 1.01F;
 		speed = 2;
 		currentAnimationId = "";
 		renderBoundingBox = false;
@@ -44,11 +44,11 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	
 	public void tick() {
 		super.tick();
-		move();
 		tickGravity();
 		if(jumping) {
 			tickJumping();
 		}
+		move();
 	}
 	
 	public void tickJumping() {
@@ -85,7 +85,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 
 	public void move() {
 		moveX(boundingBox);
-		moveY();
+		moveY(boundingBox);
 		tickOutsideOfWorld();
 	}
 	
@@ -110,7 +110,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			this.x += this.speedX;
 		}
 	}
-	
+
 	public boolean touchingBlocks(BoundingBox box, boolean checkScreen) {
 		BoundingBox xTester = box.clone();
 		xTester.setX(xTester.getX() + speedX);
@@ -125,15 +125,31 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		return false;
 	}
 
+	public AbstractBlock touchingBlocksGetBlock(BoundingBox box) {
+		BoundingBox xTester = box.clone();
+		xTester.setX(xTester.getX() + speedX);
+		for(AbstractBlock b : ((StateLevel)StateManager.getCurrentState()).getWorldBlocks()) {
+			if(MathUtils.twoRectCollision(xTester.asRectangle(), b.getBoundingBox().asRectangle()) && b.isSolid()) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public boolean touchingBlocks(BoundingBox box) {
 	    return touchingBlocks(box, true);
     }
 	
-	private void moveY() {
-		y += speedY;
-		if(onGround && onTopOf != null && onTopOf.isSolid()) {
-			y = onTopOf.getBoundingBox().getTop() - height; 
+	public void moveY(BoundingBox box) {
+		BoundingBox tester = box.clone();
+		tester.setY(tester.getY() + speedY);
+		if(touchingBlocks(tester)) {
+			if(speedY > 0) {
+				y = touchingBlocksGetBlock(tester).getBoundingBox().getY() - height;
+			}
+			return;
 		}
+		y += speedY;
 	}
 	
 	public void render(Graphics g) {
@@ -141,7 +157,11 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			boundingBox.render(g);
 		}
 	}
-	
+
+	public void tickBoundingBox() {
+		boundingBox.tick();
+	}
+
 	public void tickGravity() {	
 		updateOnGround(((StateLevel)StateManager.getCurrentState()).getWorldBlocks());
 		tickFalling();
