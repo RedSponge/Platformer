@@ -1,5 +1,6 @@
 package com.redsponge.platformer.world.entity;
 
+import com.redsponge.platformer.utils.StringUtils;
 import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 
@@ -70,18 +71,8 @@ public class KillCause {
     static class CantCreateKillCauseException extends RuntimeException{
 
         public CantCreateKillCauseException(EnumKillType killType, Object[] args) {
-            super("Could not create KillCause " + killType.toString() + " with given arguments " + arrayToString(args));
+            super("Could not create KillCause " + killType.toString() + " with given arguments " + StringUtils.arrayToString(args));
         }
-    }
-
-    private static String arrayToString(Object[] array) {
-        String result = "";
-        for(Object o : array) {
-            result += o.getClass().getSimpleName();
-            result += ",";
-        }
-        result = result.substring(0, result.length() - 1);
-        return result;
     }
 }
 

@@ -1,0 +1,15 @@
+3/7/2018 - alpha-0.0.3.papaya:
+ - Started writing a changelog
+ - Now using RedUtilsRemastered for main game class, it could be found in lib folder
+ - Added getImagesInFolder to AssetsHandler, Used for getting animation frames !!!NOT YET BECAUSE OF JAR PROBLEMS, WILL BE IMPLEMENTED NEXT VERSION!!!
+ - Added icon images! currently in sizes 16, 32, 64, 128
+ - Fixed some movement glitches
+ - Added HurtCauses
+ - Added IDamager and ICanBeDamaged
+ - DebugManager now renders the debug settings
+ - Player health in now visible in debug F3 screen
+ - Added StringUtils, for now it hosts arrayToString(Object[] array)
+ - Added some comments to player class, comments to most classes will be added soon
+
+
+

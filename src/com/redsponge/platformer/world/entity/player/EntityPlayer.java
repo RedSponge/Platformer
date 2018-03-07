@@ -9,38 +9,29 @@ import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.utils.MathUtils;
 import com.redsponge.platformer.world.BoundingBox;
 import com.redsponge.platformer.world.block.AbstractBlock;
-import com.redsponge.platformer.world.entity.AbstractLivingEntity;
-import com.redsponge.platformer.world.entity.Action;
-import com.redsponge.platformer.world.entity.Facing;
-import com.redsponge.platformer.world.entity.KillCause;
-import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
+import com.redsponge.platformer.world.entity.*;
 import com.redsponge.redutils.console.ConsoleMSG;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class EntityPlayer extends AbstractLivingEntity {
-
-	private int size;
+public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged {
 	
 	private Animation ANIMATION_IDLE;
-	private final int ANIMATION_IDLE_SPEED = 30;
+	private final int ANIMATION_IDLE_SPEED;
 	
 	private Animation ANIMATION_WALK;
-    private final int ANIMATION_WALK_SPEED = 5;
+    private final int ANIMATION_WALK_SPEED;
 	
 	private Animation ANIMATION_RUN;
-	private final int ANIMATION_RUN_SPEED = 5;
+	private final int ANIMATION_RUN_SPEED;
 	
 	private Animation ANIMATION_DUCK;
-	private final int ANIMATION_DUCK_SPEED = 30;
+	private final int ANIMATION_DUCK_SPEED;
 	
-	protected float speedRunAmplifier;
-	protected float runAmplifier;
-	protected float maxSpeed;
-
-	private float absoluteX;
-	private float absoluteY;
+	private float speedRunAmplifier;
+	private float runAmplifier;
+	private float maxSpeed;
 
 	private int health;
 	private int maxHealth;
@@ -61,7 +52,12 @@ public class EntityPlayer extends AbstractLivingEntity {
 	public EntityPlayer(Handler handler, int x, int y, int size) {
 		super(handler, x, y, size, size*2);
 		direction = Facing.RIGHT;
-		this.size = size;
+
+		ANIMATION_IDLE_SPEED = 30;
+		ANIMATION_WALK_SPEED = 5;
+		ANIMATION_DUCK_SPEED = 30;
+		ANIMATION_RUN_SPEED = 5;
+
 		this.jumpHeight = 100;
 		this.isGravityApplied = true;
 		boundingBox.setColor(Color.RED);
@@ -82,6 +78,10 @@ public class EntityPlayer extends AbstractLivingEntity {
 		renderBoundingBox = false;
 	}
 
+
+	/**
+	 * Register all the animations
+	 */
 	private void registerAnimationAssets() {
 		
 		ConsoleMSG.ADD.info("Registering Player Animation Assets!");
@@ -145,7 +145,7 @@ public class EntityPlayer extends AbstractLivingEntity {
 		
 		ConsoleMSG.ADD.info("Successfully Registered Player Animation Assets!");
 	}
-	
+
 	public void tick() {
 		tickKeys();
 		boundingBox.tick();
@@ -167,11 +167,17 @@ public class EntityPlayer extends AbstractLivingEntity {
 		}
 	}
 
+	/**
+	 * update the bounding box and set it up to be exact around the player
+	 */
 	public void tickBoundingBox() {
 		super.tickBoundingBox();
 		PlayerUtils.updateBoundingBox(this);
 	}
 
+	/**
+	 * Ticking the invulnerability frames and render opacity
+	 */
 	private void tickInvulnerability() {
 		if(invulnerabilityFrames > 0) {
 			invulnerabilityFrames--;
@@ -188,20 +194,34 @@ public class EntityPlayer extends AbstractLivingEntity {
 		}
 	}
 
-	public void hurt(AbstractEnemy hurter) {
+
+	/**
+	 * This is called whenever something "hurts" the player (Would be handled in the hurter's class)
+	 * @param cause The cause of the hurt, could be an enemy or something else
+	 */
+	public void hurt(HurtCause cause) {
         if(!invulnerable) {
-        	health-=hurter.getPropertyMap().damage;
-        	invulnerabilityFrames = maxInvulnerabilityFrames;
-        	if(health <= 0) {
-        		kill(null);
+        	if(cause.getHurtType() == HurtCause.EnumHurtType.ENEMY) {
+				IDamager hurter = cause.getDamager();
+        		health -= hurter.getStrength();
+				invulnerabilityFrames = maxInvulnerabilityFrames;
+				if (health <= 0) {
+					kill(null);
+				}
 			}
 		}
     }
 
+	/**
+	 * This is called when health reaches 0
+	 */
 	public void kill(KillCause cause) {
         GameManager.resetLevelState();
     }
-	
+
+	/**
+	 * updating some values in speedX
+	 */
 	private void tickMovement() {
 		if(action == Action.IDLE || action == Action.DUCKING) {
 			speedX = 0;
@@ -215,10 +235,12 @@ public class EntityPlayer extends AbstractLivingEntity {
 			if(direction == Facing.LEFT) {
 				speedX *= -1;
 			}
-			return;
 		}
 	}
-	
+
+	/**
+	 * an upgraded version of moveX that also handles the CameraManager's movement
+	 */
 	public void moveX(BoundingBox box) {
 		if(touchingBlocks()) { // IF TOUCHING A BLOCK
 		    speedX = 0;
@@ -255,9 +277,11 @@ public class EntityPlayer extends AbstractLivingEntity {
                 handler.getCameraManager().setMoving(true);
             }
 		}
-		absoluteX = handler.getCameraManager().getOffsetX() + x;
 	}
 
+	/**
+	 * Everything related to key handling, including animations and actions
+	 */
 	private void tickKeys() {
 		speedX = 0;
 		speedY = 0;
@@ -301,7 +325,10 @@ public class EntityPlayer extends AbstractLivingEntity {
 			action = Action.IDLE;
 		}
 	}
-	
+
+	/**
+	 * Tick the increasing running speed
+	 */
 	private void tickRunning() {
 		if(!running || action != Action.RUNNING) {
 			speedRunAmplifier = 0;
@@ -320,8 +347,11 @@ public class EntityPlayer extends AbstractLivingEntity {
 			speedRunAmplifier /= runAmplifier;
 		}
 	}
-	
-	public boolean touchingBlocks() {
+
+	/**
+	 * an upgraded version of touchingBlocks using a tester, might be implemented to AbstractLivingEntity soon
+	 */
+	private boolean touchingBlocks() {
 		BoundingBox xTester = boundingBox.clone();
 		int directionMultiplier = (direction == Facing.RIGHT || direction == Facing.NONE) ? 1 : (direction == Facing.LEFT) ? -1 : 1;
 		xTester.setX(xTester.getX() + speedX);
@@ -356,12 +386,12 @@ public class EntityPlayer extends AbstractLivingEntity {
 	private void renderHPBar(Graphics g) {
 		int rx = boundingBox.getLeft()-10;
 		int ry = boundingBox.getTop()-20;
-		int rwidth = boundingBox.getWidth()+20;
-		int rheight = 5;
+		float rwidth = boundingBox.getWidth()+20;
+		float rheight = 5;
 		g.setColor(Color.RED);
-		g.fillRect(rx, ry, rwidth, rheight);
+		g.fillRect(rx, ry, (int) rwidth, (int) rheight);
 		g.setColor(Color.GREEN);
-		g.fillRect(rx, ry, rwidth/maxHealth*health, rheight);
+		g.fillRect(rx, ry, (int) (rwidth/maxHealth*health), (int) rheight);
 	}
 	
 	private void setCurrentAnimation(Action a) {
@@ -392,20 +422,11 @@ public class EntityPlayer extends AbstractLivingEntity {
 		return direction;
 	}
 
-	public float getAbsoluteX() {
-		return absoluteX;
+	@Override
+	public int getHealth() {
+		return health;
 	}
 
-	public float getAbsoluteY() {
-		return absoluteY;
-	}
 
-	public void setAbsoluteX(float absoluteX) {
-		this.absoluteX = absoluteX;
-	}
-
-	public void setAbsoluteY(float absoluteY) {
-		this.absoluteY = absoluteY;
-	}
 }
 

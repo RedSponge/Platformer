@@ -4,12 +4,10 @@ import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.utils.MathUtils;
 import com.redsponge.platformer.world.BoundingBox;
-import com.redsponge.platformer.world.entity.AbstractLivingEntity;
-import com.redsponge.platformer.world.entity.Facing;
-import com.redsponge.platformer.world.entity.KillCause;
+import com.redsponge.platformer.world.entity.*;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 
-public abstract class AbstractEnemy extends AbstractLivingEntity {
+public abstract class AbstractEnemy extends AbstractLivingEntity implements IDamager {
 
 	protected float currentX;
 	protected float currentY;
@@ -47,10 +45,15 @@ public abstract class AbstractEnemy extends AbstractLivingEntity {
             if(playerOnMe(this, player) && propertyMap.canBeStomped) {
                 this.kill(KillCause.KillCauseCreator.generate(KillCause.EnumKillType.STOMP, this, player));
             } else {
-                player.hurt(this);
+                player.hurt(HurtCause.HurtCauseCreator.generate(HurtCause.EnumHurtType.ENEMY, this, player));
             }
         }
     }
+
+	@Override
+	public int getStrength() {
+		return propertyMap.damage;
+	}
 
 	public void kill(KillCause killCause) {
 	    switch(killCause.getKillType().getId()) {

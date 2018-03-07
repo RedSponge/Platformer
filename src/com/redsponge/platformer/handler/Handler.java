@@ -7,7 +7,7 @@ import com.redsponge.platformer.io.FileHandler;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
-import com.redsponge.redutils.display.GameDisplay;
+import com.redsponge.redutils.display.GraphicsDisplay;
 
 public class Handler {
 	
@@ -16,8 +16,8 @@ public class Handler {
 	public Handler(Platformer game) {
 		this.game = game;
 	}
-	
-	public GameDisplay getDisplay() {
+
+	public GraphicsDisplay getDisplay() {
 		return game.getDisplay();
 	}
 	

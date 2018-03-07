@@ -1,21 +1,26 @@
 package com.redsponge.platformer.world.entity;
 
+import com.redsponge.platformer.utils.StringUtils;
+import com.redsponge.platformer.world.entity.enemy.AbstractEnemy;
+import com.redsponge.platformer.world.entity.player.EntityPlayer;
+
 public class HurtCause {
 
-    private EnumHurtType type;
+    protected EnumHurtType type;
 
-    private IDamaging damager;
-    private ICanBeDamaged damaged;
+    protected IDamager damager;
+    protected ICanBeDamaged damaged;
 
-    public HurtCause(IDamaging damager, ICanBeDamaged damaged) {
-
+    public HurtCause(IDamager damager, ICanBeDamaged damaged) {
+        this.damager = damager;
+        this.damaged = damaged;
     }
 
-    public EnumHurtType getType() {
+    public EnumHurtType getHurtType() {
         return type;
     }
 
-    public IDamaging getDamager() {
+    public IDamager getDamager() {
         return damager;
     }
 
@@ -34,6 +39,36 @@ public class HurtCause {
 
         public String getId() {
             return id;
+        }
+    }
+
+    public static class HurtCauseCreator {
+        public static HurtCause generate(EnumHurtType type, Object... args) {
+            try {
+                switch(type) {
+                    case ENEMY:
+                        return new HurtEnemy((AbstractEnemy) args[0], (EntityPlayer) args[1]);
+                    default:
+                        return null;
+
+                }
+            } catch(Exception e) {
+                throw new CantCreateHurtCauseException(type, args);
+            }
+        }
+    }
+
+    static class CantCreateHurtCauseException extends RuntimeException{
+
+        public CantCreateHurtCauseException(EnumHurtType type, Object[] args) {
+            super("Could not create HurtCause " + type.toString() + " with given arguments " + StringUtils.arrayToString(args));
+        }
+    }
+
+    public static class HurtEnemy extends HurtCause {
+        public HurtEnemy(AbstractEnemy damager, EntityPlayer damaged) {
+            super(damager, damaged);
+            type = EnumHurtType.ENEMY;
         }
     }
 

@@ -102,7 +102,6 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 	
 	public void moveX(BoundingBox box, boolean move) {
-		//ConsoleMSG.INFO.info(Float.toString(x), this);
 		if(touchingBlocks(box)) {
 			return;
 		}
@@ -145,7 +144,12 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		tester.setY(tester.getY() + speedY);
 		if(touchingBlocks(tester)) {
 			if(speedY > 0) {
-				y = touchingBlocksGetBlock(tester).getBoundingBox().getY() - height;
+				AbstractBlock b = touchingBlocksGetBlock(tester);
+				if (b != null) {
+					y = b.getBoundingBox().getY() - height;
+				} else {
+					y += speedY;
+				}
 			}
 			return;
 		}

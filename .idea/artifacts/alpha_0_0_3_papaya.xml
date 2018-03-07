@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="alpha-0.0.3.papaya">
+    <output-path>$PROJECT_DIR$/builds/alpha-0.0.3.papaya</output-path>
+    <root id="archive" name="alpha-0.0.3.papaya.jar">
+      <element id="module-output" name="Platformer" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/RedUtilsRemastered-1.01v.jar" path-in-jar="/" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

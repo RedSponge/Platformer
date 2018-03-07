@@ -13,10 +13,10 @@ public class Launcher {
 		ConsoleMSG.ADD.info("STARTING GAME AT VERSION " +  Version.getString());
 		try {
 			Platformer p = new Platformer(TITLE + "-" + Version.getString(), WIDTH, HEIGHT);
-			p.start();
 			ConsoleMSG.ADD.info("GAME STARTED SUCCESSFULLY!");
 		} catch(Exception e) {
-			ConsoleMSG.FATAL.info("COULDN'T START GAME!");
+			ConsoleMSG.ERROR.info("COULDN'T START GAME!");
+			e.printStackTrace();
 		}
 	}
 }
