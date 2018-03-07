@@ -37,12 +37,6 @@ public class CameraManager {
 	    if(offsetX > maxX) {
 	        offsetX = maxX;
         }
-        /*if(offsetX < 0) {
-	    	offsetX = 0;
-	    	if() {
-
-            }
-		}*/
 
 		tickWorldBlocks();
 		tickWorldEnemies();

@@ -9,7 +9,7 @@ public class KillCause {
 
     protected EnumKillType killType;
 
-    public static enum EnumKillType {
+    public enum EnumKillType {
         DEFAULT("default"),
         STOMP("stomp");
 
