@@ -1,12 +1,14 @@
 package com.redsponge.platformer.io;
 
 import com.redsponge.platformer.handler.Handler;
+import com.redsponge.redutils.console.ConsoleMSG;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,21 +58,35 @@ public class AssetsHandler {
     }
 
 	public static BufferedImage[] getImagesInDirectory(String path) {
+		List<BufferedImage> images = new ArrayList<>();
 		try {
-			InputStream dir = handler.getFileHandler().getFileInputStream(path);
-			File[] files = null;//new File().listFiles();
-			List<BufferedImage> imgs = new ArrayList<>();
-			System.out.println(files.length);
-			for (File f : files) {
-				if (getFileExtension(f).equalsIgnoreCase("png")) {
-					imgs.add(getImage(f));
+			ConsoleMSG.INFO.info("Trying to load all images in path " + path);
+			// WHEN RUN IN IDE
+			ConsoleMSG.INFO.info("Trying to get files in IDE method");
+			if(!path.startsWith("/")) {
+				path = "/" + path;
+			}
+			File dir = handler.getFileHandler().getFile(path);
+			File[] files = dir.listFiles();
+			for(File f : files) {
+				if(getFileExtension(f).equalsIgnoreCase("png")) {
+					images.add(getImage(f));
 				}
 			}
-			return imgs.toArray(new BufferedImage[0]);
+			ConsoleMSG.INFO.info("IDE Method succeeded!");
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			// WHEN RUN IN JAR
+			ConsoleMSG.INFO.info("IDE Method failed, trying JAR method");
+			if(path.startsWith("/")) {
+				path = path.substring(1);;
+			}
+			String[] paths = handler.getFileHandler().getFilePathsInJarDirectory(path);
+			for(String p : paths) {
+				images.add(getImage(p));
+			}
+			ConsoleMSG.INFO.info("JAR Method worked!");
 		}
+		return images.toArray(new BufferedImage[0]);
 	}
 
 	private static String getFileExtension(File file) {

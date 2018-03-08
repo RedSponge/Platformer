@@ -38,7 +38,11 @@ public class Platformer extends GraphicsApp {
 		ConsoleMSG.ADD.info("Registering Settings!");
 		Settings.init();
 		ConsoleMSG.ADD.info("Successfully Registered Settings!");
-		
+
+		ConsoleMSG.ADD.info("Initiating File Handler!");
+		fileHandler = new FileHandler();
+		ConsoleMSG.ADD.info("Successfully Initiated File Handler!");
+
 		ConsoleMSG.ADD.info("Initiating Assets");
 		AssetsHandler.init(handler);
 		ConsoleMSG.ADD.info("Successfully Initiated State Manager");
@@ -60,11 +64,7 @@ public class Platformer extends GraphicsApp {
 		ConsoleMSG.ADD.info("Initiating Camera Manager!");
 		cameraManager = new CameraManager(handler);
 		ConsoleMSG.ADD.info("Successfully Initiated Camera Manager!");
-		
-		ConsoleMSG.ADD.info("Initiating File Handler!");
-		fileHandler = new FileHandler();
-		ConsoleMSG.ADD.info("Successfully Initiated File Handler!");
-		
+
 		ConsoleMSG.ADD.info("Initiating State Manager");
 		StateManager.init(handler);
 		StateManager.setCurrentState("level");

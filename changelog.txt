@@ -1,3 +1,8 @@
+3/8/2018 - alpha-0.0.3.papaya.b:
+ - Added AssetsHandler.getImagesInDirectory (getImagesInFolder from last changelog) and made it compatible with IDE and JAR runs!
+ - Added FileHandler.getFilePathsInJarDirectory, used in AssetsHandler.getImagesInDirectory when trying the JAR method
+ - EntityPlayer class now uses AssetsHandler.getImagesInDirectory to get animation frames. this means we can add as many frames as we want to the folder and they will register automatically
+
 3/7/2018 - alpha-0.0.3.papaya:
  - Started writing a changelog
  - Now using RedUtilsRemastered for main game class, it could be found in lib folder
@@ -10,6 +15,3 @@
  - Player health in now visible in debug F3 screen
  - Added StringUtils, for now it hosts arrayToString(Object[] array)
  - Added some comments to player class, comments to most classes will be added soon
-
-
-

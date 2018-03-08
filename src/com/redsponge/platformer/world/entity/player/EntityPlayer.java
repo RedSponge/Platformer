@@ -13,7 +13,6 @@ import com.redsponge.platformer.world.entity.*;
 import com.redsponge.redutils.console.ConsoleMSG;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged {
 	
@@ -88,59 +87,25 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 		
 		String pathMain = "/assets/textures/entities/player";
 		
-		ANIMATION_IDLE = new Animation(this, new BufferedImage[]{
-				AssetsHandler.getImage(pathMain + "/idle/right/idle_1.png"),
-				AssetsHandler.getImage(pathMain + "/idle/right/idle_2.png"),
-				AssetsHandler.getImage(pathMain + "/idle/right/idle_3.png"),
-				AssetsHandler.getImage(pathMain + "/idle/right/idle_4.png")
-		}, new BufferedImage[]{
-				AssetsHandler.getImage(pathMain + "/idle/left/idle_1.png"),
-				AssetsHandler.getImage(pathMain + "/idle/left/idle_2.png"),
-				AssetsHandler.getImage(pathMain + "/idle/left/idle_3.png"),
-				AssetsHandler.getImage(pathMain + "/idle/left/idle_4.png")
-		}, ANIMATION_IDLE_SPEED, "animationIdlePlayer");
+		ANIMATION_IDLE = new Animation(this,
+				AssetsHandler.getImagesInDirectory(pathMain + "/idle/right"),
+				AssetsHandler.getImagesInDirectory(pathMain + "/idle/left"),
+				ANIMATION_IDLE_SPEED, "animationIdlePlayer");
 		
-		ANIMATION_WALK = new Animation(this, new BufferedImage[] {
-				AssetsHandler.getImage(pathMain + "/walk/right/walk_1.png"),
-				AssetsHandler.getImage(pathMain + "/walk/right/walk_2.png"),
-				AssetsHandler.getImage(pathMain + "/walk/right/walk_3.png"),
-				AssetsHandler.getImage(pathMain + "/walk/right/walk_4.png"),
-				AssetsHandler.getImage(pathMain + "/walk/right/walk_5.png"),
-				AssetsHandler.getImage(pathMain + "/walk/right/walk_6.png"),
-				AssetsHandler.getImage(pathMain + "/walk/right/walk_7.png"),
-				AssetsHandler.getImage(pathMain + "/walk/right/walk_8.png"),
-		}, new BufferedImage[] {
-				AssetsHandler.getImage(pathMain + "/walk/left/walk_1.png"),
-				AssetsHandler.getImage(pathMain + "/walk/left/walk_2.png"),
-				AssetsHandler.getImage(pathMain + "/walk/left/walk_3.png"),
-				AssetsHandler.getImage(pathMain + "/walk/left/walk_4.png"),
-				AssetsHandler.getImage(pathMain + "/walk/left/walk_5.png"),
-				AssetsHandler.getImage(pathMain + "/walk/left/walk_6.png"),
-				AssetsHandler.getImage(pathMain + "/walk/left/walk_7.png"),
-				AssetsHandler.getImage(pathMain + "/walk/left/walk_8.png"),
-		}, ANIMATION_WALK_SPEED, "animationWalkPlayer");
+		ANIMATION_WALK = new Animation(this,
+				AssetsHandler.getImagesInDirectory(pathMain + "/walk/right"),
+				AssetsHandler.getImagesInDirectory(pathMain + "/walk/left"),
+				ANIMATION_WALK_SPEED, "animationWalkPlayer");
 		
-		ANIMATION_RUN = new Animation(this, new BufferedImage[] {
-				AssetsHandler.getImage(pathMain + "/run/right/run_1.png"),
-				AssetsHandler.getImage(pathMain + "/run/right/run_2.png"),
-				AssetsHandler.getImage(pathMain + "/run/right/run_3.png"),
-				AssetsHandler.getImage(pathMain + "/run/right/run_4.png"),
-				AssetsHandler.getImage(pathMain + "/run/right/run_5.png"),
-				AssetsHandler.getImage(pathMain + "/run/right/run_6.png"),
-				AssetsHandler.getImage(pathMain + "/run/right/run_7.png"),
-				AssetsHandler.getImage(pathMain + "/run/right/run_8.png"),
-		}, new BufferedImage[] {
-				AssetsHandler.getImage(pathMain + "/run/left/run_1.png"),
-				AssetsHandler.getImage(pathMain + "/run/left/run_2.png"),
-				AssetsHandler.getImage(pathMain + "/run/left/run_3.png"),
-				AssetsHandler.getImage(pathMain + "/run/left/run_4.png"),
-				AssetsHandler.getImage(pathMain + "/run/left/run_5.png"),
-				AssetsHandler.getImage(pathMain + "/run/left/run_6.png"),
-				AssetsHandler.getImage(pathMain + "/run/left/run_7.png"),
-				AssetsHandler.getImage(pathMain + "/run/left/run_8.png"),
-		}, ANIMATION_RUN_SPEED, "animationRunPlayer");
+		ANIMATION_RUN = new Animation(this,
+				AssetsHandler.getImagesInDirectory(pathMain + "/run/right"),
+				AssetsHandler.getImagesInDirectory(pathMain + "/run/left"),
+				ANIMATION_RUN_SPEED, "animationRunPlayer");
 		
-		ANIMATION_DUCK = new Animation(this, new BufferedImage[] {AssetsHandler.getImage(pathMain + "/duck/right/duck_0.png")}, new BufferedImage[] {AssetsHandler.getImage(pathMain + "/duck/left/duck_0.png")}, ANIMATION_DUCK_SPEED, "animationDuckPlayer");
+		ANIMATION_DUCK = new Animation(this,
+				AssetsHandler.getImagesInDirectory(pathMain + "/duck/right"),
+				AssetsHandler.getImagesInDirectory(pathMain + "/duck/left"),
+				ANIMATION_DUCK_SPEED, "animationDuckPlayer");
 		
 		
 		ConsoleMSG.ADD.info("Successfully Registered Player Animation Assets!");
