@@ -2,6 +2,7 @@ package com.redsponge.platformer.world.entity.player;
 
 import com.redsponge.platformer.GameManager;
 import com.redsponge.platformer.gfx.animation.Animation;
+import com.redsponge.platformer.gfx.animation.AnimationTransition;
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.io.AssetsHandler;
 import com.redsponge.platformer.state.StateLevel;
@@ -24,10 +25,16 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	
 	private Animation ANIMATION_RUN;
 	private final int ANIMATION_RUN_SPEED;
-	
-	private Animation ANIMATION_DUCK;
-	private final int ANIMATION_DUCK_SPEED;
-	
+
+	private Animation ANIMATION_DUCK_TRANSITION_FRAMES;
+	private final int ANIMATION_DUCK_TRANSITION_FRAMES_SPEED;
+
+	private Animation ANIMATION_DUCK_IDLE;
+	private final int ANIMATION_DUCK_IDLE_SPEED;
+
+    private AnimationTransition ANIMATION_TRANSITION_DUCK_UP;
+	private AnimationTransition ANIMATION_TRANSITION_DUCK_DOWN;
+
 	private float speedRunAmplifier;
 	private float runAmplifier;
 	private float maxSpeed;
@@ -43,38 +50,59 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	private float invulnerabilityOpacityAdd;
 
 	private Animation currentAnimation;
+    private AnimationTransition currentAnimationTransition;
 	
 	private boolean running;
 	private BoundingBox tester;
-	
-	
+
+	private boolean ducking;
+
 	public EntityPlayer(Handler handler, int x, int y, int size) {
 		super(handler, x, y, size, size*2);
-		direction = Facing.RIGHT;
 
-		ANIMATION_IDLE_SPEED = 30;
-		ANIMATION_WALK_SPEED = 5;
-		ANIMATION_DUCK_SPEED = 30;
-		ANIMATION_RUN_SPEED = 5;
+		// DIRECTION
+		this.direction = Facing.RIGHT;
 
+		// ANIMATIONS
+        this.currentAnimationTransition = null;
+
+		this.ANIMATION_IDLE_SPEED = 30;
+		this.ANIMATION_WALK_SPEED = 5;
+		this.ANIMATION_DUCK_IDLE_SPEED = 30;
+		this.ANIMATION_RUN_SPEED = 5;
+		this.ANIMATION_DUCK_TRANSITION_FRAMES_SPEED = 2;
+
+        this.setCurrentAnimation(Action.IDLE);
+        this.registerAnimationAssets();
+
+		// JUMPING
 		this.jumpHeight = 100;
 		this.isGravityApplied = true;
-		boundingBox.setColor(Color.RED);
-		opacity = 1;
-		invulnerabilityOpacityAdd = 0.1f;
-		invulnerabilityFrames = 0;
-		maxInvulnerabilityFrames = 100;
-		invulnerable = false;
-		registerAnimationAssets();
-		setCurrentAnimation(Action.IDLE);
-		speed = 3;
-		speedRunAmplifier = 0;
+
+		// BOUNDING BOX
+		this.boundingBox.setColor(Color.RED);
+
+		// OPACITY
+		this.opacity = 1;
+		this.invulnerabilityOpacityAdd = 0.1f;
+		this.invulnerabilityFrames = 0;
+		this.maxInvulnerabilityFrames = 100;
+		this.invulnerable = false;
+
+		// SPEED
+		this.speed = 3;
+		this.speedRunAmplifier = 0;
+        this.runAmplifier = 1.015f;
+        this.maxSpeed = 10;
+
+        // HEALTH
 		this.maxHealth = 10;
 		this.health = maxHealth;
-		runAmplifier = 1.015f;
-		maxSpeed = 10;
-		running = false;
-		renderBoundingBox = false;
+
+		// RUNNING/DUCKING
+		this.running = false;
+		this.ducking = false;
+		this.renderBoundingBox = false;
 	}
 
 
@@ -102,12 +130,20 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 				AssetsHandler.getImagesInDirectory(pathMain + "/run/left"),
 				ANIMATION_RUN_SPEED, "animationRunPlayer");
 		
-		ANIMATION_DUCK = new Animation(this,
-				AssetsHandler.getImagesInDirectory(pathMain + "/duck/right"),
-				AssetsHandler.getImagesInDirectory(pathMain + "/duck/left"),
-				ANIMATION_DUCK_SPEED, "animationDuckPlayer");
+		ANIMATION_DUCK_IDLE = new Animation(this,
+				AssetsHandler.getImagesInDirectory(pathMain + "/duck/idle/right"),
+				AssetsHandler.getImagesInDirectory(pathMain + "/duck/idle/left"),
+				ANIMATION_DUCK_IDLE_SPEED, "animationDuckIdlePlayer");
 		
-		
+		ANIMATION_DUCK_TRANSITION_FRAMES = new Animation(this,
+				AssetsHandler.getImagesInDirectory(pathMain + "/duck/transition/right"),
+				AssetsHandler.getImagesInDirectory(pathMain + "/duck/transition/left"),
+                ANIMATION_DUCK_TRANSITION_FRAMES_SPEED, "animationDuckTransitionPlayer");
+
+        ANIMATION_TRANSITION_DUCK_DOWN = new AnimationTransition(ANIMATION_DUCK_TRANSITION_FRAMES.clone(), ANIMATION_DUCK_IDLE);
+
+        ANIMATION_TRANSITION_DUCK_UP = new AnimationTransition(ANIMATION_DUCK_TRANSITION_FRAMES.clone().reverse(), ANIMATION_IDLE);
+
 		ConsoleMSG.ADD.info("Successfully Registered Player Animation Assets!");
 	}
 
@@ -117,6 +153,7 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 		PlayerUtils.updateBoundingBox(this);
 		tickMovement();
 		tickRunning();
+		tickAnimationTransition();
 		currentAnimation.tick();
 		tickGravity();
 		tickInvulnerability();
@@ -129,6 +166,9 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
         tickFalling();
 		if(outsideOfWorld) {
 			y = ((StateLevel)StateManager.getCurrentState()).getLoadedLevel().PLAYER_START_Y;
+		}
+		if(touchingBlocks() && onTopOf != null) {
+			y = onTopOf.getBoundingBox().getTop() - height;
 		}
 	}
 
@@ -213,6 +253,7 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 		    action = Action.IDLE;
 		    setCurrentAnimation(action);
 		    currentAnimation.tick();
+		    //System.out.println("meow");
 			return;
 		}
 
@@ -242,6 +283,41 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
                 handler.getCameraManager().setMoving(true);
             }
 		}
+		if(handler.getCameraManager().isMoving()){
+			handler.getCameraManager().setToMoveX(speedX);
+			handler.getCameraManager().tick();
+		}
+	}
+
+	public void moveY(BoundingBox box) {
+		handler.getCameraManager().setToMoveY(0);
+		if(y < handler.getCanvasHeight() / 2 && handler.getCameraManager().getOffsetY() > 0 && speedY > 0) {
+			handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
+			handler.getCameraManager().setMoving(true);
+			handler.getCameraManager().setToMoveY(speedY);
+			if(y < handler.getCanvasHeight() / 2) {
+				y += speedY * 0.1;
+			}
+			System.out.println("O1");
+		}
+		else if(y < handler.getCanvasHeight() / 2 && speedY < 0) {
+			if(handler.getCameraManager().getOffsetY() < handler.getCameraManager().getMaxY()) {
+				handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
+				handler.getCameraManager().setMoving(true);
+				handler.getCameraManager().setToMoveY(speedY);
+			} else {
+				y += speedY;
+			}
+			System.out.println("O2");
+		}
+		else if(y > handler.getCanvasHeight() / 2 || handler.getCameraManager().getOffsetY() == 0) {
+			if (handler.getCameraManager().getOffsetY() > 0) {
+				handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
+			} else
+				y += speedY;
+			}
+		handler.getCameraManager().setMoving(false);
+		System.out.println("O3");
 	}
 
 	/**
@@ -261,10 +337,15 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 			}
 			if(onGround) {
 				action = Action.DUCKING;
-				setCurrentAnimation(Action.DUCKING);
+				toggleDuck();
 				return;
 			}
 		}
+		else {
+		    if(ducking){
+		        toggleDuck();
+            }
+        }
 		if(handler.getKeyManager().keyList.get("run") && (action == Action.WALKING || running)) {
 			 setCurrentAnimation(Action.RUNNING);
 			 action = Action.RUNNING;
@@ -313,6 +394,16 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 		}
 	}
 
+	private void toggleDuck() {
+		boolean pressedDucking = handler.getKeyManager().keyList.get("duck");
+		if(pressedDucking == ducking) {
+		    return;
+        }
+        ducking = !ducking;
+        currentAnimationTransition = (ducking)?ANIMATION_TRANSITION_DUCK_DOWN:ANIMATION_TRANSITION_DUCK_UP;
+        currentAnimationTransition.reset();
+	}
+
 	/**
 	 * an upgraded version of touchingBlocks using a tester, might be implemented to AbstractLivingEntity soon
 	 */
@@ -334,8 +425,23 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 		}
 		return false;
 	}
+
+	private void tickAnimationTransition() {
+	    if(currentAnimationTransition == null) {
+	        return;
+        }
+        if(!currentAnimationTransition.isDone()) {
+	        currentAnimation = currentAnimationTransition.getTransitionAnimation();
+        } else {
+	        currentAnimation = currentAnimationTransition.getFinalAnimation();
+	        currentAnimationTransition = null;
+        }
+    }
 	
 	public void render(Graphics g) {
+	    if(currentAnimation == null) {
+	        return;
+        }
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 		g.drawImage(currentAnimation.getCurrentFrame(), (int) x, (int) y, width, height, null);
@@ -360,6 +466,9 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	}
 	
 	private void setCurrentAnimation(Action a) {
+	    if(this.currentAnimationTransition != null) {
+	        return;
+        }
 		if (a == Action.IDLE) {
 			currentAnimation = ANIMATION_IDLE;
 		}
@@ -370,7 +479,7 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 			currentAnimation = ANIMATION_RUN;
 		}
 		if (a == Action.DUCKING) {
-			currentAnimation = ANIMATION_DUCK;
+			currentAnimation = ANIMATION_DUCK_IDLE;
 		}
 	}
 	
@@ -391,7 +500,5 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	public int getHealth() {
 		return health;
 	}
-
-
 }
 

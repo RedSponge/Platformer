@@ -1,19 +1,19 @@
 package com.redsponge.platformer.world.material;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-
 import com.redsponge.platformer.io.AssetsHandler;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public enum BlockMaterial {
 	
-	BRICK(Color.BLACK, "material_brick", "/assets/textures/blocks/brick_block.png"),
-	GLASS(Color.WHITE, "material_glass", "/assets/textures/blocks/glass_block.png"),
-	DIRT(Color.YELLOW, "material_dirt", "/assets/textures/blocks/dirt_block.png"),
-	GRASS(Color.GREEN, "material_grass", "/assets/textures/blocks/grass_block.png"),
-	AIR(Color.WHITE, "material_air", "/assets/textures/blocks/grass_block.png"), 
-	LOG(Color.YELLOW, "material_log", "/assets/textures/blocks/log_block.png"),
-	LEAVES(Color.GREEN, "material_leaves", "/assets/textures/blocks/leaves_block.png");
+	BRICK(Color.BLACK, "material_brick", "brick_block.png"),
+	GLASS(Color.WHITE, "material_glass", "glass_block.png"),
+	DIRT(Color.YELLOW, "material_dirt", "dirt_block.png"),
+	GRASS(Color.GREEN, "material_grass", "grass_block.png"),
+	AIR(Color.WHITE, "material_air", null),
+	LOG(Color.YELLOW, "material_log", "log_block.png"),
+	LEAVES(Color.GREEN, "material_leaves", "leaves_block.png");
 	
 	private Color color;
 	private String id;
@@ -45,7 +45,10 @@ public enum BlockMaterial {
 	}
 
 	public void registerTexture() {
-		this.texture = AssetsHandler.getImage(texturePath);
+		if(texturePath == null) {
+			return;
+		}
+		this.texture = AssetsHandler.getImage("/assets/textures/blocks/" + texturePath);
 	}
 	
 }

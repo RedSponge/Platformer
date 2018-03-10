@@ -16,7 +16,7 @@ public class Level1 extends AbstractLevel {
 
 	@Override
 	public int[][] getLevelBlocks() {
-		return LevelParser.parseLevelFile(handler, "/data/levels/l01.platlev");
+		return LevelParser.parseLevelFile(handler, "/data/levels/l01_tiled.platlev");
 	}
 
 }

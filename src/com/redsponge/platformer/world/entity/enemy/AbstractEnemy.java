@@ -32,6 +32,9 @@ public abstract class AbstractEnemy extends AbstractLivingEntity implements IDam
 		move();
 		tickGravity();
 		tickPlayer();
+		if(touchingBlocks(boundingBox) && onTopOf != null) {
+			y = onTopOf.getBoundingBox().getTop() - height;
+		}
 	}
 	
 	private void turn() {

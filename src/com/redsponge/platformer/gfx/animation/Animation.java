@@ -1,14 +1,11 @@
 package com.redsponge.platformer.gfx.animation;
 
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.redsponge.platformer.world.BoundingBoxUser;
 import com.redsponge.platformer.world.entity.AbstractLivingEntity;
 import com.redsponge.platformer.world.entity.Facing;
+
+import java.awt.image.BufferedImage;
+import java.util.*;
 
 public class Animation {
 	
@@ -16,12 +13,14 @@ public class Animation {
 	private int counter;
 	
 	private boolean canBeFacing;
+	private boolean hasBeenDoneOnce;
 	
 	private BoundingBoxUser user;
 	
 	private Map<Facing, List<BufferedImage>> frames;
 	
 	private String animationId;
+	private boolean isPartOfTransition;
 	
 	private int currentFrame;
 	
@@ -32,6 +31,7 @@ public class Animation {
 		this.frames.put(Facing.LEFT, Arrays.asList(leftImg));
 		this.counter = 0;
 		this.currentFrame = 0;
+		this.hasBeenDoneOnce = false;
 		this.canBeFacing = true;
 		this.animationSpeed = animationSpeed;
 		this.animationId = animationId;
@@ -44,6 +44,7 @@ public class Animation {
 		this.counter = 0;
 		this.currentFrame = 0;
 		this.canBeFacing = false;
+		this.hasBeenDoneOnce = false;
 		this.animationSpeed = animationSpeed;
 		this.animationId = animationId;
 	}
@@ -54,14 +55,19 @@ public class Animation {
 			currentFrame++;
 			counter = 0;
 			if(currentFrame >= frames.get((canBeFacing)?((AbstractLivingEntity)user).getDirection():Facing.NONE).size()) {
-				currentFrame = 0;
+				if(!isPartOfTransition) {
+					currentFrame = 0;
+				} else {
+					currentFrame--;
+				}
+				hasBeenDoneOnce = true;
 			}
 		}
 	}
-	
+
 	public BufferedImage getCurrentFrame() {
 		if(canBeFacing) {
-			return frames.get(((AbstractLivingEntity)user).getDirection()).get(currentFrame);
+			return frames.get(((AbstractLivingEntity) user).getDirection()).get(currentFrame);
 		}
 		return frames.get(Facing.NONE).get(currentFrame);
 	}
@@ -69,6 +75,7 @@ public class Animation {
 	public void reset() {
 		currentFrame = 0;
 		counter = 0;
+		hasBeenDoneOnce = false;
 	}
 	
 	public String getAnimationId() {
@@ -76,7 +83,23 @@ public class Animation {
 	}
 	
 	public Animation clone() {
-		return new Animation(user, (BufferedImage[]) frames.get(Facing.RIGHT).toArray(), (BufferedImage[]) frames.get(Facing.LEFT).toArray(), animationSpeed, animationId); 
+		return new Animation(user, frames.get(Facing.RIGHT).toArray(new BufferedImage[0]), frames.get(Facing.LEFT).toArray(new BufferedImage[0]), animationSpeed, animationId);
 	}
-	
+
+	public boolean hasBeenDoneOnce() {
+		return hasBeenDoneOnce;
+	}
+
+	public Animation reverse() {
+		for(Facing f : Facing.values()) {
+			if(frames.get(f) != null) {
+				Collections.reverse(frames.get(f));
+			}
+		}
+		return this;
+	}
+
+	public void setPartOfTransition(boolean partOfTransition) {
+		isPartOfTransition = partOfTransition;
+	}
 }

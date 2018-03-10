@@ -82,7 +82,7 @@ public class StateLevel extends AbstractState {
 		}
 		this.loadedLevel = l;
 		worldXSize = l.getLevelBlocks()[0].length/2 * blockSize ;
-		worldYSize = l.getLevelBlocks().length;
+		worldYSize = l.getLevelBlocks().length * blockSize;
 		ConsoleMSG.ADD.info("Successfully Registered Blocks for Level \"" + l.getClass().getSimpleName() + "\"");
 	}
 	
@@ -98,10 +98,10 @@ public class StateLevel extends AbstractState {
 	
 	public void tick() {
 	    if(reseting) return;
+		player.tick();
 		Ticking.tickWorldBlocks(worldBlocks);
 		Ticking.tickWorldEnemies(worldEnemies.values());
 		cameraManager.tick();
-		player.tick();
 	}
 	
 	public void render(Graphics g) {

@@ -25,7 +25,7 @@ public abstract class AbstractBlock extends BoundingBoxUser {
 		this.x = x;
 		this.y = y;
 		this.startX = x;
-		this.startY = x;
+		this.startY = y;
 		this.width = width;
 		this.height = height;
 		this.blockId = blockId;

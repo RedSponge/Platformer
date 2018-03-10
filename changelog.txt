@@ -1,3 +1,8 @@
+3/10/2018 - alpha-0.0.3.papaya.c:
+ - Added AnimationTransition
+ - Added player ducking transition and idle animation
+ - Done some work on the y axis side-scrolling
+
 3/8/2018 - alpha-0.0.3.papaya.b:
  - Added AssetsHandler.getImagesInDirectory (getImagesInFolder from last changelog) and made it compatible with IDE and JAR runs!
  - Added FileHandler.getFilePathsInJarDirectory, used in AssetsHandler.getImagesInDirectory when trying the JAR method
