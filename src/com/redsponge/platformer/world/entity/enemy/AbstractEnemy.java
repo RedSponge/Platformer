@@ -41,13 +41,6 @@ public abstract class AbstractEnemy extends AbstractLivingEntity implements IDam
 		direction = direction.getOpposite();
 	}
 
-	public void tickSunkInBlock() {
-		if(touchingBlocks(boundingBox) && onTopOf != null) {
-			y = onTopOf.getBoundingBox().getTop() - height;
-		}
-		updateOnGround(StateManager.getLevelState().getWorldBlocks());
-	}
-
 	public void tickPlayer() {
         EntityPlayer player = StateManager.getLevelState().getPlayer();
         if(MathUtils.twoRectCollision(boundingBox.asRectangle(), player.getBoundingBox().asRectangle())){

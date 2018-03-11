@@ -97,6 +97,13 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		outsideOfWorld = false;
 	}
 
+	public void tickSunkInBlock() {
+		if(touchingBlocks(boundingBox) && onTopOf != null) {
+			y = onTopOf.getBoundingBox().getTop() - height;
+		}
+		updateOnGround(StateManager.getLevelState().getWorldBlocks());
+	}
+
 	public void moveX(BoundingBox box) {
 		moveX(box, true);
 	}

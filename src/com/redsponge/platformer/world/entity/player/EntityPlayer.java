@@ -307,6 +307,8 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 		if(handler.getCameraManager().isMovingY()) {
 			handler.getCameraManager().setToMoveY(speedY);
 		}
+
+		tickSunkInBlock();
 		//System.out.println("O3");\
 	}
 
