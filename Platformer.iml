@@ -16,6 +16,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="RedUtilsRemastered-1.01v" level="project" />
+    <orderEntry type="library" name="alpha-0.0.3.papaya.c" level="project" />
+    <orderEntry type="library" name="RedUtilsRemastered-1.02v" level="project" />
   </component>
 </module>

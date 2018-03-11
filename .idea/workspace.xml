@@ -2,37 +2,26 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="alpha-0.0.3.papaya.c" />
+      <artifact name="alpha-0.0.3.papaya.d" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="172f5e1f-3f47-44c7-a336-fd267c2ef346" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/res/data/levels/l01_tiled.platlev" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/AnimationTransition.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/alpha_0_0_3_papaya_b.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/alpha_0_0_3_papaya_c.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/RedUtilsRemastered_1_02v.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/lib/RedUtilsRemastered-1.02v.jar" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/alpha_0_0_3_papaya_c.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/alpha_0_0_3_papaya_d.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/bin/assets/textures/entities/player/duck/left/duck_0.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/bin/assets/textures/entities/player/duck/right/duck_0.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Platformer.iml" afterPath="$PROJECT_DIR$/Platformer.iml" />
       <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/camera/CameraManager.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/camera/CameraManager.class" />
-      <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/gfx/animation/Animation.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/gfx/animation/Animation.class" />
-      <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/level/Level1.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/level/Level1.class" />
-      <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/state/StateLevel.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/state/StateLevel.class" />
       <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/version/Version.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/version/Version.class" />
-      <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/world/block/AbstractBlock.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/world/block/AbstractBlock.class" />
+      <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.class" />
       <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/world/entity/player/EntityPlayer.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/world/entity/player/EntityPlayer.class" />
-      <change beforePath="$PROJECT_DIR$/bin/com/redsponge/platformer/world/material/BlockMaterial.class" afterPath="$PROJECT_DIR$/bin/com/redsponge/platformer/world/material/BlockMaterial.class" />
       <change beforePath="$PROJECT_DIR$/changelog.txt" afterPath="$PROJECT_DIR$/changelog.txt" />
-      <change beforePath="$PROJECT_DIR$/res/assets/textures/entities/player/duck/left/duck_0.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/res/assets/textures/entities/player/duck/right/duck_0.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/lib/RedUtilsRemastered-1.01v.jar" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/camera/CameraManager.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/camera/CameraManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/Animation.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/Animation.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/level/Level1.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/level/Level1.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/state/StateLevel.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/state/StateLevel.java" />
       <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/version/Version.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/version/Version.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/world/block/AbstractBlock.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/world/block/AbstractBlock.java" />
       <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.java" />
       <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/player/EntityPlayer.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/player/EntityPlayer.java" />
-      <change beforePath="$PROJECT_DIR$/src/com/redsponge/platformer/world/material/BlockMaterial.java" afterPath="$PROJECT_DIR$/src/com/redsponge/platformer/world/material/BlockMaterial.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,34 +36,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CameraManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CameraManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/camera/CameraManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="77" column="41" lean-forward="true" selection-start-line="77" selection-start-column="41" selection-end-line="77" selection-end-column="41" />
+            <state relative-caret-position="586">
+              <caret line="71" column="46" lean-forward="false" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
               <folding>
-                <element signature="e#1934#1935#0" expanded="true" />
-                <element signature="e#1952#1953#0" expanded="true" />
-                <element signature="e#1977#1978#0" expanded="true" />
-                <element signature="e#1995#1996#0" expanded="true" />
-                <element signature="e#2025#2026#0" expanded="true" />
-                <element signature="e#2046#2047#0" expanded="true" />
-                <element signature="e#2077#2078#0" expanded="true" />
-                <element signature="e#2098#2099#0" expanded="true" />
-                <element signature="e#2131#2132#0" expanded="true" />
-                <element signature="e#2160#2161#0" expanded="true" />
-                <element signature="e#2205#2206#0" expanded="true" />
-                <element signature="e#2241#2242#0" expanded="true" />
-                <element signature="e#2286#2287#0" expanded="true" />
-                <element signature="e#2315#2316#0" expanded="true" />
-                <element signature="e#2479#2480#0" expanded="true" />
-                <element signature="e#2508#2509#0" expanded="true" />
-                <element signature="e#2550#2551#0" expanded="true" />
-                <element signature="e#2579#2580#0" expanded="true" />
-                <element signature="e#2609#2610#0" expanded="true" />
-                <element signature="e#2630#2631#0" expanded="true" />
-                <element signature="e#2660#2661#0" expanded="true" />
-                <element signature="e#2681#2682#0" expanded="true" />
+                <element signature="e#2138#2139#0" expanded="true" />
+                <element signature="e#2156#2157#0" expanded="true" />
+                <element signature="e#2181#2182#0" expanded="true" />
+                <element signature="e#2199#2200#0" expanded="true" />
+                <element signature="e#2229#2230#0" expanded="true" />
+                <element signature="e#2250#2251#0" expanded="true" />
+                <element signature="e#2281#2282#0" expanded="true" />
+                <element signature="e#2302#2303#0" expanded="true" />
+                <element signature="e#2347#2348#0" expanded="true" />
+                <element signature="e#2376#2377#0" expanded="true" />
+                <element signature="e#2540#2541#0" expanded="true" />
+                <element signature="e#2569#2570#0" expanded="true" />
+                <element signature="e#2611#2612#0" expanded="true" />
+                <element signature="e#2640#2641#0" expanded="true" />
+                <element signature="e#2670#2671#0" expanded="true" />
+                <element signature="e#2691#2692#0" expanded="true" />
+                <element signature="e#2722#2723#0" expanded="true" />
+                <element signature="e#2743#2744#0" expanded="true" />
+                <element signature="e#2774#2775#0" expanded="true" />
+                <element signature="e#2795#2796#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -83,54 +70,8 @@
       <file leaf-file-name="AbstractEnemy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="35" column="59" lean-forward="false" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StateLevel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/state/StateLevel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="84" column="58" lean-forward="false" selection-start-line="84" selection-start-column="58" selection-end-line="84" selection-end-column="58" />
-              <folding>
-                <element signature="e#4255#4256#0" expanded="true" />
-                <element signature="e#4288#4289#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/block/AbstractBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-              <folding>
-                <element signature="e#1535#1536#0" expanded="true" />
-                <element signature="e#1555#1556#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlockAir.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/block/BlockAir.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlockMaterial.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/material/BlockMaterial.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+            <state relative-caret-position="263">
+              <caret line="81" column="20" lean-forward="false" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -139,41 +80,76 @@
       <file leaf-file-name="EntityPlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/player/EntityPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="170" column="59" lean-forward="false" selection-start-line="170" selection-start-column="59" selection-end-line="170" selection-end-column="59" />
+            <state relative-caret-position="315">
+              <caret line="144" column="51" lean-forward="false" selection-start-line="144" selection-start-column="51" selection-end-line="144" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6604#6605#0" expanded="true" />
                 <element signature="e#6649#6650#0" expanded="true" />
-                <element signature="e#14845#14846#0" expanded="true" />
-                <element signature="e#14865#14866#0" expanded="true" />
-                <element signature="e#14869#14896#0" expanded="true" />
-                <element signature="e#14925#14926#0" expanded="true" />
-                <element signature="e#14946#14947#0" expanded="true" />
-                <element signature="e#14977#14978#0" expanded="true" />
-                <element signature="e#15000#15001#0" expanded="true" />
-                <element signature="e#15038#15039#0" expanded="true" />
-                <element signature="e#15058#15059#0" expanded="true" />
+                <element signature="e#14375#14376#0" expanded="true" />
+                <element signature="e#14395#14396#0" expanded="true" />
+                <element signature="e#14455#14456#0" expanded="true" />
+                <element signature="e#14476#14477#0" expanded="true" />
+                <element signature="e#14507#14508#0" expanded="true" />
+                <element signature="e#14530#14531#0" expanded="true" />
+                <element signature="e#14568#14569#0" expanded="true" />
+                <element signature="e#14588#14589#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Version.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/version/Version.java">
+      <file leaf-file-name="Platformer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/Platformer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state relative-caret-position="578">
+              <caret line="91" column="31" lean-forward="false" selection-start-line="91" selection-start-column="31" selection-end-line="91" selection-end-column="31" />
+              <folding>
+                <element signature="e#2915#2916#0" expanded="true" />
+                <element signature="e#2936#2937#0" expanded="true" />
+                <element signature="e#2975#2976#0" expanded="true" />
+                <element signature="e#2999#3000#0" expanded="true" />
+                <element signature="e#3044#3045#0" expanded="true" />
+                <element signature="e#3071#3072#0" expanded="true" />
+                <element signature="e#3187#3188#0" expanded="true" />
+                <element signature="e#3225#3226#0" expanded="true" />
+                <element signature="e#3259#3260#0" expanded="true" />
+                <element signature="e#3289#3290#0" expanded="true" />
+                <element signature="e#3332#3333#0" expanded="true" />
+                <element signature="e#3357#3358#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Animation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/Animation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="19" column="18" lean-forward="false" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="changelog.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/changelog.txt">
+      <file leaf-file-name="AnimationTransition.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/AnimationTransition.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="80" lean-forward="false" selection-start-line="7" selection-start-column="80" selection-end-line="7" selection-end-column="80" />
+            <state relative-caret-position="238">
+              <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+              <folding>
+                <element signature="e#417#418#0" expanded="true" />
+                <element signature="e#454#455#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Facing.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/Facing.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -191,7 +167,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setCurrentAnimation(Action a</find>
       <find>tickAnimation</find>
       <find>current</find>
       <find>tick()</find>
@@ -220,7 +195,8 @@
       <find>Is this</find>
       <find>moveY(</find>
       <find>moveY</find>
-      <find>tick()</find>
+      <find>tick(</find>
+      <find>setToMoveY</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -271,21 +247,21 @@
         <option value="$PROJECT_DIR$/src/com/redsponge/platformer/world/material/BlockMaterial.java" />
         <option value="$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/Animation.java" />
         <option value="$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/AnimationTransition.java" />
-        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/version/Version.java" />
+        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/state/StateLevel.java" />
+        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.java" />
+        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/player/EntityPlayer.java" />
+        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/camera/CameraManager.java" />
         <option value="$PROJECT_DIR$/src/com/redsponge/platformer/Platformer.java" />
         <option value="$PROJECT_DIR$/changelog.txt" />
-        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/state/StateLevel.java" />
-        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/player/EntityPlayer.java" />
-        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.java" />
-        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/camera/CameraManager.java" />
+        <option value="$PROJECT_DIR$/src/com/redsponge/platformer/version/Version.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="476" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="980" />
-    <option name="height" value="546" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -319,9 +295,7 @@
     </navigator>
     <panes>
       <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -332,37 +306,7 @@
             <path>
               <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
               <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="textures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="textures" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="textures" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="player" type="462c0819:PsiDirectoryNode" />
+              <item name="builds" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
@@ -372,37 +316,7 @@
             <path>
               <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
               <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="textures" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="textures" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="textures" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="player" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="textures" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="player" type="462c0819:PsiDirectoryNode" />
-              <item name="duck" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
@@ -456,13 +370,6 @@
               <item name="Platformer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="level" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Platformer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Platformer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="platformer" type="462c0819:PsiDirectoryNode" />
               <item name="version" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -510,10 +417,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../RedUtilsRemastered" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/RedUtilsRemastered-1.02v.jar!/" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -524,15 +433,15 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="platformer" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\EranDesk\Turn Off\Eclipse Oxygen\Workspace\Platformer\res\data\levels" />
-      <recent name="E:\EranDesk\Turn Off\Eclipse Oxygen\Workspace\Platformer\lib" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\EranDesk\Turn Off\Eclipse Oxygen\Workspace\Platformer\res\data\levels" />
       <recent name="U:\Locker\Intellij\Workspace\Platformer\res\assets\textures\entities\player\duck\right" />
       <recent name="U:\Locker\Intellij\Workspace\Platformer\res\assets\textures\entities\player\duck\left" />
       <recent name="U:\Locker\Intellij\Workspace\Platformer\res\assets\textures\entities\player\duck" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\EranDesk\Turn Off\Eclipse Oxygen\Workspace\Platformer\lib" />
+      <recent name="E:\EranDesk\Turn Off\Eclipse Oxygen\Workspace\Platformer\res\data\levels" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -627,6 +536,11 @@
       <envs />
       <patterns />
     </configuration>
+    <configuration name="alpha-0.0.3.papaya.c.jar" type="JarApplication" factoryName="JAR Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/builds/alpha-0.0.3.papaya.c/alpha-0.0.3.papaya.c.jar" />
+      <envs />
+    </configuration>
     <configuration name="alpha-0.0.3.papaya.dev.jar" type="JarApplication" factoryName="JAR Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="JAR_PATH" value="$PROJECT_DIR$/builds/alpha-0.0.3.papaya/alpha-0.0.3.papaya.dev.jar" />
@@ -677,18 +591,20 @@
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Launcher" />
       <item index="1" class="java.lang.String" itemvalue="Application.EntityPlayer" />
       <item index="2" class="java.lang.String" itemvalue="JAR Application.alpha-0.0.3.papaya.jar" />
       <item index="3" class="java.lang.String" itemvalue="JAR Application.alpha-0.0.3.papaya.dev.jar" />
+      <item index="4" class="java.lang.String" itemvalue="JAR Application.alpha-0.0.3.papaya.c.jar" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.Launcher" />
-        <item index="1" class="java.lang.String" itemvalue="JAR Application.alpha-0.0.3.papaya.dev.jar" />
-        <item index="2" class="java.lang.String" itemvalue="JAR Application.alpha-0.0.3.papaya.jar" />
-        <item index="3" class="java.lang.String" itemvalue="Application.EntityPlayer" />
+        <item index="1" class="java.lang.String" itemvalue="JAR Application.alpha-0.0.3.papaya.c.jar" />
+        <item index="2" class="java.lang.String" itemvalue="JAR Application.alpha-0.0.3.papaya.dev.jar" />
+        <item index="3" class="java.lang.String" itemvalue="JAR Application.alpha-0.0.3.papaya.jar" />
+        <item index="4" class="java.lang.String" itemvalue="Application.EntityPlayer" />
       </list>
     </recent_temporary>
   </component>
@@ -710,6 +626,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -719,7 +636,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4347826" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4347826" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -779,36 +696,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/state/StateNotStateLevelException.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/state/StateManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="33" column="21" lean-forward="false" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../JDK9/jdk-9.0.4/lib/src.zip!/java.base/java/util/ArrayList.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/settings/Settings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="27" column="29" lean-forward="false" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/camera/CameraUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="22" column="46" lean-forward="false" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/level/Level2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/level/AbstractLevel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -904,13 +791,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/assets/textures/main/icon.png" />
-    <entry file="jar://$PROJECT_DIR$/lib/RedUtilsRemastered-1.01v.jar!/com/redsponge/redutils/GraphicsApp.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/ICanBeDamaged.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -945,23 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/io/AssetsHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="82" column="65" lean-forward="false" selection-start-line="82" selection-start-column="65" selection-end-line="82" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/io/FileHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1028,69 +891,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/AbstractLivingEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="104" column="33" lean-forward="false" selection-start-line="104" selection-start-column="33" selection-end-line="104" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/Animation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="52" column="18" lean-forward="false" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
-          <folding>
-            <element signature="e#2228#2229#0" expanded="false" />
-            <element signature="e#2253#2254#0" expanded="false" />
-            <element signature="e#2493#2494#0" expanded="false" />
-            <element signature="e#2522#2523#0" expanded="false" />
-            <element signature="e#2749#2750#0" expanded="false" />
-            <element signature="e#2793#2794#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/AnimationTransition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="47" lean-forward="false" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
-          <folding>
-            <element signature="e#417#418#0" expanded="true" />
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#503#504#0" expanded="true" />
-            <element signature="e#536#537#0" expanded="true" />
-            <element signature="e#567#568#0" expanded="true" />
-            <element signature="e#618#619#0" expanded="true" />
-            <element signature="e#645#646#0" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/Platformer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="27" column="42" lean-forward="false" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/changelog.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="80" lean-forward="false" selection-start-line="7" selection-start-column="80" selection-end-line="7" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/block/AbstractBlock.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="27" column="23" lean-forward="false" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
           <folding>
-            <element signature="e#1535#1536#0" expanded="true" />
-            <element signature="e#1555#1556#0" expanded="true" />
+            <element signature="e#1535#1536#0" expanded="false" />
+            <element signature="e#1555#1556#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1103,29 +910,209 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.java">
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/block/BlockAir.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="35" column="59" lean-forward="false" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
+        <state relative-caret-position="119">
+          <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/material/BlockMaterial.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/builds/alpha-0.0.3.papaya.c/alpha-0.0.3.papaya.c.jar!/com/redsponge/platformer/camera/CameraManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="84" column="50" lean-forward="true" selection-start-line="80" selection-start-column="16" selection-end-line="84" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/builds/alpha-0.0.3.papaya.c/alpha-0.0.3.papaya.c.jar!/com/redsponge/platformer/world/entity/player/EntityPlayer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="219" column="56" lean-forward="false" selection-start-line="219" selection-start-column="56" selection-end-line="219" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/state/StateLevel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
+        <state relative-caret-position="17">
           <caret line="84" column="58" lean-forward="false" selection-start-line="84" selection-start-column="58" selection-end-line="84" selection-end-column="58" />
           <folding>
-            <element signature="e#4255#4256#0" expanded="true" />
-            <element signature="e#4288#4289#0" expanded="true" />
+            <element signature="e#4255#4256#0" expanded="false" />
+            <element signature="e#4288#4289#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/block/BlockAir.java">
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/lang/annotation/Retention.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+        <state relative-caret-position="287">
+          <caret line="45" column="18" lean-forward="false" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/lang/Override.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="51" column="6" lean-forward="false" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/AbstractLivingEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="88" column="24" lean-forward="false" selection-start-line="88" selection-start-column="24" selection-end-line="88" selection-end-column="24" />
+          <folding>
+            <element signature="e#2252#2253#0" expanded="false" />
+            <element signature="e#2275#2276#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/Animation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="19" column="18" lean-forward="false" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/gfx/animation/AnimationTransition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <folding>
+            <element signature="e#417#418#0" expanded="true" />
+            <element signature="e#454#455#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/io/FileHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="49" column="59" lean-forward="false" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/io/AssetsHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="79" column="38" lean-forward="true" selection-start-line="79" selection-start-column="38" selection-end-line="79" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/enemy/AbstractEnemy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="81" column="20" lean-forward="false" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/camera/CameraManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="586">
+          <caret line="71" column="46" lean-forward="false" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
+          <folding>
+            <element signature="e#2138#2139#0" expanded="true" />
+            <element signature="e#2156#2157#0" expanded="true" />
+            <element signature="e#2181#2182#0" expanded="true" />
+            <element signature="e#2199#2200#0" expanded="true" />
+            <element signature="e#2229#2230#0" expanded="true" />
+            <element signature="e#2250#2251#0" expanded="true" />
+            <element signature="e#2281#2282#0" expanded="true" />
+            <element signature="e#2302#2303#0" expanded="true" />
+            <element signature="e#2347#2348#0" expanded="true" />
+            <element signature="e#2376#2377#0" expanded="true" />
+            <element signature="e#2540#2541#0" expanded="true" />
+            <element signature="e#2569#2570#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2640#2641#0" expanded="true" />
+            <element signature="e#2670#2671#0" expanded="true" />
+            <element signature="e#2691#2692#0" expanded="true" />
+            <element signature="e#2722#2723#0" expanded="true" />
+            <element signature="e#2743#2744#0" expanded="true" />
+            <element signature="e#2774#2775#0" expanded="true" />
+            <element signature="e#2795#2796#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/player/EntityPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="144" column="51" lean-forward="false" selection-start-line="144" selection-start-column="51" selection-end-line="144" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6604#6605#0" expanded="true" />
+            <element signature="e#6649#6650#0" expanded="true" />
+            <element signature="e#14375#14376#0" expanded="true" />
+            <element signature="e#14395#14396#0" expanded="true" />
+            <element signature="e#14455#14456#0" expanded="true" />
+            <element signature="e#14476#14477#0" expanded="true" />
+            <element signature="e#14507#14508#0" expanded="true" />
+            <element signature="e#14530#14531#0" expanded="true" />
+            <element signature="e#14568#14569#0" expanded="true" />
+            <element signature="e#14588#14589#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/RedUtilsRemastered-1.01v.jar!/com/redsponge/redutils/GraphicsApp.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-272">
+          <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/RedUtilsRemastered-1.01v.jar!/com/redsponge/redutils/display/GraphicsDisplay.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="91" column="47" lean-forward="true" selection-start-line="91" selection-start-column="47" selection-end-line="91" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/Platformer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="91" column="31" lean-forward="false" selection-start-line="91" selection-start-column="31" selection-end-line="91" selection-end-column="31" />
+          <folding>
+            <element signature="e#2915#2916#0" expanded="true" />
+            <element signature="e#2936#2937#0" expanded="true" />
+            <element signature="e#2975#2976#0" expanded="true" />
+            <element signature="e#2999#3000#0" expanded="true" />
+            <element signature="e#3044#3045#0" expanded="true" />
+            <element signature="e#3071#3072#0" expanded="true" />
+            <element signature="e#3187#3188#0" expanded="true" />
+            <element signature="e#3225#3226#0" expanded="true" />
+            <element signature="e#3259#3260#0" expanded="true" />
+            <element signature="e#3289#3290#0" expanded="true" />
+            <element signature="e#3332#3333#0" expanded="true" />
+            <element signature="e#3357#3358#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/changelog.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="42" lean-forward="false" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -1138,63 +1125,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/player/EntityPlayer.java">
+    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/Facing.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="170" column="59" lean-forward="false" selection-start-line="170" selection-start-column="59" selection-end-line="170" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6604#6605#0" expanded="true" />
-            <element signature="e#6649#6650#0" expanded="true" />
-            <element signature="e#14845#14846#0" expanded="true" />
-            <element signature="e#14865#14866#0" expanded="true" />
-            <element signature="e#14869#14896#0" expanded="true" />
-            <element signature="e#14925#14926#0" expanded="true" />
-            <element signature="e#14946#14947#0" expanded="true" />
-            <element signature="e#14977#14978#0" expanded="true" />
-            <element signature="e#15000#15001#0" expanded="true" />
-            <element signature="e#15038#15039#0" expanded="true" />
-            <element signature="e#15058#15059#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/material/BlockMaterial.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+        <state relative-caret-position="102">
+          <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/camera/CameraManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="77" column="41" lean-forward="true" selection-start-line="77" selection-start-column="41" selection-end-line="77" selection-end-column="41" />
-          <folding>
-            <element signature="e#1934#1935#0" expanded="true" />
-            <element signature="e#1952#1953#0" expanded="true" />
-            <element signature="e#1977#1978#0" expanded="true" />
-            <element signature="e#1995#1996#0" expanded="true" />
-            <element signature="e#2025#2026#0" expanded="true" />
-            <element signature="e#2046#2047#0" expanded="true" />
-            <element signature="e#2077#2078#0" expanded="true" />
-            <element signature="e#2098#2099#0" expanded="true" />
-            <element signature="e#2131#2132#0" expanded="true" />
-            <element signature="e#2160#2161#0" expanded="true" />
-            <element signature="e#2205#2206#0" expanded="true" />
-            <element signature="e#2241#2242#0" expanded="true" />
-            <element signature="e#2286#2287#0" expanded="true" />
-            <element signature="e#2315#2316#0" expanded="true" />
-            <element signature="e#2479#2480#0" expanded="true" />
-            <element signature="e#2508#2509#0" expanded="true" />
-            <element signature="e#2550#2551#0" expanded="true" />
-            <element signature="e#2579#2580#0" expanded="true" />
-            <element signature="e#2609#2610#0" expanded="true" />
-            <element signature="e#2630#2631#0" expanded="true" />
-            <element signature="e#2660#2661#0" expanded="true" />
-            <element signature="e#2681#2682#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1204,7 +1139,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>alpha-0.0.3.papaya.c</last-edited>
+          <last-edited>alpha-0.0.3.papaya.d</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1276,7 +1211,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>lib</last-edited>
+          <last-edited>alpha-0.0.3.papaya.c</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

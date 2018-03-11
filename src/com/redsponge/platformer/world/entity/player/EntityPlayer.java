@@ -263,61 +263,51 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
             }
 		    else if(handler.getCameraManager().getOffsetX() > 0) {
 		        handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
-		        handler.getCameraManager().setMoving(true);
             } else {
                 x += speedX;
-                handler.getCameraManager().setMoving(false);
                 handler.getCameraManager().setOffsetX(0);
             }
 		} else if(x >= handler.getCanvasWidth()/2) {
             if(handler.getCameraManager().getOffsetX() >= handler.getCameraManager().getMaxX()) {
                 x += speedX;
-                handler.getCameraManager().setMoving(false);
             } else if(handler.getCameraManager().getOffsetX() < 0) {
                 handler.getCameraManager().setOffsetX(0);
-                handler.getCameraManager().setMoving(false);
                 x += speedX;
             }
             else {
                 handler.getCameraManager().setOffsetX(handler.getCameraManager().getOffsetX() + speedX);
-                handler.getCameraManager().setMoving(true);
             }
 		}
-		if(handler.getCameraManager().isMoving()){
+		if(handler.getCameraManager().isMovingX()){
 			handler.getCameraManager().setToMoveX(speedX);
-			handler.getCameraManager().tick();
 		}
 	}
 
 	public void moveY(BoundingBox box) {
-		handler.getCameraManager().setToMoveY(0);
-		if(y < handler.getCanvasHeight() / 2 && handler.getCameraManager().getOffsetY() > 0 && speedY > 0) {
+		if (y < handler.getCanvasHeight() / 2 && handler.getCameraManager().getOffsetY() > 0 && speedY > 0) {
 			handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
-			handler.getCameraManager().setMoving(true);
-			handler.getCameraManager().setToMoveY(speedY);
-			if(y < handler.getCanvasHeight() / 2) {
+			if (y < handler.getCanvasHeight() / 2) {
 				y += speedY * 0.1;
 			}
-			System.out.println("O1");
-		}
-		else if(y < handler.getCanvasHeight() / 2 && speedY < 0) {
-			if(handler.getCameraManager().getOffsetY() < handler.getCameraManager().getMaxY()) {
+			//System.out.println("O1");
+		} else if (y < handler.getCanvasHeight() / 2 && speedY < 0) {
+			if (handler.getCameraManager().getOffsetY() < handler.getCameraManager().getMaxY()) {
 				handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
-				handler.getCameraManager().setMoving(true);
-				handler.getCameraManager().setToMoveY(speedY);
 			} else {
 				y += speedY;
 			}
-			System.out.println("O2");
-		}
-		else if(y > handler.getCanvasHeight() / 2 || handler.getCameraManager().getOffsetY() == 0) {
+			//System.out.println("O2");
+		} else if (y > handler.getCanvasHeight() / 2 || handler.getCameraManager().getOffsetY() == 0) {
 			if (handler.getCameraManager().getOffsetY() > 0) {
 				handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
 			} else
 				y += speedY;
-			}
-		handler.getCameraManager().setMoving(false);
-		System.out.println("O3");
+		}
+		handler.getCameraManager().tickMoving();
+		if(handler.getCameraManager().isMovingY()) {
+			handler.getCameraManager().setToMoveY(speedY);
+		}
+		//System.out.println("O3");\
 	}
 
 	/**

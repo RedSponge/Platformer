@@ -1,3 +1,7 @@
+3/11/2018 alpha-0.0.3.papaya.d:
+ - RedUtilsRemastered version 1.02, game should run a lot smoother now
+ - Some more work on y axis side-scrolling
+
 3/10/2018 - alpha-0.0.3.papaya.c:
  - Added AnimationTransition
  - Added player ducking transition and idle animation

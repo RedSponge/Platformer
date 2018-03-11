@@ -15,7 +15,7 @@ public class CameraManager {
 	private StateLevel stateLevel;
 	public CameraUtils utils;
 
-	private boolean moving;
+	private boolean movingX, movingY;
 
 	private int maxX, maxY;
 
@@ -29,7 +29,8 @@ public class CameraManager {
 		offsetY = 150;
 		toMoveX = 0;
 		toMoveY = 0;
-		moving = false;
+		movingX = false;
+		movingY = false;
 	}
 
 	public void reset() {
@@ -43,12 +44,17 @@ public class CameraManager {
 		if(offsetY > maxY) {
 			offsetY = maxY;
 		}
-
+		tickMoving();
 		tickWorldBlocks();
 		tickWorldEnemies();
 		tickPlayer();
 	}
-	
+
+	public void tickMoving() {
+		movingX = offsetX > 0;
+		movingY = offsetY > 0;
+	}
+
 	public void init(StateLevel stateLevel) {
 		this.stateLevel = stateLevel;
 		utils = new CameraUtils(handler, this, stateLevel);
@@ -68,15 +74,20 @@ public class CameraManager {
 	}
 
 	private void tickWorldEnemies() {
-	    if(!moving) {
-	        return;
-        }
+		if(!movingX && !movingY) {
+			return;
+		}
 		for(AbstractEnemy e : stateLevel.getWorldEnemies().values()) {
 			e.updateCurrentPosition();
-			e.setX(e.getCurrentX() - toMoveX);
-			e.setY(e.getCurrentY() - toMoveY);
+			if(movingX) {
+				e.setX(e.getCurrentX() - this.toMoveX);
+			}
+			if(movingY) {
+				e.setY(e.getCurrentY() - this.toMoveY);
+			}
 			e.getBoundingBox().setX(e.getX());
 			e.getBoundingBox().setY(e.getY());
+			e.tickSunkInBlock();
 		}
 	}
 	
@@ -99,14 +110,6 @@ public class CameraManager {
 	public float getOffsetY() {
 		return offsetY;
 	}
-
-    public boolean isMoving() {
-        return moving;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
 
     public void setOffsetX(float offsetX) {
 		this.offsetX = offsetX;
@@ -131,7 +134,11 @@ public class CameraManager {
 		return toMoveX;
 	}
 
-	public float getToMoveY() {
-		return toMoveY;
+	public boolean isMovingX() {
+		return movingX;
+	}
+
+	public boolean isMovingY() {
+		return movingY;
 	}
 }

@@ -28,18 +28,24 @@ public abstract class AbstractEnemy extends AbstractLivingEntity implements IDam
 	}
 	
 	public void tick() {
-		boundingBox.tick();
+	    boundingBox.tick();
 		move();
+        //moveY(boundingBox);
 		tickGravity();
 		tickPlayer();
-		if(touchingBlocks(boundingBox) && onTopOf != null) {
-			y = onTopOf.getBoundingBox().getTop() - height;
-		}
+		tickSunkInBlock();
 	}
 	
 	private void turn() {
 		speedX *= -1;
 		direction = direction.getOpposite();
+	}
+
+	public void tickSunkInBlock() {
+		if(touchingBlocks(boundingBox) && onTopOf != null) {
+			y = onTopOf.getBoundingBox().getTop() - height;
+		}
+		updateOnGround(StateManager.getLevelState().getWorldBlocks());
 	}
 
 	public void tickPlayer() {
@@ -73,6 +79,7 @@ public abstract class AbstractEnemy extends AbstractLivingEntity implements IDam
 
 	public void moveX(BoundingBox box) {
 		if(touchingBlocks(box, false)) {
+            tickSunkInBlock();
 			if(onGround) {
 				turn();
 			}
@@ -96,10 +103,6 @@ public abstract class AbstractEnemy extends AbstractLivingEntity implements IDam
         }
         return false;
     }
-
-	public EnemyPropertyMap getPropertyMap() {
-		return propertyMap;
-	}
 
 	public float getCurrentX() {
 		return currentX;
