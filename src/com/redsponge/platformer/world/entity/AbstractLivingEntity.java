@@ -98,7 +98,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 	}
 
 	public void tickSunkInBlock() {
-		if(touchingBlocks(boundingBox) && onTopOf != null) {
+		if(touchingBlocks(boundingBox) && onTopOf != null && speedY > 0) {
 			y = onTopOf.getBoundingBox().getTop() - height;
 		}
 		updateOnGround(StateManager.getLevelState().getWorldBlocks());

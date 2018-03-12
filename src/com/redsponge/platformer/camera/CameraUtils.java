@@ -1,11 +1,10 @@
 package com.redsponge.platformer.camera;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateLevel;
 import com.redsponge.platformer.world.block.AbstractBlock;
+
+import java.util.List;
 
 public class CameraUtils {
 	
@@ -20,14 +19,14 @@ public class CameraUtils {
 	}
 	
 	public List<AbstractBlock> getOnScreenWorldBlocks() {
-		List<AbstractBlock> blocks = new ArrayList<AbstractBlock>();
-		for(AbstractBlock b : stateLevel.getWorldBlocks()) {
-			if(b.getX()+b.getWidth() > 0) {
-				if((b.getX()) - cameraManager.getOffsetX() < handler.getCanvasWidth()) {
-					blocks.add(b);
-				}
-			}
-		}
+		List<AbstractBlock> blocks = stateLevel.getWorldBlocks();
+//		for(AbstractBlock b : stateLevel.getWorldBlocks()) {
+//			if(b.getX()+b.getWidth() > 0) {
+//				if((b.getX()) - cameraManager.getOffsetX() < handler.getCanvasWidth()) {
+//					blocks.add(b);
+//				}
+//			}
+//		}
 		return blocks;
 	}
 	

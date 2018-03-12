@@ -253,6 +253,7 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 		    action = Action.IDLE;
 		    setCurrentAnimation(action);
 		    currentAnimation.tick();
+		    handler.getCameraManager().setToMoveX(0);
 		    //System.out.println("meow");
 			return;
 		}

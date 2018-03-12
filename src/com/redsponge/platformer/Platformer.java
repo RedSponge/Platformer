@@ -6,6 +6,7 @@ import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.input.KeyManager;
 import com.redsponge.platformer.io.AssetsHandler;
 import com.redsponge.platformer.io.FileHandler;
+import com.redsponge.platformer.io.SoundsHandler;
 import com.redsponge.platformer.level.LevelUtils;
 import com.redsponge.platformer.settings.Settings;
 import com.redsponge.platformer.state.AbstractState;
@@ -69,6 +70,8 @@ public class Platformer extends GraphicsApp {
 		StateManager.init(handler);
 		StateManager.setCurrentState("level");
 		ConsoleMSG.ADD.info("Successfully Initiated State Manager");
+
+		SoundsHandler.init(handler);
 
 	}
 	

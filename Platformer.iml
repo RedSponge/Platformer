@@ -18,5 +18,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="alpha-0.0.3.papaya.c" level="project" />
     <orderEntry type="library" name="RedUtilsRemastered-1.02v" level="project" />
+    <orderEntry type="library" name="NovaFlux3.1.0" level="project" />
+    <orderEntry type="library" name="jorbis" level="project" />
   </component>
 </module>

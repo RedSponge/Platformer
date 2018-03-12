@@ -66,7 +66,7 @@ public class CameraManager {
 	private void tickWorldBlocks() {
 		for(AbstractBlock b : stateLevel.getWorldBlocks()) {
 			if(movingX) {
-				b.setX(b.getStartX() - offsetX);
+				b.setX(b.getX() - toMoveX);
 				b.setX(b.getX() - b.getX() % 1);
 			} else {
 				b.setX(b.getStartX());
@@ -75,7 +75,7 @@ public class CameraManager {
 			b.getBoundingBox().setX(b.getX());
 
 			if(movingY) {
-				b.setY(b.getStartY() + offsetY);
+				b.setY(b.getY() - toMoveY);
 			} else {
 				b.setY(b.getStartY());
 			}

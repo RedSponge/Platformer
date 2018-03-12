@@ -13,7 +13,7 @@ import java.util.zip.ZipFile;
 public class FileHandler {
 	
 	public File getFile(String path) {
-		return new File(getClass().getResource(path).getFile().replaceAll("%20", " "));
+		return new File(FileHandler.class.getResource(path).getFile().replaceAll("%20", " "));
 	}
 	
 	public InputStream getFileInputStream(String path) {
