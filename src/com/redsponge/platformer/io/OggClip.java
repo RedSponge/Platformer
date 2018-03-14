@@ -19,6 +19,8 @@ import java.io.InputStream;
  * JOrbis.
  *
  * @author kevin
+ *
+ * Wasn't written by me (RedSponge)
  */
 public class OggClip {
     private final int BUFSIZE = 4096 * 2;

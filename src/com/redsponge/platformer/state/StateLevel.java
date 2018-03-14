@@ -178,6 +178,7 @@ class Rendering {
 	public static void renderWorldEnemies(Graphics g, Collection<AbstractEnemy> worldEnemies) {
 		for(AbstractEnemy e : worldEnemies) {
 			e.render(g);
+			e.getBoundingBox().render(g);
 		}
 	}
 	

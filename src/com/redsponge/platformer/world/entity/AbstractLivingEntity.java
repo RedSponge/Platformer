@@ -48,6 +48,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 		if(jumping) {
 			tickJumping();
 		}
+		boundingBox.tick();
 		move();
 	}
 	
@@ -113,7 +114,7 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			return;
 		}
 		if(move) {
-			this.x += this.speedX;
+			this.y += this.speedX;
 		}
 	}
 

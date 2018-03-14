@@ -14,6 +14,8 @@ public class EnemyTest extends AbstractEnemy {
 
 	public EnemyTest(Handler handler, int x, int y) {
 	    super(handler, x, y, 32, 32);
+	    ANIMATION_MOVE_SPEED = 30;
+
 	    setupAnimation();
 	}
 

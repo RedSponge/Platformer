@@ -34,6 +34,8 @@ public abstract class AbstractEnemy extends AbstractLivingEntity implements IDam
 		tickGravity();
 		tickPlayer();
 		tickSunkInBlock();
+		tickOnTopOf();
+		boundingBox.tick();
 	}
 	
 	private void turn() {
@@ -51,6 +53,12 @@ public abstract class AbstractEnemy extends AbstractLivingEntity implements IDam
             }
         }
     }
+
+    public void tickOnTopOf() {
+		if(onTopOf != null) {
+			y = onTopOf.getBoundingBox().getTop() - height;
+		}
+	}
 
 	@Override
 	public int getStrength() {

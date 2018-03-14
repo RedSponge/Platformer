@@ -66,7 +66,7 @@ public class CameraManager {
 	private void tickWorldBlocks() {
 		for(AbstractBlock b : stateLevel.getWorldBlocks()) {
 			if(movingX) {
-				b.setX(b.getX() - toMoveX);
+				b.setX(b.getStartX() - offsetX);
 				b.setX(b.getX() - b.getX() % 1);
 			} else {
 				b.setX(b.getStartX());
@@ -75,7 +75,7 @@ public class CameraManager {
 			b.getBoundingBox().setX(b.getX());
 
 			if(movingY) {
-				b.setY(b.getY() - toMoveY);
+				b.setY(b.getStartY() + offsetY);
 			} else {
 				b.setY(b.getStartY());
 			}
@@ -91,14 +91,12 @@ public class CameraManager {
 		for(AbstractEnemy e : stateLevel.getWorldEnemies().values()) {
 			e.updateCurrentPosition();
 			if(movingX) {
-				e.setX(e.getCurrentX() - this.toMoveX);
+				e.setX(e.getX() - toMoveX);
 			}
 			if(movingY) {
-				e.setY(e.getCurrentY() - this.toMoveY);
+				e.tickOnTopOf();
 			}
-			e.getBoundingBox().setX(e.getX());
-			e.getBoundingBox().setY(e.getY());
-			e.tickSunkInBlock();
+			e.getBoundingBox().tick();
 		}
 	}
 	
