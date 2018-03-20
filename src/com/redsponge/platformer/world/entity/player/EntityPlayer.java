@@ -285,20 +285,20 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	}
 
 	public void moveY(BoundingBox box) {
-		if (y < handler.getCanvasHeight() / 2 && handler.getCameraManager().getOffsetY() > 0 && speedY > 0) {
+		if (y + height / 2 < handler.getCanvasHeight() / 2 && handler.getCameraManager().getOffsetY() > 0 && speedY > 0) {
 			handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
 			if (y < handler.getCanvasHeight() / 2) {
 				y += speedY * 0.1;
 			}
 			//System.out.println("O1");
-		} else if (y < handler.getCanvasHeight() / 2 && speedY < 0) {
+		} else if (y + height / 2 < handler.getCanvasHeight() / 2 && speedY < 0) {
 			if (handler.getCameraManager().getOffsetY() < handler.getCameraManager().getMaxY()) {
 				handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
 			} else {
 				y += speedY;
 			}
 			//System.out.println("O2");
-		} else if (y > handler.getCanvasHeight() / 2 || handler.getCameraManager().getOffsetY() == 0) {
+		} else if (y + height / 2 > handler.getCanvasHeight() / 2 || handler.getCameraManager().getOffsetY() == 0) {
 			if (handler.getCameraManager().getOffsetY() > 0) {
 				handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
 			} else

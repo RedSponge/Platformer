@@ -1,5 +1,8 @@
+3/20/2018 alpha-0.0.4.pear:
+ - Almost perfected y axis side-scrolling, still need to do some work on enemies auto when blocks go up and down
+
 3/11/2018 alpha-0.0.3.papaya.d:
- - RedUtilsRemastered version 1.02, game should run a lot smoother now
+ - RedUtilsRemastered version 1.02, game should run a lot smoother now, as we are working with IntervalTimers now
  - Some more work on y axis side-scrolling
 
 3/10/2018 - alpha-0.0.3.papaya.c:
