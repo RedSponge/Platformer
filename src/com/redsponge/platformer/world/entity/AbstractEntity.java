@@ -25,13 +25,13 @@ public abstract class AbstractEntity extends BoundingBoxUser {
 	protected float fallingSpeedMax;
 	
 	protected boolean isGravityApplied;
-	
+
 	protected int dontTickOnGroundFor;
 	
 	protected AbstractBlock onTopOf;
 	
 	protected UUID uuid;
-	
+
 	public AbstractEntity(Handler handler, int x, int y, int width, int height) {
 		super(handler, x, y, width, height);
 		this.isGravityApplied = true;

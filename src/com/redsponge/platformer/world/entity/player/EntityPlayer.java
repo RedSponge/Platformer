@@ -250,7 +250,6 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	public void moveX(BoundingBox box) {
 		if(touchingBlocks()) { // IF TOUCHING A BLOCK
 		    speedX = 0;
-		    speedRunAmplifier = 0;
 		    action = Action.IDLE;
 		    setCurrentAnimation(action);
 		    currentAnimation.tick();
@@ -384,7 +383,7 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	 * Tick the increasing running speed
 	 */
 	private void tickRunning() {
-		if(!running || action != Action.RUNNING) {
+		if(action != Action.RUNNING) {
 			speedRunAmplifier = 0;
 			return;
 		}
