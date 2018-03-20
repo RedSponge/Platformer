@@ -54,6 +54,7 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	
 	private boolean running;
 	private BoundingBox tester;
+	private BoundingBox testerY;
 
 	private boolean ducking;
 
@@ -285,6 +286,20 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 	}
 
 	public void moveY(BoundingBox box) {
+		BoundingBox tester = boundingBox.clone();
+		tester.setY(tester.getY() + speedY);
+		testerY = tester.clone();
+		if(touchingBlocks(tester)) {
+			if(jumping) {
+				stopJumping();
+				return;
+			} else if(falling) {
+				AbstractBlock b = touchingBlocksGetBlock(tester);
+				onTopOf = b;
+				onGround = true;
+				y = onTopOf.getY() - height;
+			}
+		}
 		if (y + height / 2 < handler.getCanvasHeight() / 2 && handler.getCameraManager().getOffsetY() > 0 && speedY > 0) {
 			handler.getCameraManager().setOffsetY(handler.getCameraManager().getOffsetY() - speedY);
 			if (y < handler.getCanvasHeight() / 2) {
@@ -443,6 +458,8 @@ public class EntityPlayer extends AbstractLivingEntity implements ICanBeDamaged 
 			boundingBox.render(g);
 			tester.setColor(Color.GREEN);
 			tester.render(g);
+			testerY.setColor(Color.YELLOW);
+			testerY.render(g);
 		}
 		renderHPBar(g);
 	}

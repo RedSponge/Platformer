@@ -70,8 +70,8 @@ public abstract class AbstractLivingEntity extends AbstractEntity {
 			stopJumping();
 		}
 	}
-	
-	private void stopJumping() {
+
+	protected void stopJumping() {
 		jumpingSpeed = 0;
 		jumping = false;
 	}
