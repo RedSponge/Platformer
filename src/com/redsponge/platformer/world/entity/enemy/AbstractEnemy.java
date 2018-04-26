@@ -4,7 +4,11 @@ import com.redsponge.platformer.handler.Handler;
 import com.redsponge.platformer.state.StateManager;
 import com.redsponge.platformer.utils.MathUtils;
 import com.redsponge.platformer.world.BoundingBox;
-import com.redsponge.platformer.world.entity.*;
+import com.redsponge.platformer.world.entity.AbstractLivingEntity;
+import com.redsponge.platformer.world.entity.Facing;
+import com.redsponge.platformer.world.entity.HurtCause;
+import com.redsponge.platformer.world.entity.IDamager;
+import com.redsponge.platformer.world.entity.KillCause;
 import com.redsponge.platformer.world.entity.player.EntityPlayer;
 
 public abstract class AbstractEnemy extends AbstractLivingEntity implements IDamager {

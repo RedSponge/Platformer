@@ -696,7 +696,6 @@
     <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/lang/Override.java" />
     <entry file="jar://$PROJECT_DIR$/lib/RedUtilsRemastered-1.01v.jar!/com/redsponge/redutils/GraphicsApp.class" />
     <entry file="jar://$PROJECT_DIR$/lib/RedUtilsRemastered-1.01v.jar!/com/redsponge/redutils/display/GraphicsDisplay.class" />
-    <entry file="file://$PROJECT_DIR$/src/com/redsponge/platformer/world/entity/Facing.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="24" column="31" lean-forward="false" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />

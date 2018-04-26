@@ -27,6 +27,8 @@ public class Platformer extends GraphicsApp {
 
 	public Platformer(String title, int width, int height) {
 		super(title, width, height, 60, 60);
+		
+		start();
 	}
 
 	public void init() {
